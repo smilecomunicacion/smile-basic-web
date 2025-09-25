@@ -51,33 +51,13 @@ final class SMiLE_Basic_Web {
 		return self::$instance;
 	}
 
-	/**
-	 * Constructor: i18n, includes and hooks.
-	 */
-	private function __construct() {
-		$this->load_textdomain();
-		$this->includes();
-		$this->init_hooks();
-	}
-
-	/**
-	 * Loads plugin text-domain.
-	 *
-	 * @return void
-	 */
-	private function load_textdomain(): void {
-		add_action(
-			'init',
-			static function (): void {
-				load_plugin_textdomain(
-					'smile-basic-web',
-					false,
-					dirname( plugin_basename( SMILE_BASIC_WEB_PLUGIN_FILE ) ) . '/languages'
-				);
-			},
-			0
-		);
-	}
+        /**
+         * Constructor: includes and hooks.
+         */
+        private function __construct() {
+                $this->includes();
+                $this->init_hooks();
+        }
 
 	/**
 	 * Loads indispensable files.
@@ -109,7 +89,7 @@ final class SMiLE_Basic_Web {
 			array( __CLASS__, 'activate_plugin' )
 		);
 
-		// Boot the Tab-Manager after i18n.
+                // Boot the Tab-Manager.
 		add_action( 'init', array( 'SBWSCF_Tab_Manager', 'init' ), 20 );
 	}
 
