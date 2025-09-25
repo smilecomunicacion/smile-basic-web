@@ -64,17 +64,22 @@ final class SBWSCF_General_Page implements SBWSCF_Tab_Interface {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 
 		$options = get_option( 'sbwscf_general_settings', array() );
-		if ( ! empty( $options['enable_svg'] ) ) {
-			// Activa el soporte SVG:.
-			require_once __DIR__ . '/svg-upload.php';
-			SBWSCF_SVG_Upload::init();
-		}
+                if ( ! empty( $options['enable_svg'] ) ) {
+                        // Activa el soporte SVG:.
+                        require_once __DIR__ . '/svg-upload.php';
+                        SBWSCF_SVG_Upload::init();
+                }
 
-		if ( ! empty( $options['enable_alt'] ) ) {
-			require_once __DIR__ . '/alt-text-upload.php';
-			SBWSCF_Auto_Alt_Text::init();
-		}
-	}
+                if ( ! empty( $options['enable_alt'] ) ) {
+                        require_once __DIR__ . '/alt-text-upload.php';
+                        SBWSCF_Auto_Alt_Text::init();
+                }
+
+                if ( ! empty( $options['enable_metadata'] ) ) {
+                        require_once __DIR__ . '/metadata-meta-box.php';
+                        SBWSCF_Metadata_Meta_Box::init();
+                }
+        }
 
 	/**
 	 * Encola CSS y JS sólo cuando estamos en la pestaña General.

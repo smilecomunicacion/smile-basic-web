@@ -26,31 +26,48 @@ function sbwscf_general_register_settings(): void {
 		)
 	);
 
-	/* ---------- Sección ------------------------------------------------ */
-	add_settings_section(
-		'sbwscf_general_section',
-		esc_html__( 'General Settings', 'smile-basic-web' ),
-		'__return_false',
-		'sbwscf_general'
-	);
+        /* ---------- Sección ------------------------------------------------ */
+        add_settings_section(
+                'sbwscf_general_section',
+                esc_html__( 'General Settings', 'smile-basic-web' ),
+                '__return_false',
+                'sbwscf_general'
+        );
 
-	/* ---------- Campo: habilitar SVG ---------------------------------- */
-	add_settings_field(
-		'sbwscf_enable_svg',
+        /* ---------- Campo: habilitar SVG ---------------------------------- */
+        add_settings_field(
+                'sbwscf_enable_svg',
 		esc_html__( 'Enable SVG / SVGZ uploads', 'smile-basic-web' ),
 		'sbwscf_enable_svg_cb',
-		'sbwscf_general',
-		'sbwscf_general_section'
-	);
+                'sbwscf_general',
+                'sbwscf_general_section'
+        );
 
-	/* ---------- Campo: auto Alt-Text ---------------------------------- */
-	add_settings_field(
-		'sbwscf_enable_alt',
-		esc_html__( 'Auto-populate image Alt-Text from EXIF metadata', 'smile-basic-web' ),
-		'sbwscf_enable_alt_cb',
-		'sbwscf_general',
-		'sbwscf_general_section'
-	);
+        /* ---------- Campo: auto Alt-Text ---------------------------------- */
+        add_settings_field(
+                'sbwscf_enable_alt',
+                esc_html__( 'Auto-populate image Alt-Text from EXIF metadata', 'smile-basic-web' ),
+                'sbwscf_enable_alt_cb',
+                'sbwscf_general',
+                'sbwscf_general_section'
+        );
+
+        /* ---------- Sección Metadata ------------------------------------- */
+        add_settings_section(
+                'sbwscf_metadata_section',
+                esc_html__( 'Metadata', 'smile-basic-web' ),
+                '__return_false',
+                'sbwscf_general'
+        );
+
+        /* ---------- Campo: habilitar metadata ----------------------------- */
+        add_settings_field(
+                'sbwscf_enable_metadata',
+                esc_html__( 'Enable metadata editor for posts and pages', 'smile-basic-web' ),
+                'sbwscf_enable_metadata_cb',
+                'sbwscf_general',
+                'sbwscf_metadata_section'
+        );
 }
 
 /**
@@ -60,32 +77,33 @@ function sbwscf_general_register_settings(): void {
  * @return array           Sanitised values.
  */
 function sbwscf_general_sanitize( $input = null ): array {
-	$input = is_array( $input ) ? $input : array();
+        $input = is_array( $input ) ? $input : array();
 
-	return array(
-		'enable_svg' => isset( $input['enable_svg'] ) ? 1 : 0,
-		'enable_alt' => isset( $input['enable_alt'] ) ? 1 : 0,
-	);
+        return array(
+                'enable_svg'      => isset( $input['enable_svg'] ) ? 1 : 0,
+                'enable_alt'      => isset( $input['enable_alt'] ) ? 1 : 0,
+                'enable_metadata' => isset( $input['enable_metadata'] ) ? 1 : 0,
+        );
 }
 
-	/**
-	 * Callback para imprimir la casilla de "Enable SVG".
-	 *
-	 * @return void
-	 */
+/**
+ * Callback para imprimir la casilla de "Enable SVG".
+ *
+ * @return void
+ */
 function sbwscf_enable_svg_cb(): void {
 	$options    = get_option( 'sbwscf_general_settings', array() );
 	$checked    = ! empty( $options['enable_svg'] );
 	$field_id   = 'sbwscf_enable_svg';
 	$field_name = 'sbwscf_general_settings[enable_svg]';
 
-	printf(
-		'<label for="%1$s"><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s /> %4$s</label>',
-		esc_attr( $field_id ),
-		esc_attr( $field_name ),
-		checked( true, $checked, false ),
-		esc_html__( 'Allow uploading SVG and SVGZ files safely to media library.', 'smile-basic-web' )
-	);
+        printf(
+                '<label for="%1$s"><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s /> %4$s</label>',
+                esc_attr( $field_id ),
+                esc_attr( $field_name ),
+                checked( true, $checked, false ),
+                esc_html__( 'Allow uploading SVG and SVGZ files safely to media library.', 'smile-basic-web' )
+        );
 }
 
 /**
@@ -94,16 +112,36 @@ function sbwscf_enable_svg_cb(): void {
  * @return void
  */
 function sbwscf_enable_alt_cb(): void {
-	$options    = get_option( 'sbwscf_general_settings', array() );
-	$checked    = ! empty( $options['enable_alt'] );
-	$field_id   = 'sbwscf_enable_alt';
-	$field_name = 'sbwscf_general_settings[enable_alt]';
+        $options    = get_option( 'sbwscf_general_settings', array() );
+        $checked    = ! empty( $options['enable_alt'] );
+        $field_id   = 'sbwscf_enable_alt';
+        $field_name = 'sbwscf_general_settings[enable_alt]';
 
-	printf(
-		'<label for="%1$s"><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s /> %4$s</label>',
-		esc_attr( $field_id ),
-		esc_attr( $field_name ),
-		checked( true, $checked, false ),
-		esc_html__( 'Automatically copy the Alt Text Accessibility tag (or Title) from the EXIF metadata into the ALT field.', 'smile-basic-web' )
-	);
+        printf(
+                '<label for="%1$s"><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s /> %4$s</label>',
+                esc_attr( $field_id ),
+                esc_attr( $field_name ),
+                checked( true, $checked, false ),
+                esc_html__( 'Automatically copy the Alt Text Accessibility tag (or Title) from the EXIF metadata into the ALT field.', 'smile-basic-web' )
+        );
+}
+
+/**
+ * Print checkbox for enabling metadata editor.
+ *
+ * @return void
+ */
+function sbwscf_enable_metadata_cb(): void {
+        $options    = get_option( 'sbwscf_general_settings', array() );
+        $checked    = ! empty( $options['enable_metadata'] );
+        $field_id   = 'sbwscf_enable_metadata';
+        $field_name = 'sbwscf_general_settings[enable_metadata]';
+
+        printf(
+                '<label for="%1$s"><input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s /> %4$s</label>',
+                esc_attr( $field_id ),
+                esc_attr( $field_name ),
+                checked( true, $checked, false ),
+                esc_html__( 'Display SEO metadata fields (title, description and indexation) on supported post types.', 'smile-basic-web' )
+        );
 }
