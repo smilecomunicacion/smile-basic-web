@@ -3,7 +3,7 @@ Contributors: smilecomunicacion
 Tags: contact, reCAPTCHA, SMTP, sitemaps, svg
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -26,6 +26,7 @@ SMiLE Basic Web is a powerful, modular, and user-friendly WordPress plugin that 
 - Optional marketing opt-in field with customizable text.
 - Explanation field to describe the purpose of the form.
 - Real-time preview of the user email using the WordPress Customizer.
+- Optional SEO metadata editor for posts and pages (title, description, and indexation).
 - Modular tab interface supporting additional tools.
 - Dynamic generation of:
   - `llms.txt` (text or JSON format).
@@ -109,6 +110,12 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 
 == Changelog ==
 
+= 1.3.4 =
+* NEW: Added toggleable SEO metadata editor for posts and pages, including custom title, description, and noindex controls.
+* NEW: Outputs custom metadata on the front end through the document title, `<meta name="description">`, and `wp_robots` hooks.
+* UPDATED: General tab now loads earlier so metadata features register before other tabs.
+* UPDATED: Removed deprecated text-domain loader to align with modern WordPress translation handling.
+
 = 1.3.3 =
 * FIXED: allow pasting hexadecimal color values in the colour picker input.
 * FIXED: added translation support for minimized label positions (Left, Center, Right).
@@ -168,6 +175,9 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 * Integrated Google reCAPTCHA v3.
 
 == Upgrade Notice ==
+
+= 1.3.4 =
+Enable the new SEO metadata editor from the General tab to customise titles, descriptions, and search engine indexing per post.
 
 = 1.3.3 =
 Please update to benefit from improved HEX input support in the colour picker and full translation readiness for label positions.
