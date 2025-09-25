@@ -85,13 +85,15 @@ final class SMiLE_Basic_Web {
 	 * @return void
 	 */
 	private function includes(): void {
-		// Core interface & manager.
-		require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/interface-tab.php';
-		require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/class-sbwscf-tab-manager.php';
-		// Contact-Form tab class.
-		require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/contact-form/class-sbwscf-contactform-page.php';
-		// Sitemaps core – always load so rewrite rules persist.
-		require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/sitemaps/sitemaps.php';
+                // Core interface & manager.
+                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/interface-tab.php';
+                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/class-sbwscf-tab-manager.php';
+                // General tab class (needed early for front-end hooks).
+                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/general/class-sbwscf-general-page.php';
+                // Contact-Form tab class.
+                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/contact-form/class-sbwscf-contactform-page.php';
+                // Sitemaps core – always load so rewrite rules persist.
+                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/sitemaps/sitemaps.php';
 		// Carga del tab “Cookies”.
 		require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/cookies/class-sbwscf-cookies-page.php';
 	}
