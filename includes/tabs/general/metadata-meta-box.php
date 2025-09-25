@@ -87,6 +87,7 @@ final class SBWSCF_Metadata_Meta_Box {
         public static function init_frontend(): void {
                 add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
                 add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), 1 );
+                add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ) );
         }
 
         /*
@@ -280,7 +281,7 @@ final class SBWSCF_Metadata_Meta_Box {
         }
 
         /**
-         * Outputs meta description and robots directives in the document head.
+         * Outputs the meta description in the document head.
          *
          * @return void
          */
@@ -302,10 +303,36 @@ final class SBWSCF_Metadata_Meta_Box {
                         );
                 }
 
-                $meta_index = get_post_meta( $post_id, '_sbwscf_meta_index', true );
-                if ( 'noindex' === $meta_index ) {
-                        echo "\n<meta name=\"robots\" content=\"noindex,follow\" />\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        }
+
+        /**
+         * Adjusts robots directives so they are emitted through wp_robots().
+         *
+         * @param array $robots Current robots directives.
+         * @return array
+         */
+        public static function filter_wp_robots( array $robots ): array {
+                if ( ! is_singular( self::get_supported_post_types() ) ) {
+                        return $robots;
                 }
+
+                $post_id = get_queried_object_id();
+                if ( ! $post_id ) {
+                        return $robots;
+                }
+
+                $meta_index = get_post_meta( $post_id, '_sbwscf_meta_index', true );
+                if ( 'noindex' !== $meta_index ) {
+                        return $robots;
+                }
+
+                unset( $robots['index'] );
+                unset( $robots['nofollow'] );
+
+                $robots['noindex'] = true;
+                $robots['follow']  = true;
+
+                return $robots;
         }
 
         /*
