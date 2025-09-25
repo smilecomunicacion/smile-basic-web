@@ -62,7 +62,7 @@ final class SBWSCF_Metadata_Meta_Box {
          *
          * @return array
          */
-        private static function get_supported_post_types(): array {
+        public static function get_supported_post_types(): array {
                 $post_types = get_post_types(
                         array(
                                 'show_ui' => true,
@@ -77,6 +77,16 @@ final class SBWSCF_Metadata_Meta_Box {
                  * @param array $post_types Default supported post types.
                  */
                 return apply_filters( 'sbwscf_metadata_post_types', $post_types );
+        }
+
+        /**
+         * Boots the front-end rendering hooks when metadata is enabled.
+         *
+         * @return void
+         */
+        public static function init_frontend(): void {
+                add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
+                add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), 1 );
         }
 
         /*
@@ -243,6 +253,59 @@ final class SBWSCF_Metadata_Meta_Box {
                 }
 
                 return strlen( $value );
+        }
+
+        /**
+         * Filters the document title with the custom meta title.
+         *
+         * @param string $title Default title.
+         * @return string
+         */
+        public static function filter_document_title( string $title ): string {
+                if ( ! is_singular( self::get_supported_post_types() ) ) {
+                        return $title;
+                }
+
+                $post_id = get_queried_object_id();
+                if ( ! $post_id ) {
+                        return $title;
+                }
+
+                $meta_title = get_post_meta( $post_id, '_sbwscf_meta_title', true );
+                if ( ! is_string( $meta_title ) || '' === $meta_title ) {
+                        return $title;
+                }
+
+                return $meta_title;
+        }
+
+        /**
+         * Outputs meta description and robots directives in the document head.
+         *
+         * @return void
+         */
+        public static function output_meta_tags(): void {
+                if ( ! is_singular( self::get_supported_post_types() ) ) {
+                        return;
+                }
+
+                $post_id = get_queried_object_id();
+                if ( ! $post_id ) {
+                        return;
+                }
+
+                $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
+                if ( is_string( $meta_description ) && '' !== $meta_description ) {
+                        printf(
+                                "\n<meta name=\"description\" content=\"%s\" />\n",
+                                esc_attr( $meta_description )
+                        );
+                }
+
+                $meta_index = get_post_meta( $post_id, '_sbwscf_meta_index', true );
+                if ( 'noindex' === $meta_index ) {
+                        echo "\n<meta name=\"robots\" content=\"noindex,follow\" />\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                }
         }
 
         /*

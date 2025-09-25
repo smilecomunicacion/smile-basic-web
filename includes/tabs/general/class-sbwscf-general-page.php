@@ -60,10 +60,10 @@ final class SBWSCF_General_Page implements SBWSCF_Tab_Interface {
 	 *
 	 * @return void
 	 */
-	public static function load(): void {
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
+        public static function load(): void {
+                add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 
-		$options = get_option( 'sbwscf_general_settings', array() );
+                $options = get_option( 'sbwscf_general_settings', array() );
                 if ( ! empty( $options['enable_svg'] ) ) {
                         // Activa el soporte SVG:.
                         require_once __DIR__ . '/svg-upload.php';
@@ -79,6 +79,25 @@ final class SBWSCF_General_Page implements SBWSCF_Tab_Interface {
                         require_once __DIR__ . '/metadata-meta-box.php';
                         SBWSCF_Metadata_Meta_Box::init();
                 }
+        }
+
+        /**
+         * Boot front-end specific features for the General tab.
+         *
+         * @return void
+         */
+        public static function boot_frontend_features(): void {
+                if ( is_admin() ) {
+                        return;
+                }
+
+                $options = get_option( 'sbwscf_general_settings', array() );
+                if ( empty( $options['enable_metadata'] ) ) {
+                        return;
+                }
+
+                require_once __DIR__ . '/metadata-meta-box.php';
+                SBWSCF_Metadata_Meta_Box::init_frontend();
         }
 
 	/**
@@ -118,3 +137,4 @@ final class SBWSCF_General_Page implements SBWSCF_Tab_Interface {
 
 // Hook para invocar load() tras inicializar Tab Manager.
 add_action( 'admin_init', array( 'SBWSCF_General_Page', 'load' ) );
+add_action( 'init', array( 'SBWSCF_General_Page', 'boot_frontend_features' ) );
