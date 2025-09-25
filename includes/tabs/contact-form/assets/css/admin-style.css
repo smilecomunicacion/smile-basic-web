@@ -1,0 +1,106 @@
+/**
+ * Admin styles for SMiLE Basic Web plugin.
+ * Utiliza estilos simples compatibles con la interfaz de administración de WordPress.
+ */
+
+/* Asegura que la tabla de campos personalizados ocupe el ancho completo */
+#sbwscf-custom-fields-container table.widefat {
+	width: 100%;
+	margin-bottom: 1em;
+	border-collapse: collapse;
+}
+
+/* Estilos para celdas de tabla */
+#sbwscf-custom-fields-container th,
+#sbwscf-custom-fields-container td {
+	padding: 0.5em;
+	text-align: left;
+	vertical-align: top;
+	border: 1px solid #eee;
+}
+
+/* Mejora la apariencia del botón "Add Field" */
+#sbwscf-add-field {
+	margin-top: 1em;
+}
+
+/* Opcional: ajusta el contenedor de logo para mejor visualización */
+#sbwscf-logo-container {
+	margin-bottom: 1em;
+}
+
+/* En admin-style.css */
+#sbwscf-custom-fields-container table.widefat th,
+#sbwscf-custom-fields-container table.widefat td {
+	vertical-align: top;
+}
+
+/* Asegura que la tabla de campos personalizados ocupe el ancho completo */
+#sbwscf-custom-fields-container table.widefat.fixed {
+    table-layout: fixed !important;
+    width: 100% !important;
+}
+
+/* Columna 1: Label */
+#sbwscf-custom-fields-container table.widefat th:nth-child(1),
+#sbwscf-custom-fields-container table.widefat td:nth-child(1) {
+    width: 2.5rem !important;
+    word-wrap: break-word;
+}
+
+/* Columna 2: Label */
+#sbwscf-custom-fields-container table.widefat th:nth-child(2),
+#sbwscf-custom-fields-container table.widefat td:nth-child(2) {
+    width: 12rem !important;
+    word-wrap: break-word;
+}
+
+/* Columna 3: Name */
+#sbwscf-custom-fields-container table.widefat th:nth-child(3),
+#sbwscf-custom-fields-container table.widefat td:nth-child(3) {
+    width: 12rem !important;
+    word-wrap: break-word;
+}
+
+/* Columna 4: Type */
+#sbwscf-custom-fields-container table.widefat th:nth-child(4),
+#sbwscf-custom-fields-container table.widefat td:nth-child(4) {
+	width: 10rem !important;
+	word-wrap: break-word;
+}
+
+/* Columna 5: Default Value */
+#sbwscf-custom-fields-container table.widefat th:nth-child(5),
+#sbwscf-custom-fields-container table.widefat td:nth-child(5) {
+	width: 4rem !important;
+	word-wrap: break-word;
+}
+
+/* Columna 6: Placeholder */
+#sbwscf-custom-fields-container table.widefat th:nth-child(6),
+#sbwscf-custom-fields-container table.widefat td:nth-child(6) {
+    width: 14rem !important;
+    word-wrap: break-word;
+}
+
+
+/* Columna 7: Options */
+#sbwscf-custom-fields-container table.widefat th:nth-child(7),
+#sbwscf-custom-fields-container table.widefat td:nth-child(7) {
+    width: 20rem !important;
+    word-wrap: break-word;
+}
+
+/* Columna 8: Description */
+#sbwscf-custom-fields-container table.widefat th:nth-child(8),
+#sbwscf-custom-fields-container table.widefat td:nth-child(8) {
+	width: 4rem !important;
+	word-wrap: break-word;
+}
+
+/* Fuerza a que los campos de entrada ocupen el ancho completo de la celda */
+#sbwscf-custom-fields-container table.widefat input.regular-text,
+#sbwscf-custom-fields-container table.widefat select {
+    width: 100%;
+    box-sizing: border-box; /* Asegura que el padding y borde se incluyan en el ancho total */
+}
