@@ -35,6 +35,7 @@ function sbwscf_uninstall_site_cleanup() {
 		'sbwscf_priority_category',
 		'sbwscf_email_preview_page_id',
 		'sbwscf_general_settings', // <-- NUEVA entrada
+		'sbwscf_plugin_version',
 		// Cookies module options.
 		'sbwscf_enable_cookies_notice',
 		'sbwscf_cookie_message',
