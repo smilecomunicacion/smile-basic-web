@@ -33,6 +33,20 @@ final class SBWSCF_Metadata_Meta_Box {
         private static ?string $current_meta_description = null;
 
 		/**
+		 * Tracks whether we are inside wp_head() while a custom description exists.
+		 *
+		 * @var bool
+		 */
+		private static $is_head_context = false;
+
+		/**
+		 * Holds the meta description for the current request when available.
+		 *
+		 * @var string|null
+		 */
+		private static $current_meta_description = null;
+
+		/**
 		 * Bootstraps hooks.
 		 *
 		 * @return void
