@@ -174,75 +174,65 @@ if ( ! class_exists( 'SMiLE_Contact_Form' ) ) :
 			</label>
 
 					<?php if ( 'textarea' === $type ) : ?>
-			<textarea id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>"
-				name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>"
-						<?php echo $required ? 'required="required"' : ''; ?>
-				placeholder="<?php echo esc_attr( $placeholder ); ?>" maxlength="1000"></textarea>
+			<textarea id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>" <?php echo $required ? 'required="required"' : ''; ?> placeholder="<?php echo esc_attr( $placeholder ); ?>" maxlength="1000"></textarea>
 			<span class="sbwscf-char-counter" data-max="1000" id="sbwscf-<?php echo esc_attr( $name ); ?>-counter">
 				0 / 1000
 			</span>
-			</p>
-			<?php elseif ( 'select_single' === $type ) : ?>
-				<div class="sbwscf-select-single">
-					<button type="button" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" class="sbwscf-select-single-button"
-						aria-haspopup="listbox" aria-expanded="false" data-placeholder="<?php echo esc_attr( $placeholder ); ?>">
-						<?php echo esc_html( $placeholder ); ?>
-					</button>
-					<div class="sbwscf-select-single-menu" style="display: none;">
-						<?php foreach ( $options_list as $option ) : ?>
-						<label class="sbwscf-select-single-option">
-							<input type="radio" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>"
-								value="<?php echo esc_attr( $option ); ?>" />
-							<?php echo esc_html( $option ); ?>
-						</label>
-						<?php endforeach; ?>
-					</div>
-				</div>
+		</p>
+		<?php elseif ( 'select_single' === $type ) : ?>
+		<div class="sbwscf-select-single">
+			<button type="button" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" class="sbwscf-select-single-button" aria-haspopup="listbox" aria-expanded="false" data-placeholder="<?php echo esc_attr( $placeholder ); ?>">
+				<?php echo esc_html( $placeholder ); ?>
+			</button>
+			<div class="sbwscf-select-single-menu" style="display: none;">
+				<?php foreach ( $options_list as $option ) : ?>
+				<label class="sbwscf-select-single-option">
+					<input type="radio" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>" value="<?php echo esc_attr( $option ); ?>" />
+					<?php echo esc_html( $option ); ?>
+				</label>
+				<?php endforeach; ?>
+			</div>
+		</div>
 
-				<?php elseif ( 'select_multiple' === $type ) : ?>
-				<div class="sbwscf-multiselect-container">
-					<button type="button" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" class="sbwscf-multiselect-button"
-						aria-expanded="false" data-placeholder="<?php echo esc_attr( $placeholder ); ?>">
-						<?php
+		<?php elseif ( 'select_multiple' === $type ) : ?>
+		<div class="sbwscf-multiselect-container">
+			<button type="button" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" class="sbwscf-multiselect-button" aria-expanded="false" data-placeholder="<?php echo esc_attr( $placeholder ); ?>">
+				<?php
 							echo '' !== $placeholder
 								? esc_html( $placeholder )
 								: esc_html__( 'Select options', 'smile-basic-web' );
-						?>
-					</button>
-					<div class="sbwscf-multiselect-menu" style="display: none;">
-						<?php foreach ( $options_list as $option ) : ?>
-						<label class="sbwscf-multiselect-option">
-							<input type="checkbox" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>[]"
-								value="<?php echo esc_attr( $option ); ?>" />
-							<?php echo esc_html( $option ); ?>
-						</label>
-						<?php endforeach; ?>
-					</div>
-				</div>
-
-			<?php else : ?>
-				<?php
-				$input_type = ( 'email usuario' === $type ) ? 'email' : $type;
 				?>
-			<input type="<?php echo esc_attr( $input_type ); ?>" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>"
-				name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>"
-				<?php echo $required ? 'required="required"' : ''; ?>
-				placeholder="<?php echo esc_attr( $placeholder ); ?>"
-										<?php
-										if ( 'text' === $type ) {
-											echo 'maxlength="250"';
-										} elseif ( 'email' === $type || 'email usuario' === $type ) {
-											echo 'maxlength="70"';
-										} elseif ( 'number' === $type ) {
-											echo 'maxlength="100"';
-										} elseif ( 'tel' === $type ) {
-											echo 'maxlength="30"';
-										} elseif ( 'url' === $type ) {
-											echo 'maxlength="250"';
-										}
-										?>
-					>
-			<?php endif; ?>
+			</button>
+			<div class="sbwscf-multiselect-menu" style="display: none;">
+				<?php foreach ( $options_list as $option ) : ?>
+				<label class="sbwscf-multiselect-option">
+					<input type="checkbox" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>[]" value="<?php echo esc_attr( $option ); ?>" />
+					<?php echo esc_html( $option ); ?>
+				</label>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
+		<?php else : ?>
+			<?php
+				$input_type = ( 'email usuario' === $type ) ? 'email' : $type;
+			?>
+		<input type="<?php echo esc_attr( $input_type ); ?>" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>" <?php echo $required ? 'required="required"' : ''; ?> placeholder="<?php echo esc_attr( $placeholder ); ?>" 
+								<?php
+								if ( 'text' === $type ) {
+									echo 'maxlength="250"';
+								} elseif ( 'email' === $type || 'email usuario' === $type ) {
+									echo 'maxlength="70"';
+								} elseif ( 'number' === $type ) {
+									echo 'maxlength="100"';
+								} elseif ( 'tel' === $type ) {
+									echo 'maxlength="30"';
+								} elseif ( 'url' === $type ) {
+									echo 'maxlength="250"';
+								}
+								?>
+										>
+		<?php endif; ?>
 
 					<?php
 				endforeach;

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SMiLE Basic Web
  * Description: Modular plugin bundling the Contact-Form and Sitemaps features.
- * Version:     1.3.3
+ * Version:     1.3.4
  * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:      smilecomunicacion
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit; // Prevent direct access.
 define( 'SMILE_BASIC_WEB_PLUGIN_FILE', __FILE__ );
 define( 'SMILE_BASIC_WEB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SMILE_BASIC_WEB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'SMILE_BASIC_WEB_VERSION', '1.3.3' );
+define( 'SMILE_BASIC_WEB_VERSION', '1.3.4' );
 
 /**
  * Main plugin singleton.
@@ -51,13 +51,13 @@ final class SMiLE_Basic_Web {
 		return self::$instance;
 	}
 
-        /**
-         * Constructor: includes and hooks.
-         */
-        private function __construct() {
-                $this->includes();
-                $this->init_hooks();
-        }
+		/**
+		 * Constructor: includes and hooks.
+		 */
+	private function __construct() {
+			$this->includes();
+			$this->init_hooks();
+	}
 
 	/**
 	 * Loads indispensable files.
@@ -65,15 +65,15 @@ final class SMiLE_Basic_Web {
 	 * @return void
 	 */
 	private function includes(): void {
-                // Core interface & manager.
-                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/interface-tab.php';
-                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/class-sbwscf-tab-manager.php';
-                // General tab class (needed early for front-end hooks).
-                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/general/class-sbwscf-general-page.php';
-                // Contact-Form tab class.
-                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/contact-form/class-sbwscf-contactform-page.php';
-                // Sitemaps core – always load so rewrite rules persist.
-                require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/sitemaps/sitemaps.php';
+				// Core interface & manager.
+				require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/interface-tab.php';
+				require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/core/class-sbwscf-tab-manager.php';
+				// General tab class (needed early for front-end hooks).
+				require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/general/class-sbwscf-general-page.php';
+				// Contact-Form tab class.
+				require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/contact-form/class-sbwscf-contactform-page.php';
+				// Sitemaps core – always load so rewrite rules persist.
+				require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/sitemaps/sitemaps.php';
 		// Carga del tab “Cookies”.
 		require_once SMILE_BASIC_WEB_PLUGIN_PATH . 'includes/tabs/cookies/class-sbwscf-cookies-page.php';
 	}
@@ -89,7 +89,7 @@ final class SMiLE_Basic_Web {
 			array( __CLASS__, 'activate_plugin' )
 		);
 
-                // Boot the Tab-Manager.
+				// Boot the Tab-Manager.
 		add_action( 'init', array( 'SBWSCF_Tab_Manager', 'init' ), 20 );
 	}
 
