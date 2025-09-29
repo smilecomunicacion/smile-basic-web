@@ -18,12 +18,19 @@ defined( 'ABSPATH' ) || exit;
  */
 final class SBWSCF_Metadata_Meta_Box {
 
-	/**
-	 * Tracks whether the site description was replaced.
-	 *
-	 * @var bool
-	 */
-	private static bool $site_description_replaced = false;
+        /**
+         * Tracks whether the site description was replaced.
+         *
+         * @var bool
+         */
+        private static bool $site_description_replaced = false;
+
+        /**
+         * Tracks whether the plugin should emit the meta description tag.
+         *
+         * @var bool
+         */
+        private static bool $should_emit_meta_description = false;
 
 		/**
 		 * Bootstraps hooks.
@@ -91,12 +98,80 @@ final class SBWSCF_Metadata_Meta_Box {
 		 *
 		 * @return void
 		 */
-	public static function init_frontend(): void {
-			add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
-			add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), 999 );
-			add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ) );
-			add_filter( 'option_blogdescription', array( __CLASS__, 'filter_site_description' ), 20 );
-	}
+        public static function init_frontend(): void {
+                add_action( 'template_redirect', array( __CLASS__, 'prepare_frontend_output' ) );
+                add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
+                add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), 999 );
+                add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ) );
+                add_filter( 'option_blogdescription', array( __CLASS__, 'filter_site_description' ), 20 );
+        }
+
+        /**
+         * Determines whether the plugin should handle rendering meta tags.
+         *
+         * @return void
+         */
+        public static function prepare_frontend_output(): void {
+                self::$should_emit_meta_description = false;
+
+                if ( is_admin() ) {
+                        return;
+                }
+
+                if ( ! is_singular( self::get_supported_post_types() ) ) {
+                        self::$site_description_replaced = false;
+                        return;
+                }
+
+                $post_id = get_queried_object_id();
+                if ( ! $post_id ) {
+                        self::$site_description_replaced = false;
+                        return;
+                }
+
+                $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
+                if ( ! is_string( $meta_description ) || '' === $meta_description ) {
+                        self::$site_description_replaced = false;
+                        return;
+                }
+
+                self::$site_description_replaced = false;
+                self::$should_emit_meta_description = true;
+                self::maybe_disable_conflicting_meta();
+        }
+
+        /**
+         * Disables theme callbacks that also render meta descriptions.
+         *
+         * @return void
+         */
+        private static function maybe_disable_conflicting_meta(): void {
+                /**
+                 * Filters callbacks registered by the active theme that conflict with the plugin's meta output.
+                 *
+                 * @param array $callbacks Conflicting callback list.
+                 */
+                $callbacks = apply_filters(
+                        'sbwscf_conflicting_meta_emitters',
+                        array(
+                                'smile_v6_render_meta_description',
+                        )
+                );
+
+                if ( ! is_array( $callbacks ) ) {
+                        return;
+                }
+
+                foreach ( $callbacks as $callback ) {
+                        if ( empty( $callback ) ) {
+                                continue;
+                        }
+
+                        while ( false !== ( $priority = has_action( 'wp_head', $callback ) ) ) {
+                                remove_action( 'wp_head', $callback, (int) $priority );
+                        }
+                }
+        }
 
 		/*
 		 * ------------------------------------------------------------------
@@ -270,31 +345,33 @@ final class SBWSCF_Metadata_Meta_Box {
 		 */
         public static function filter_site_description( string $description ): string {
                 if ( is_admin() ) {
-                                return $description;
+                        return $description;
                 }
 
                 if ( ! doing_action( 'wp_head' ) ) {
-                                return $description;
+                        return $description;
                 }
 
                 if ( ! is_singular( self::get_supported_post_types() ) ) {
-                                return $description;
+                        return $description;
                 }
 
-                        $post_id = get_queried_object_id();
+                $post_id = get_queried_object_id();
                 if ( ! $post_id ) {
-                                return $description;
+                        return $description;
                 }
 
-                        $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
+                $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
                 if ( ! is_string( $meta_description ) || '' === $meta_description ) {
-                                return $description;
+                        return $description;
                 }
 
                 self::$site_description_replaced = true;
+                self::$should_emit_meta_description = false;
 
                 return $meta_description;
         }
+
 
 		/**
 		 * Outputs the meta description in the document head.
@@ -302,28 +379,38 @@ final class SBWSCF_Metadata_Meta_Box {
 		 * @return void
 		 */
         public static function output_meta_tags(): void {
+                if ( ! self::$should_emit_meta_description ) {
+                        return;
+                }
+
                 if ( ! is_singular( self::get_supported_post_types() ) ) {
-                                return;
+                        self::$should_emit_meta_description = false;
+                        return;
                 }
 
-                        $post_id = get_queried_object_id();
+                $post_id = get_queried_object_id();
                 if ( ! $post_id ) {
-                                return;
+                        self::$should_emit_meta_description = false;
+                        return;
                 }
 
-                        $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
+                $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
                 if ( ! is_string( $meta_description ) || '' === $meta_description ) {
-                                return;
+                        self::$should_emit_meta_description = false;
+                        return;
                 }
 
                 if ( self::$site_description_replaced ) {
-                                return;
+                        self::$should_emit_meta_description = false;
+                        return;
                 }
 
                 printf(
                         "\n<meta name=\"description\" content=\"%s\" />\n",
                         esc_attr( $meta_description )
                 );
+
+                self::$should_emit_meta_description = false;
         }
 
 		/**
