@@ -111,7 +111,7 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 == Changelog ==
 
 = 1.3.4 =
-* NEW: Added toggleable SEO metadata editor for posts and pages, including custom title, description, and noindex controls.
+* NEW: Added toggleable SEO metadata editor for posts and pages, including custom title, description, and noindex nofollow controls.
 * NEW: Outputs custom metadata on the front end through the document title, `<meta name="description">`, and `wp_robots` hooks.
 * UPDATED: General tab now loads earlier so metadata features register before other tabs.
 * UPDATED: Removed deprecated text-domain loader to align with modern WordPress translation handling.
