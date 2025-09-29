@@ -171,7 +171,7 @@ final class SBWSCF_Metadata_Meta_Box {
                                                 value="noindex"
                                                 <?php checked( 'noindex', $meta_index ); ?>
                                         />
-                                        <?php esc_html_e( 'Do not index (hide from search engines)', 'smile-basic-web' ); ?>
+                                        <?php esc_html_e( 'Do not index or follow (hide from search engines)', 'smile-basic-web' ); ?>
                                 </label>
                         </p>
                 </div>
@@ -327,10 +327,10 @@ final class SBWSCF_Metadata_Meta_Box {
                 }
 
                 unset( $robots['index'] );
-                unset( $robots['nofollow'] );
+                unset( $robots['follow'] );
 
-                $robots['noindex'] = true;
-                $robots['follow']  = true;
+                $robots['noindex']  = true;
+                $robots['nofollow'] = true;
 
                 return $robots;
         }
