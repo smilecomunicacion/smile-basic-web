@@ -3,7 +3,7 @@ Contributors: smilecomunicacion
 Tags: contact, reCAPTCHA, SMTP, sitemaps, svg
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -110,6 +110,11 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 
 == Changelog ==
 
+= 1.3.5 =
+* NEW: Added the `sbwscf_meta_description_priority` filter so site owners can control when the plugin prints the SEO meta description, improving compatibility with third-party themes and SEO suites.
+* UPDATED: Detect and remove conflicting theme callbacks before output to ensure SMiLE Basic Web remains the single source of truth for meta descriptions.
+* FIXED: Resolved cases where recent changes to custom meta descriptions failed to override the site tagline or appear on the front end.
+
 = 1.3.4 =
 * NEW: Added toggleable SEO metadata editor for posts and pages, including custom title, description, and noindex nofollow controls.
 * NEW: Outputs custom metadata on the front end through the document title, `<meta name="description">`, and `wp_robots` hooks.
@@ -176,6 +181,9 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 
 == Upgrade Notice ==
 
+= 1.3.5 =
+Update to guarantee custom SEO meta descriptions override theme output consistently and to adjust the rendering priority via the new `sbwscf_meta_description_priority` filter when required.
+
 = 1.3.4 =
 Enable the new SEO metadata editor from the General tab to customise titles, descriptions, and search engine indexing per post.
 
@@ -206,7 +214,7 @@ This version introduces a new “Sitemaps” tab with multiple output formats an
 2. Screenshot-2.png: Appearance customization for the contact form using WordPress Customizer.
 3. Screenshot-3.png: Live preview of the email sent to users via the WordPress Customizer.
 4. Screenshot-4.png: Sitemaps settings tab for configuring llms.txt, sitemap.xml, and robots.txt.
-4. Screenshot-5.png: Enable secure SVG/SVGZ uploads and auto-fill image ALT text from EXIF metadata for better accessibility.
+4. Screenshot-5.png: Enable secure SVG/SVGZ uploads, auto-fill image ALT text from EXIF metadata, and toggle the SEO metadata editor for posts and pages.
 4. Screenshot-6.png: Backend settings panel for customizing colors, text and scripts.
 4. Screenshot-7.png: Cookie banner with preferences toggle, script injection only after consent is given.
 
