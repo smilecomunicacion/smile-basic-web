@@ -99,11 +99,20 @@ final class SBWSCF_Metadata_Meta_Box {
 		 * @return void
 		 */
         public static function init_frontend(): void {
-                add_action( 'template_redirect', array( __CLASS__, 'prepare_frontend_output' ) );
-                add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
-                add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), 999 );
-                add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ) );
-                add_filter( 'option_blogdescription', array( __CLASS__, 'filter_site_description' ), 20 );
+               add_action( 'template_redirect', array( __CLASS__, 'prepare_frontend_output' ) );
+               add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
+
+               /**
+                * Filters the priority used to print the meta description tag.
+                *
+                * @param int $priority Meta description priority.
+                */
+               $meta_priority = apply_filters( 'sbwscf_meta_description_priority', 5 );
+               $meta_priority = is_numeric( $meta_priority ) ? (int) $meta_priority : 5;
+
+               add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), $meta_priority );
+               add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ) );
+               add_filter( 'option_blogdescription', array( __CLASS__, 'filter_site_description' ), 20 );
         }
 
         /**
