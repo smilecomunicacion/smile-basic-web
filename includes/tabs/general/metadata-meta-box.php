@@ -18,19 +18,19 @@ defined( 'ABSPATH' ) || exit;
  */
 final class SBWSCF_Metadata_Meta_Box {
 
-        /**
-         * Tracks whether the site description was replaced.
-         *
-         * @var bool
-         */
-        private static bool $site_description_replaced = false;
+		/**
+		 * Tracks whether the site description was replaced.
+		 *
+		 * @var bool
+		 */
+	private static bool $site_description_replaced = false;
 
-        /**
-         * Tracks whether the plugin should emit the meta description tag.
-         *
-         * @var bool
-         */
-        private static bool $should_emit_meta_description = false;
+		/**
+		 * Tracks whether the plugin should emit the meta description tag.
+		 *
+		 * @var bool
+		 */
+	private static bool $should_emit_meta_description = false;
 
 		/**
 		 * Bootstraps hooks.
@@ -98,89 +98,92 @@ final class SBWSCF_Metadata_Meta_Box {
 		 *
 		 * @return void
 		 */
-        public static function init_frontend(): void {
-               add_action( 'template_redirect', array( __CLASS__, 'prepare_frontend_output' ) );
-               add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
+	public static function init_frontend(): void {
+			add_action( 'template_redirect', array( __CLASS__, 'prepare_frontend_output' ) );
+			add_filter( 'pre_get_document_title', array( __CLASS__, 'filter_document_title' ), 20 );
 
-               /**
-                * Filters the priority used to print the meta description tag.
-                *
-                * @param int $priority Meta description priority.
-                */
-               $meta_priority = apply_filters( 'sbwscf_meta_description_priority', 5 );
-               $meta_priority = is_numeric( $meta_priority ) ? (int) $meta_priority : 5;
+			/**
+			* Filters the priority used to print the meta description tag.
+			*
+			* @param int $priority Meta description priority.
+			*/
+			$meta_priority = apply_filters( 'sbwscf_meta_description_priority', 5 );
+			$meta_priority = is_numeric( $meta_priority ) ? (int) $meta_priority : 5;
 
-               add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), $meta_priority );
-               add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ) );
-               add_filter( 'option_blogdescription', array( __CLASS__, 'filter_site_description' ), 20 );
-        }
+			add_action( 'wp_head', array( __CLASS__, 'output_meta_tags' ), $meta_priority );
+			add_filter( 'wp_robots', array( __CLASS__, 'filter_wp_robots' ) );
+			add_filter( 'option_blogdescription', array( __CLASS__, 'filter_site_description' ), 20 );
+	}
 
-        /**
-         * Determines whether the plugin should handle rendering meta tags.
-         *
-         * @return void
-         */
-        public static function prepare_frontend_output(): void {
-                self::$should_emit_meta_description = false;
+		/**
+		 * Determines whether the plugin should handle rendering meta tags.
+		 *
+		 * @return void
+		 */
+	public static function prepare_frontend_output(): void {
+			self::$should_emit_meta_description = false;
 
-                if ( is_admin() ) {
-                        return;
-                }
+		if ( is_admin() ) {
+				return;
+		}
 
-                if ( ! is_singular( self::get_supported_post_types() ) ) {
-                        self::$site_description_replaced = false;
-                        return;
-                }
+		if ( ! is_singular( self::get_supported_post_types() ) ) {
+				self::$site_description_replaced = false;
+				return;
+		}
 
-                $post_id = get_queried_object_id();
-                if ( ! $post_id ) {
-                        self::$site_description_replaced = false;
-                        return;
-                }
+			$post_id = get_queried_object_id();
+		if ( ! $post_id ) {
+				self::$site_description_replaced = false;
+				return;
+		}
 
-                $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
-                if ( ! is_string( $meta_description ) || '' === $meta_description ) {
-                        self::$site_description_replaced = false;
-                        return;
-                }
+			$meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
+		if ( ! is_string( $meta_description ) || '' === $meta_description ) {
+				self::$site_description_replaced = false;
+				return;
+		}
 
-                self::$site_description_replaced = false;
-                self::$should_emit_meta_description = true;
-                self::maybe_disable_conflicting_meta();
-        }
+			self::$site_description_replaced    = false;
+			self::$should_emit_meta_description = true;
+			self::maybe_disable_conflicting_meta();
+	}
 
-        /**
-         * Disables theme callbacks that also render meta descriptions.
-         *
-         * @return void
-         */
-        private static function maybe_disable_conflicting_meta(): void {
-                /**
-                 * Filters callbacks registered by the active theme that conflict with the plugin's meta output.
-                 *
-                 * @param array $callbacks Conflicting callback list.
-                 */
-                $callbacks = apply_filters(
-                        'sbwscf_conflicting_meta_emitters',
-                        array(
-                                'smile_v6_render_meta_description',
-                        )
-                );
+		/**
+		 * Disables theme callbacks that also render meta descriptions.
+		 *
+		 * @return void
+		 */
+	private static function maybe_disable_conflicting_meta(): void {
+			/**
+			 * Filters callbacks registered by the active theme that conflict with the plugin's meta output.
+			 *
+			 * @param array $callbacks Conflicting callback list.
+			 */
+			$callbacks = apply_filters(
+				'sbwscf_conflicting_meta_emitters',
+				array(
+					'smile_v6_render_meta_description',
+				)
+			);
 
-                if ( ! is_array( $callbacks ) ) {
-                        return;
-                }
+		if ( ! is_array( $callbacks ) ) {
+				return;
+		}
 
-                foreach ( $callbacks as $callback ) {
-                        if ( empty( $callback ) ) {
-                                continue;
-                        }
+		foreach ( $callbacks as $callback ) {
+			if ( empty( $callback ) ) {
+					continue;
+			}
 
-                        while ( false !== ( $priority = has_action( 'wp_head', $callback ) ) ) {
-                                remove_action( 'wp_head', $callback, (int) $priority );
-                        }
-                }
-        }
+			$priority = has_action( 'wp_head', $callback );
+
+			while ( false !== $priority ) {
+					remove_action( 'wp_head', $callback, (int) $priority );
+					$priority = has_action( 'wp_head', $callback );
+			}
+		}
+	}
 
 		/*
 		 * ------------------------------------------------------------------
@@ -241,21 +244,22 @@ final class SBWSCF_Metadata_Meta_Box {
 		</label>
 	</p>
 </div>
-		<?php
+
+<?php
 	}
 
-		/*
-		 * ------------------------------------------------------------------
-		 * Saving
-		 * ------------------------------------------------------------------
-		 */
+			/*
+			* ------------------------------------------------------------------
+			* Saving
+			* ------------------------------------------------------------------
+			*/
 
-		/**
-		 * Persists metadata values when the post is saved.
-		 *
-		 * @param int $post_id Post ID.
-		 * @return void
-		 */
+			/**
+			 * Persists metadata values when the post is saved.
+			 *
+			 * @param int $post_id Post ID.
+			 * @return void
+			 */
 	public static function save_metadata( int $post_id ): void {
 		if ( ! isset( $_POST['sbwscf_metadata_meta_box_nonce'] ) ) {
 				return;
@@ -291,14 +295,14 @@ final class SBWSCF_Metadata_Meta_Box {
 			update_post_meta( $post_id, '_sbwscf_meta_index', $meta_index );
 	}
 
-		/**
-		 * Updates or deletes a meta value based on its contents.
-		 *
-		 * @param int    $post_id Post ID.
-		 * @param string $key     Meta key.
-		 * @param string $value   Meta value.
-		 * @return void
-		 */
+			/**
+			 * Updates or deletes a meta value based on its contents.
+			 *
+			 * @param int    $post_id Post ID.
+			 * @param string $key     Meta key.
+			 * @param string $value   Meta value.
+			 * @return void
+			 */
 	private static function update_meta_value( int $post_id, string $key, string $value ): void {
 		if ( '' === $value ) {
 				delete_post_meta( $post_id, $key );
@@ -308,12 +312,12 @@ final class SBWSCF_Metadata_Meta_Box {
 			update_post_meta( $post_id, $key, $value );
 	}
 
-		/**
-		 * Returns the number of characters in a string, multibyte-safe.
-		 *
-		 * @param string $value Value to measure.
-		 * @return int
-		 */
+			/**
+			 * Returns the number of characters in a string, multibyte-safe.
+			 *
+			 * @param string $value Value to measure.
+			 * @return int
+			 */
 	private static function get_character_length( string $value ): int {
 		if ( function_exists( 'mb_strlen' ) ) {
 				return (int) mb_strlen( $value );
@@ -322,12 +326,12 @@ final class SBWSCF_Metadata_Meta_Box {
 			return strlen( $value );
 	}
 
-		/**
-		 * Filters the document title with the custom meta title.
-		 *
-		 * @param string $title Default title.
-		 * @return string
-		 */
+			/**
+			 * Filters the document title with the custom meta title.
+			 *
+			 * @param string $title Default title.
+			 * @return string
+			 */
 	public static function filter_document_title( string $title ): string {
 		if ( ! is_singular( self::get_supported_post_types() ) ) {
 				return $title;
@@ -346,88 +350,88 @@ final class SBWSCF_Metadata_Meta_Box {
 			return $meta_title;
 	}
 
-		/**
-		 * Replaces the site description with the custom meta description when available.
-		 *
-		 * @param string $description Default site description.
-		 * @return string
-		 */
-        public static function filter_site_description( string $description ): string {
-                if ( is_admin() ) {
-                        return $description;
-                }
+			/**
+			 * Replaces the site description with the custom meta description when available.
+			 *
+			 * @param string $description Default site description.
+			 * @return string
+			 */
+	public static function filter_site_description( string $description ): string {
+		if ( is_admin() ) {
+				return $description;
+		}
 
-                if ( ! doing_action( 'wp_head' ) ) {
-                        return $description;
-                }
+		if ( ! doing_action( 'wp_head' ) ) {
+				return $description;
+		}
 
-                if ( ! is_singular( self::get_supported_post_types() ) ) {
-                        return $description;
-                }
+		if ( ! is_singular( self::get_supported_post_types() ) ) {
+				return $description;
+		}
 
-                $post_id = get_queried_object_id();
-                if ( ! $post_id ) {
-                        return $description;
-                }
+			$post_id = get_queried_object_id();
+		if ( ! $post_id ) {
+				return $description;
+		}
 
-                $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
-                if ( ! is_string( $meta_description ) || '' === $meta_description ) {
-                        return $description;
-                }
+			$meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
+		if ( ! is_string( $meta_description ) || '' === $meta_description ) {
+				return $description;
+		}
 
-                self::$site_description_replaced = true;
-                self::$should_emit_meta_description = false;
+			self::$site_description_replaced    = true;
+			self::$should_emit_meta_description = false;
 
-                return $meta_description;
-        }
+			return $meta_description;
+	}
 
 
-		/**
-		 * Outputs the meta description in the document head.
-		 *
-		 * @return void
-		 */
-        public static function output_meta_tags(): void {
-                if ( ! self::$should_emit_meta_description ) {
-                        return;
-                }
+			/**
+			 * Outputs the meta description in the document head.
+			 *
+			 * @return void
+			 */
+	public static function output_meta_tags(): void {
+		if ( ! self::$should_emit_meta_description ) {
+				return;
+		}
 
-                if ( ! is_singular( self::get_supported_post_types() ) ) {
-                        self::$should_emit_meta_description = false;
-                        return;
-                }
+		if ( ! is_singular( self::get_supported_post_types() ) ) {
+				self::$should_emit_meta_description = false;
+				return;
+		}
 
-                $post_id = get_queried_object_id();
-                if ( ! $post_id ) {
-                        self::$should_emit_meta_description = false;
-                        return;
-                }
+			$post_id = get_queried_object_id();
+		if ( ! $post_id ) {
+				self::$should_emit_meta_description = false;
+				return;
+		}
 
-                $meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
-                if ( ! is_string( $meta_description ) || '' === $meta_description ) {
-                        self::$should_emit_meta_description = false;
-                        return;
-                }
+			$meta_description = get_post_meta( $post_id, '_sbwscf_meta_description', true );
+		if ( ! is_string( $meta_description ) || '' === $meta_description ) {
+				self::$should_emit_meta_description = false;
+				return;
+		}
 
-                if ( self::$site_description_replaced ) {
-                        self::$should_emit_meta_description = false;
-                        return;
-                }
+		if ( self::$site_description_replaced ) {
+				self::$should_emit_meta_description = false;
+				return;
+		}
 
-                printf(
-                        "\n<meta name=\"description\" content=\"%s\" />\n",
-                        esc_attr( $meta_description )
-                );
+			printf(
+				"\n<meta name=\"description\" content=\"%s\" />\n",
+				esc_attr( $meta_description )
+			);
 
-                self::$should_emit_meta_description = false;
-        }
+			self::$should_emit_meta_description = false;
+	}
 
-		/**
-		 * Adjusts robots directives so they are emitted through wp_robots().
-		 *
-		 * @param array $robots Current robots directives.
-		 * @return array
-		 */
+			/**
+			 * Adjusts robots directives so they are emitted through wp_robots().
+			 *
+			 * @param array $robots Current robots directives.
+			 * @return array
+			 */
 	public static function filter_wp_robots( array $robots ): array {
 		if ( ! is_singular( self::get_supported_post_types() ) ) {
 				return $robots;
@@ -452,18 +456,18 @@ final class SBWSCF_Metadata_Meta_Box {
 			return $robots;
 	}
 
-		/*
-		 * ------------------------------------------------------------------
-		 * Assets
-		 * ------------------------------------------------------------------
-		 */
+			/*
+			* ------------------------------------------------------------------
+			* Assets
+			* ------------------------------------------------------------------
+			*/
 
-		/**
-		 * Enqueues admin assets for the metadata meta box.
-		 *
-		 * @param string $hook_suffix Current admin page.
-		 * @return void
-		 */
+			/**
+			 * Enqueues admin assets for the metadata meta box.
+			 *
+			 * @param string $hook_suffix Current admin page.
+			 * @return void
+			 */
 	public static function enqueue_assets( string $hook_suffix ): void {
 		if ( 'post.php' !== $hook_suffix && 'post-new.php' !== $hook_suffix ) {
 				return;

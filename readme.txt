@@ -214,9 +214,9 @@ This version introduces a new “Sitemaps” tab with multiple output formats an
 2. Screenshot-2.png: Appearance customization for the contact form using WordPress Customizer.
 3. Screenshot-3.png: Live preview of the email sent to users via the WordPress Customizer.
 4. Screenshot-4.png: Sitemaps settings tab for configuring llms.txt, sitemap.xml, and robots.txt.
-4. Screenshot-5.png: Enable secure SVG/SVGZ uploads, auto-fill image ALT text from EXIF metadata, and toggle the SEO metadata editor for posts and pages.
-4. Screenshot-6.png: Backend settings panel for customizing colors, text and scripts.
-4. Screenshot-7.png: Cookie banner with preferences toggle, script injection only after consent is given.
+5. Screenshot-5.png: Enable secure SVG/SVGZ uploads, auto-fill image ALT text from EXIF metadata, and toggle the SEO metadata editor for posts and pages.
+6. Screenshot-6.png: Backend settings panel for customizing colors, text and scripts.
+7. Screenshot-7.png: Cookie banner with preferences toggle, script injection only after consent is given.
 
 == Other Notes ==
 SMiLE Basic Web is actively maintained. If you find it helpful, consider supporting development through donations. Contributions and feedback are always welcome!
