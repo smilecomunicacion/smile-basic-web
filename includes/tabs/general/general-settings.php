@@ -79,11 +79,11 @@ function sbwscf_general_register_settings(): void {
 function sbwscf_general_sanitize( $input = null ): array {
 		$input = is_array( $input ) ? $input : array();
 
-        return array(
-                'enable_svg'      => ! empty( $input['enable_svg'] ) ? 1 : 0,
-                'enable_alt'      => ! empty( $input['enable_alt'] ) ? 1 : 0,
-                'enable_metadata' => ! empty( $input['enable_metadata'] ) ? 1 : 0,
-        );
+		return array(
+			'enable_svg'      => ! empty( $input['enable_svg'] ) ? 1 : 0,
+			'enable_alt'      => ! empty( $input['enable_alt'] ) ? 1 : 0,
+			'enable_metadata' => ! empty( $input['enable_metadata'] ) ? 1 : 0,
+		);
 }
 
 /**

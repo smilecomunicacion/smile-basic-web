@@ -245,7 +245,7 @@ final class SBWSCF_Metadata_Meta_Box {
 	</p>
 </div>
 
-<?php
+		<?php
 	}
 
 			/*
