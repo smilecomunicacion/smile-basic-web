@@ -230,19 +230,22 @@ final class SBWSCF_SVG_Upload {
 	* ------------------------------------------------------------------
 	*/
 
-	/**
-	 * Provide thumbnail for SVGs.
-	 *
-	 * @param array   $response   Prepared data.
-	 * @param WP_Post $attachment Attachment post.
-	 * @param array   $meta       Metadata.
-	 * @return array              Modified data.
-	 */
-	public static function svg_preview( array $response, WP_Post $attachment, array $meta ): array {
-		unset( $meta );
-		if ( isset( $response['mime'] ) && 'image/svg+xml' === $response['mime'] ) { // Yoda.
-			$response['thumb']  = esc_url( wp_get_attachment_url( $attachment->ID ) );
-			$response['width']  = 0;
+        /**
+         * Provide thumbnail for SVGs.
+         *
+         * @param array       $response   Prepared data.
+         * @param WP_Post     $attachment Attachment post.
+         * @param array|false $meta       Metadata.
+         * @return array                  Modified data.
+         */
+        public static function svg_preview( array $response, WP_Post $attachment, $meta ): array {
+                if ( ! is_array( $meta ) ) {
+                        $meta = array();
+                }
+                unset( $meta );
+                if ( isset( $response['mime'] ) && 'image/svg+xml' === $response['mime'] ) { // Yoda.
+                        $response['thumb']  = esc_url( wp_get_attachment_url( $attachment->ID ) );
+                        $response['width']  = 0;
 			$response['height'] = 0;
 		}
 		return $response;
