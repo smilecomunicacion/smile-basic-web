@@ -3,7 +3,7 @@ Contributors: smilecomunicacion
 Tags: contact, reCAPTCHA, SMTP, sitemaps, svg
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -110,6 +110,9 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 
 == Changelog ==
 
+= 1.3.6 =
+* FIXED: SVG preview now tolerates missing or incomplete metadata when integrating with the Media Library.
+
 = 1.3.5 =
 * NEW: Added the `sbwscf_meta_description_priority` filter so site owners can control when the plugin prints the SEO meta description, improving compatibility with third-party themes and SEO suites.
 * UPDATED: Detect and remove conflicting theme callbacks before output to ensure SMiLE Basic Web remains the single source of truth for meta descriptions.
@@ -180,6 +183,9 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 * Integrated Google reCAPTCHA v3.
 
 == Upgrade Notice ==
+
+= 1.3.6 =
+Avoids PHP notices triggered when SVG metadata is empty during file uploads by improving metadata handling.
 
 = 1.3.5 =
 Update to guarantee custom SEO meta descriptions override theme output consistently and to adjust the rendering priority via the new `sbwscf_meta_description_priority` filter when required.
