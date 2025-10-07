@@ -237,12 +237,18 @@ if ( ! class_exists( 'SMiLE_Contact_Form' ) ) :
 					<?php
 				endforeach;
 		endif;
-			?>
+                        ?>
 
-			<?php if ( 0 !== $policy_page_id ) : ?>
-		<p>
-			<label>
-				<input type="checkbox" name="sbwscf_privacy_check" value="1" required>
+                        <?php if ( ! empty( $settings['consent_instructions'] ) ) : ?>
+                <p class="sbwscf-consent-instructions">
+                        <?php echo wp_kses_post( nl2br( $settings['consent_instructions'] ) ); ?>
+                </p>
+                <?php endif; ?>
+
+                        <?php if ( 0 !== $policy_page_id ) : ?>
+                <p>
+                        <label>
+                                <input type="checkbox" name="sbwscf_privacy_check" value="1" required>
 				<?php
 				$policy_text = $settings['privacy_policy_text']
 					/* translators: %s is the placeholder for the privacy policy page link. */
