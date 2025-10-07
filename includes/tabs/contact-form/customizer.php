@@ -454,9 +454,10 @@ function sbwscf_contactform_output_customizer_css() {
         color: <?php echo esc_attr( $label_font_color ); ?>;
 }
 
-.sbwscf-consent-instructions {
-        color: <?php echo esc_attr( $consent_instructions_font_color ); ?>;
-        font-size: <?php echo esc_attr( $consent_instructions_font_size ); ?>;
+section .sbwscf-contact-form p.sbwscf-consent-instructions,
+.sbwscf-contact-form .sbwscf-consent-instructions {
+       color: <?php echo esc_attr( $consent_instructions_font_color ); ?> !important;
+       font-size: <?php echo esc_attr( $consent_instructions_font_size ); ?>;
 }
 
 /* ==================== */
