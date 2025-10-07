@@ -202,11 +202,21 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 				'right'  => esc_html__( 'Right', 'smile-basic-web' ),
 			),
 		),
-		// Nuevo: Tamaño de fuente para el texto explicativo.
-		'sbwscf_form_explanation_font_size'  => array(
-			'default' => '14px',
-			'label'   => esc_html__( 'Form Explanation Font Size', 'smile-basic-web' ),
-			'type'    => 'text',
+               'sbwscf_consent_instructions_font_color' => array(
+                       'default' => '#666666',
+                       'label'   => esc_html__( 'Consent Instructions Font Color', 'smile-basic-web' ),
+                       'type'    => 'color',
+               ),
+               'sbwscf_consent_instructions_font_size'  => array(
+                       'default' => '14px',
+                       'label'   => esc_html__( 'Consent Instructions Font Size', 'smile-basic-web' ),
+                       'type'    => 'text',
+               ),
+               // Nuevo: Tamaño de fuente para el texto explicativo.
+               'sbwscf_form_explanation_font_size'  => array(
+                       'default' => '14px',
+                       'label'   => esc_html__( 'Form Explanation Font Size', 'smile-basic-web' ),
+                       'type'    => 'text',
 		),
 		// 7. Submit button.
 		'sbwscf_submit_button_color'         => array(
@@ -360,10 +370,12 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
  */
 function sbwscf_contactform_output_customizer_css() {
 
-	// 1. Etiquetas.
-	$label_font_size   = get_theme_mod( 'sbwscf_label_font_size', '16px' );
-	$label_font_color  = get_theme_mod( 'sbwscf_label_font_color', '#666666' );
-	$label_font_weight = get_theme_mod( 'sbwscf_label_font_weight', 'normal' );
+       // 1. Etiquetas.
+       $label_font_size                     = get_theme_mod( 'sbwscf_label_font_size', '16px' );
+       $label_font_color                    = get_theme_mod( 'sbwscf_label_font_color', '#666666' );
+       $label_font_weight                   = get_theme_mod( 'sbwscf_label_font_weight', 'normal' );
+       $consent_instructions_font_color     = get_theme_mod( 'sbwscf_consent_instructions_font_color', '#666666' );
+       $consent_instructions_font_size      = get_theme_mod( 'sbwscf_consent_instructions_font_size', '14px' );
 
 	// 2. Inputs.
 	$input_font_size   = get_theme_mod( 'sbwscf_input_font_size', '16px' );
@@ -438,8 +450,13 @@ function sbwscf_contactform_output_customizer_css() {
 
 /* Nueva regla para el Texto explicativo de los fines del formulario */
 .sbwscf-form-explanation label{
-	font-size: <?php echo esc_attr( get_theme_mod( 'sbwscf_form_explanation_font_size', '14px' ) ); ?>;
-	color: <?php echo esc_attr( $label_font_color ); ?>;
+        font-size: <?php echo esc_attr( get_theme_mod( 'sbwscf_form_explanation_font_size', '14px' ) ); ?>;
+        color: <?php echo esc_attr( $label_font_color ); ?>;
+}
+
+.sbwscf-consent-instructions {
+        color: <?php echo esc_attr( $consent_instructions_font_color ); ?>;
+        font-size: <?php echo esc_attr( $consent_instructions_font_size ); ?>;
 }
 
 /* ==================== */
