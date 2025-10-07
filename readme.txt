@@ -3,7 +3,7 @@ Contributors: smilecomunicacion
 Tags: contact, reCAPTCHA, SMTP, sitemaps, svg
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -110,6 +110,10 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 
 == Changelog ==
 
+= 1.3.7 =
+* NEW: Added a consent instructions field so site owners can clarify data usage directly in the form.
+* UPDATED: Introduced style controls in the WordPress Customizer to fine-tune consent panel typography and colors.
+
 = 1.3.6 =
 * FIXED: SVG preview now tolerates missing or incomplete metadata when integrating with the Media Library.
 
@@ -183,6 +187,9 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 * Integrated Google reCAPTCHA v3.
 
 == Upgrade Notice ==
+
+= 1.3.7 =
+Customize the consent experience with new instructions and appearance controls directly in the Customizer, improving clarity for visitors.
 
 = 1.3.6 =
 Avoids PHP notices triggered when SVG metadata is empty during file uploads by improving metadata handling.
