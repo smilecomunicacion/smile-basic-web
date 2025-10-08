@@ -29,17 +29,17 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 	// Definimos un array con todos los ajustes. Agregamos los cuatro nuevos:.
 	$settings = array(
 		// 1. Etiquetas (label).
-		'sbwscf_label_font_size'             => array(
+		'sbwscf_label_font_size'                 => array(
 			'default' => '16px',
 			'label'   => esc_html__( 'Label Font Size', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_label_font_color'            => array(
+		'sbwscf_label_font_color'                => array(
 			'default' => '#666666',
 			'label'   => esc_html__( 'Label Font Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_label_font_weight'           => array(
+		'sbwscf_label_font_weight'               => array(
 			'default' => 'normal',
 			'label'   => esc_html__( 'Label Font Weight', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -51,49 +51,49 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 			),
 		),
 		// 2. Inputs de texto.
-		'sbwscf_input_font_size'             => array(
+		'sbwscf_input_font_size'                 => array(
 			'default' => '16px',
 			'label'   => esc_html__( 'Input Font Size', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_input_line_height'           => array(
+		'sbwscf_input_line_height'               => array(
 			'default' => '1.5',
 			'label'   => esc_html__( 'Input Line Height', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_input_padding'               => array(
+		'sbwscf_input_padding'                   => array(
 			'default' => '1rem',
 			'label'   => esc_html__( 'Input Field Padding', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
 		// 3. Placeholder
-		'sbwscf_placeholder_font_size'       => array(
+		'sbwscf_placeholder_font_size'           => array(
 			'default' => '16px',
 			'label'   => esc_html__( 'Placeholder Font Size', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_placeholder_font_color'      => array(
+		'sbwscf_placeholder_font_color'          => array(
 			'default' => '#7a7a7a',
 			'label'   => esc_html__( 'Placeholder Font Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
 		// 4. Campos de entrada (borde, radio).
-		'sbwscf_input_width'                 => array(
+		'sbwscf_input_width'                     => array(
 			'default' => '100%',
 			'label'   => esc_html__( 'Input Field Width', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_field_border_color'          => array(
+		'sbwscf_field_border_color'              => array(
 			'default' => '#cccccc',
 			'label'   => esc_html__( 'Field Border Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_field_border_width'          => array(
+		'sbwscf_field_border_width'              => array(
 			'default' => '1px',
 			'label'   => esc_html__( 'Field Border Width', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_field_border_style'          => array(
+		'sbwscf_field_border_style'              => array(
 			'default' => 'solid',
 			'label'   => esc_html__( 'Field Border Style', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -105,46 +105,46 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 				'none'   => esc_html__( 'None', 'smile-basic-web' ),
 			),
 		),
-		'sbwscf_field_border_radius'         => array(
+		'sbwscf_field_border_radius'             => array(
 			'default' => '4px',
 			'label'   => esc_html__( 'Field Border Radius', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
 
 		// 5. Textarea.
-		'sbwscf_textarea_width'              => array(
+		'sbwscf_textarea_width'                  => array(
 			'default' => '100%',
 			'label'   => esc_html__( 'Textarea Width', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_textarea_height'             => array(
+		'sbwscf_textarea_height'                 => array(
 			'default' => '150px',
 			'label'   => esc_html__( 'Textarea Height', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
 
 		// 6. SELECT (Single y Multiple).
-		'sbwscf_select_font_size'            => array(
+		'sbwscf_select_font_size'                => array(
 			'default' => '16px',
 			'label'   => esc_html__( 'Select Font Size', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_select_font_color'           => array(
+		'sbwscf_select_font_color'               => array(
 			'default' => '#000000',
 			'label'   => esc_html__( 'Select Font Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_select_border_color'         => array(
+		'sbwscf_select_border_color'             => array(
 			'default' => '#cccccc',
 			'label'   => esc_html__( 'Select Border Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_select_border_width'         => array(
+		'sbwscf_select_border_width'             => array(
 			'default' => '1px',
 			'label'   => esc_html__( 'Select Border Width', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_select_border_style'         => array(
+		'sbwscf_select_border_style'             => array(
 			'default' => 'solid',
 			'label'   => esc_html__( 'Select Border Style', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -156,12 +156,12 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 				'none'   => esc_html__( 'None', 'smile-basic-web' ),
 			),
 		),
-		'sbwscf_select_border_radius'        => array(
+		'sbwscf_select_border_radius'            => array(
 			'default' => '1px',
 			'label'   => esc_html__( 'Select Border Radius', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_select_font_weight'          => array(
+		'sbwscf_select_font_weight'              => array(
 			'default' => 'normal',
 			'label'   => esc_html__( 'Select Font Weight', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -172,27 +172,27 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 				'bolder'  => esc_html__( 'Bolder', 'smile-basic-web' ),
 			),
 		),
-		'sbwscf_select_background'           => array(
+		'sbwscf_select_background'               => array(
 			'default' => '#efefef',
 			'label'   => esc_html__( 'Select Background (Single/Multi)', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_select_menu_background'      => array(
+		'sbwscf_select_menu_background'          => array(
 			'default' => '#ffffff',
 			'label'   => esc_html__( 'Select Menu Background (Single/Multi)', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_select_width'                => array(
+		'sbwscf_select_width'                    => array(
 			'default' => '100%',
 			'label'   => esc_html__( 'Select Width (Single/Multi)', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_select_height'               => array(
+		'sbwscf_select_height'                   => array(
 			'default' => '3rem',
 			'label'   => esc_html__( 'Select Height (Single/Multi)', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_select_text_align'           => array(
+		'sbwscf_select_text_align'               => array(
 			'default' => 'left',
 			'label'   => esc_html__( 'Select Text Align (Single/Multi)', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -202,59 +202,59 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 				'right'  => esc_html__( 'Right', 'smile-basic-web' ),
 			),
 		),
-               'sbwscf_consent_instructions_font_color' => array(
-                       'default' => '#666666',
-                       'label'   => esc_html__( 'Consent Instructions Font Color', 'smile-basic-web' ),
-                       'type'    => 'color',
-               ),
-               'sbwscf_consent_instructions_font_size'  => array(
-                       'default' => '14px',
-                       'label'   => esc_html__( 'Consent Instructions Font Size', 'smile-basic-web' ),
-                       'type'    => 'text',
-               ),
-                // Nuevo: Tamaño de fuente para el texto explicativo.
-                'sbwscf_form_explanation_font_size'   => array(
-                        'default' => '14px',
-                        'label'   => esc_html__( 'Form Explanation Font Size', 'smile-basic-web' ),
-                        'type'    => 'text',
-                ),
-                'sbwscf_form_explanation_font_color' => array(
-                        'default' => '#666666',
-                        'label'   => esc_html__( 'Form Explanation Font Color', 'smile-basic-web' ),
-                        'type'    => 'color',
-                ),
-                // 7. Submit button.
-                'sbwscf_submit_button_color'         => array(
-			'default' => '#2b71f2',
-			'label'   => esc_html__( 'Submit Button Background Color', 'smile-basic-web' ),
+		'sbwscf_consent_instructions_font_color' => array(
+			'default' => '#666666',
+			'label'   => esc_html__( 'Consent Instructions Font Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_submit_button_hover_color'   => array(
+		'sbwscf_consent_instructions_font_size'  => array(
+			'default' => '14px',
+			'label'   => esc_html__( 'Consent Instructions Font Size', 'smile-basic-web' ),
+			'type'    => 'text',
+		),
+		// Nuevo: Tamaño de fuente para el texto explicativo.
+		'sbwscf_form_explanation_font_size'      => array(
+			'default' => '14px',
+			'label'   => esc_html__( 'Form Explanation Font Size', 'smile-basic-web' ),
+			'type'    => 'text',
+		),
+		'sbwscf_form_explanation_font_color'     => array(
+			'default' => '#666666',
+			'label'   => esc_html__( 'Form Explanation Font Color', 'smile-basic-web' ),
+			'type'    => 'color',
+		),
+		// 7. Submit button.
+				'sbwscf_submit_button_color'     => array(
+					'default' => '#2b71f2',
+					'label'   => esc_html__( 'Submit Button Background Color', 'smile-basic-web' ),
+					'type'    => 'color',
+				),
+		'sbwscf_submit_button_hover_color'       => array(
 			'default' => '#00a2f9',
 			'label'   => esc_html__( 'Submit Button Hover Background Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_submit_button_font_color'    => array(
+		'sbwscf_submit_button_font_color'        => array(
 			'default' => '#ffffff',
 			'label'   => esc_html__( 'Submit Button Font Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_submit_button_font_size'     => array(
+		'sbwscf_submit_button_font_size'         => array(
 			'default' => '16px',
 			'label'   => esc_html__( 'Submit Button Font Size', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_submit_button_border_color'  => array(
+		'sbwscf_submit_button_border_color'      => array(
 			'default' => '#006799',
 			'label'   => esc_html__( 'Submit Button Border Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_submit_button_border_width'  => array(
+		'sbwscf_submit_button_border_width'      => array(
 			'default' => '1px',
 			'label'   => esc_html__( 'Submit Button Border Width', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_submit_button_border_style'  => array(
+		'sbwscf_submit_button_border_style'      => array(
 			'default' => 'solid',
 			'label'   => esc_html__( 'Submit Button Border Style', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -266,7 +266,7 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 				'none'   => esc_html__( 'None', 'smile-basic-web' ),
 			),
 		),
-		'sbwscf_submit_button_font_weight'   => array(
+		'sbwscf_submit_button_font_weight'       => array(
 			'default' => 'bold',
 			'label'   => esc_html__( 'Submit Button Font Weight', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -277,22 +277,22 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 				'bolder'  => esc_html__( 'Bolder', 'smile-basic-web' ),
 			),
 		),
-		'sbwscf_submit_button_border_radius' => array(
+		'sbwscf_submit_button_border_radius'     => array(
 			'default' => '4px',
 			'label'   => esc_html__( 'Submit Button Border Radius', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_submit_button_width'         => array(
+		'sbwscf_submit_button_width'             => array(
 			'default' => '20rem',
 			'label'   => esc_html__( 'Submit Button Width', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_submit_button_height'        => array(
+		'sbwscf_submit_button_height'            => array(
 			'default' => '2.5rem',
 			'label'   => esc_html__( 'Submit Button Height', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_submit_button_alignment'     => array(
+		'sbwscf_submit_button_alignment'         => array(
 			'default' => 'center',
 			'label'   => esc_html__( 'Submit Button Alignment', 'smile-basic-web' ),
 			'type'    => 'select',
@@ -304,36 +304,36 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
 		),
 
 		// 8. Links.
-		'sbwscf_links_color'                 => array(
+		'sbwscf_links_color'                     => array(
 			'default' => '#0073aa',
 			'label'   => esc_html__( 'Links Color (Privacy / Legal)', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
 
 		// 9. Recaptcha margin.
-		'sbwscf_recaptcha_margin_bottom'     => array(
+		'sbwscf_recaptcha_margin_bottom'         => array(
 			'default' => '20px',
 			'label'   => esc_html__( 'Recaptcha Bottom Margin', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
 
 		// NUEVAS OPCIONES: Mensajes de error y éxito.
-		'sbwscf_error_msg_color'             => array(
+		'sbwscf_error_msg_color'                 => array(
 			'default' => '#ff0044',
 			'label'   => esc_html__( 'Error Message Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_error_msg_font_size'         => array(
+		'sbwscf_error_msg_font_size'             => array(
 			'default' => '1.3rem',
 			'label'   => esc_html__( 'Error Message Font Size', 'smile-basic-web' ),
 			'type'    => 'text',
 		),
-		'sbwscf_success_msg_color'           => array(
+		'sbwscf_success_msg_color'               => array(
 			'default' => '#00c64f',
 			'label'   => esc_html__( 'Success Message Color', 'smile-basic-web' ),
 			'type'    => 'color',
 		),
-		'sbwscf_success_msg_font_size'       => array(
+		'sbwscf_success_msg_font_size'           => array(
 			'default' => '1.3rem',
 			'label'   => esc_html__( 'Success Message Font Size', 'smile-basic-web' ),
 			'type'    => 'text',
@@ -375,14 +375,14 @@ function sbwscf_contactform_customize_register( WP_Customize_Manager $wp_customi
  */
 function sbwscf_contactform_output_customizer_css() {
 
-       // 1. Etiquetas.
-       $label_font_size                     = get_theme_mod( 'sbwscf_label_font_size', '16px' );
-       $label_font_color                    = get_theme_mod( 'sbwscf_label_font_color', '#666666' );
-       $label_font_weight                   = get_theme_mod( 'sbwscf_label_font_weight', 'normal' );
-       $consent_instructions_font_color     = get_theme_mod( 'sbwscf_consent_instructions_font_color', '#666666' );
-       $consent_instructions_font_size      = get_theme_mod( 'sbwscf_consent_instructions_font_size', '14px' );
-       $form_explanation_font_size          = get_theme_mod( 'sbwscf_form_explanation_font_size', '14px' );
-       $form_explanation_font_color         = get_theme_mod( 'sbwscf_form_explanation_font_color', '#666666' );
+		// 1. Etiquetas.
+		$label_font_size                 = get_theme_mod( 'sbwscf_label_font_size', '16px' );
+		$label_font_color                = get_theme_mod( 'sbwscf_label_font_color', '#666666' );
+		$label_font_weight               = get_theme_mod( 'sbwscf_label_font_weight', 'normal' );
+		$consent_instructions_font_color = get_theme_mod( 'sbwscf_consent_instructions_font_color', '#666666' );
+		$consent_instructions_font_size  = get_theme_mod( 'sbwscf_consent_instructions_font_size', '14px' );
+		$form_explanation_font_size      = get_theme_mod( 'sbwscf_form_explanation_font_size', '14px' );
+		$form_explanation_font_color     = get_theme_mod( 'sbwscf_form_explanation_font_color', '#666666' );
 
 	// 2. Inputs.
 	$input_font_size   = get_theme_mod( 'sbwscf_input_font_size', '16px' );
@@ -457,34 +457,34 @@ function sbwscf_contactform_output_customizer_css() {
 
 /* Nueva regla para el Texto explicativo de los fines del formulario */
 .sbwscf-contact-form .sbwscf-form-explanation {
-        font-size: <?php echo esc_attr( $form_explanation_font_size ); ?>;
-        color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
+		font-size: <?php echo esc_attr( $form_explanation_font_size ); ?>;
+		color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
 }
 
 .sbwscf-contact-form .sbwscf-form-explanation p {
-        font-size: inherit;
+		font-size: inherit;
 }
 
 section .sbwscf-contact-form .sbwscf-form-explanation p:not(.text-emphasis):not(.h2) {
-        color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
+		color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
 }
 
 section .sbwscf-contact-form .sbwscf-form-explanation :is(ol, ul, li) {
-        color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
+		color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
 }
 
 section .sbwscf-contact-form .sbwscf-form-explanation li::marker {
-        color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
+		color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
 }
 
 section .sbwscf-contact-form .sbwscf-form-explanation li :is(strong, em, b) {
-        color: inherit;
+		color: inherit;
 }
 
 section .sbwscf-contact-form p.sbwscf-consent-instructions,
 .sbwscf-contact-form .sbwscf-consent-instructions {
-        color: <?php echo esc_attr( $consent_instructions_font_color ); ?> !important;
-        font-size: <?php echo esc_attr( $consent_instructions_font_size ); ?>;
+		color: <?php echo esc_attr( $consent_instructions_font_color ); ?> !important;
+		font-size: <?php echo esc_attr( $consent_instructions_font_size ); ?>;
 }
 
 /* ==================== */

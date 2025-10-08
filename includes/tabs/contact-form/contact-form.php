@@ -302,15 +302,15 @@ if ( ! class_exists( 'SMiLE_Contact_Form' ) ) :
 		</p>
 		<?php endif; ?>
 
-                        <?php if ( ! empty( $settings['form_explanation'] ) ) : ?>
-                <div class="sbwscf-form-explanation">
-                        <?php
-                        $explanation = isset( $settings['form_explanation'] ) ? wp_kses_post( $settings['form_explanation'] ) : '';
-                        $explanation = wpautop( $explanation );
-                        echo wp_kses_post( $explanation );
-                        ?>
-                </div>
-                <?php endif; ?>
+						<?php if ( ! empty( $settings['form_explanation'] ) ) : ?>
+				<div class="sbwscf-form-explanation">
+							<?php
+							$explanation = isset( $settings['form_explanation'] ) ? wp_kses_post( $settings['form_explanation'] ) : '';
+							$explanation = wpautop( $explanation );
+							echo wp_kses_post( $explanation );
+							?>
+				</div>
+				<?php endif; ?>
 
 		<div id="sbwscf-form-messages"></div>
 
