@@ -305,7 +305,11 @@ if ( ! class_exists( 'SMiLE_Contact_Form' ) ) :
 			<?php if ( ! empty( $settings['form_explanation'] ) ) : ?>
 		<p class="sbwscf-form-explanation">
 			<label>
-				<?php echo wp_kses_post( nl2br( $settings['form_explanation'] ) ); ?>
+                                <?php
+                                $explanation = isset( $settings['form_explanation'] ) ? wp_kses_post( $settings['form_explanation'] ) : '';
+                                $explanation = wpautop( $explanation );
+                                echo wp_kses_post( $explanation );
+                                ?>
 			</label>
 		</p>
 		<?php endif; ?>
