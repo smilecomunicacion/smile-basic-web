@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SMiLE Basic Web 1.3.6\n"
+"Project-Id-Version: SMiLE Basic Web 1.3.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smile-basic-web\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-02T09:39:22+00:00\n"
+"POT-Creation-Date: 2025-10-08T12:14:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: smile-basic-web\n"
@@ -47,431 +47,439 @@ msgstr ""
 
 #: includes/tabs/contact-form/class-sbwscf-contactform-page.php:88
 #: includes/tabs/contact-form/contact-form-settings.php:54
-#: includes/tabs/contact-form/contact-form-settings.php:331
+#: includes/tabs/contact-form/contact-form-settings.php:334
 msgid "Thank you for contacting us. Here is a copy of your message:"
 msgstr ""
 
 #. translators: %s is the placeholder for the privacy policy page link.
 #: includes/tabs/contact-form/class-sbwscf-contactform-page.php:93
-#: includes/tabs/contact-form/contact-form-settings.php:418
-#: includes/tabs/contact-form/contact-form.php:249
+#: includes/tabs/contact-form/contact-form-settings.php:421
+#: includes/tabs/contact-form/contact-form.php:255
 #, php-format
 msgid "I have read and accept the %s"
 msgstr ""
 
 #. translators: %s is the placeholder for the legal notice page link.
 #: includes/tabs/contact-form/class-sbwscf-contactform-page.php:96
-#: includes/tabs/contact-form/contact-form-settings.php:458
-#: includes/tabs/contact-form/contact-form.php:265
+#: includes/tabs/contact-form/contact-form-settings.php:461
+#: includes/tabs/contact-form/contact-form.php:271
 #, php-format
 msgid "I accept the %s"
 msgstr ""
 
 #. translators: %s is the placeholder for the terms and conditions page link.
 #: includes/tabs/contact-form/class-sbwscf-contactform-page.php:99
-#: includes/tabs/contact-form/contact-form-settings.php:500
-#: includes/tabs/contact-form/contact-form.php:281
+#: includes/tabs/contact-form/contact-form-settings.php:503
+#: includes/tabs/contact-form/contact-form.php:287
 #, php-format
 msgid "I agree to the %s"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:103
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:104
 msgid "Notice: The content of this email and attachments is strictly confidential. If you are not the intended recipient and have received this message in error, please notify the sender immediately without disseminating, storing, or copying its content."
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:116
-#: includes/tabs/contact-form/contact-form-settings.php:664
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:117
+#: includes/tabs/contact-form/contact-form-settings.php:689
 #: includes/tabs/cookies/cookies-settings.php:429
 msgid "Name"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:120
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:121
 msgid "Enter your name"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:123
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:317
-#: includes/tabs/contact-form/contact-form-settings.php:720
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:124
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:320
+#: includes/tabs/contact-form/contact-form-settings.php:745
 msgid "Email"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:127
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:128
 msgid "Enter your email address"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:130
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:131
 msgid "Message"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:134
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:135
 msgid "Type your message here"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:165
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:166
 msgid "SMTP Configuration"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:172
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:173
 msgid "Custom Fields"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:209
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:211
 msgid "Host"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:210
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:212
 msgid "Port"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:211
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:213
 msgid "Username"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:212
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:214
 msgid "Password"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:213
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:215
 msgid "Encryption"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:214
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:216
 msgid "From Email"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:215
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:217
 msgid "From Name"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:216
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:218
 msgid "Send Copy To User"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:217
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:219
 msgid "Copy Message"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:218
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:220
 msgid "Logo Id"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:219
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:221
 msgid "Company URL"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:220
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:222
+msgid "Consent Instructions"
+msgstr ""
+
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:223
 #: includes/tabs/cookies/cookies-settings.php:130
 msgid "Privacy Policy Page"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:221
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:224
 msgid "Privacy Policy Text"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:222
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:225
 #: includes/tabs/cookies/cookies-settings.php:152
 msgid "Legal Notice Page"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:223
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:226
 msgid "Legal Notice Text"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:224
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:227
 msgid "Terms & Conditions Page"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:225
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:228
 msgid "Terms & Conditions Text"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:226
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:229
 msgid "Enable Marketing Opt-in"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:227
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:230
 msgid "Marketing Opt-in Text"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:228
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:231
 msgid "Form Explanation"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:229
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:232
 msgid "Footer Notice"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:230
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:233
 msgid "Enable reCAPTCHA v3"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:231
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:234
 msgid "reCAPTCHA Site Key"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:232
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:235
 msgid "reCAPTCHA Secret Key"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:248
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:251
 msgid "Manage Custom Fields"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:316
-#: includes/tabs/contact-form/contact-form-settings.php:717
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:319
+#: includes/tabs/contact-form/contact-form-settings.php:742
 msgid "Text"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:318
-#: includes/tabs/contact-form/contact-form-settings.php:726
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:321
+#: includes/tabs/contact-form/contact-form-settings.php:751
 msgid "Textarea"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:319
-#: includes/tabs/contact-form/contact-form-settings.php:729
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:322
+#: includes/tabs/contact-form/contact-form-settings.php:754
 msgid "Number"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:320
-#: includes/tabs/contact-form/contact-form-settings.php:732
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:323
+#: includes/tabs/contact-form/contact-form-settings.php:757
 msgid "URL"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:321
-#: includes/tabs/contact-form/contact-form-settings.php:735
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:324
+#: includes/tabs/contact-form/contact-form-settings.php:760
 msgid "Telephone"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:322
-#: includes/tabs/contact-form/contact-form-settings.php:766
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:325
+#: includes/tabs/contact-form/contact-form-settings.php:791
 #: includes/tabs/cookies/cookies-settings.php:444
 msgid "Delete"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:323
-#: includes/tabs/contact-form/contact-form-settings.php:691
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:326
+#: includes/tabs/contact-form/contact-form-settings.php:716
 msgid "Move Up"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:324
-#: includes/tabs/contact-form/contact-form-settings.php:695
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:327
+#: includes/tabs/contact-form/contact-form-settings.php:720
 msgid "Move Down"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:325
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:328
 msgid "Enter your options separated by the vertical bar (|)."
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:354
-#: includes/tabs/contact-form/contact-form-settings.php:197
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:357
+#: includes/tabs/contact-form/contact-form-settings.php:200
 msgid "Contact Form Settings"
 msgstr ""
 
-#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:356
+#: includes/tabs/contact-form/class-sbwscf-contactform-page.php:359
 msgid "Use the shortcode [smile_contact_form] to embed the form."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:96
+#: includes/tabs/contact-form/contact-form-settings.php:99
 msgid "reCAPTCHA is enabled. Both Site Key and Secret Key are required."
 msgstr ""
 
 #. Translators: %s is a field name which has been duplicated in the form.
-#: includes/tabs/contact-form/contact-form-settings.php:165
+#: includes/tabs/contact-form/contact-form-settings.php:168
 #, php-format
 msgid "Duplicate field name \"%s\" is not allowed. Please change it."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:198
+#: includes/tabs/contact-form/contact-form-settings.php:201
 msgid "Use the shortcode [smile_contact_form] to insert the form."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:223
+#: includes/tabs/contact-form/contact-form-settings.php:226
 msgid "SMTP server for sending emails."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:235
+#: includes/tabs/contact-form/contact-form-settings.php:238
 msgid "SMTP port."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:247
+#: includes/tabs/contact-form/contact-form-settings.php:250
 msgid "SMTP username."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:259
+#: includes/tabs/contact-form/contact-form-settings.php:262
 msgid "SMTP password."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:271
-#: includes/tabs/contact-form/contact-form-settings.php:400
-#: includes/tabs/contact-form/contact-form-settings.php:440
-#: includes/tabs/contact-form/contact-form-settings.php:481
+#: includes/tabs/contact-form/contact-form-settings.php:274
+#: includes/tabs/contact-form/contact-form-settings.php:403
+#: includes/tabs/contact-form/contact-form-settings.php:443
+#: includes/tabs/contact-form/contact-form-settings.php:484
 #: includes/tabs/contact-form/customizer.php:105
 #: includes/tabs/contact-form/customizer.php:156
-#: includes/tabs/contact-form/customizer.php:251
+#: includes/tabs/contact-form/customizer.php:261
 #: includes/tabs/cookies/cookies-settings.php:301
 msgid "None"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:274
+#: includes/tabs/contact-form/contact-form-settings.php:277
 msgid "TLS"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:277
+#: includes/tabs/contact-form/contact-form-settings.php:280
 msgid "SSL"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:280
+#: includes/tabs/contact-form/contact-form-settings.php:283
 msgid "SMTP encryption type."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:292
+#: includes/tabs/contact-form/contact-form-settings.php:295
 msgid "Sender email address."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:304
+#: includes/tabs/contact-form/contact-form-settings.php:307
 msgid "Sender name."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:317
+#: includes/tabs/contact-form/contact-form-settings.php:320
 msgid "Send a copy of the email to the user who filled out the form."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:320
+#: includes/tabs/contact-form/contact-form-settings.php:323
 msgid "If selected, the user will receive a copy of their message."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:333
+#: includes/tabs/contact-form/contact-form-settings.php:336
 msgid "Message that will be sent to the user along with a copy of their message."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:358
+#: includes/tabs/contact-form/contact-form-settings.php:361
 msgid "Company Logo"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:364
+#: includes/tabs/contact-form/contact-form-settings.php:367
 msgid "Select Logo"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:368
+#: includes/tabs/contact-form/contact-form-settings.php:371
 msgid "Remove Logo"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:371
+#: includes/tabs/contact-form/contact-form-settings.php:374
 msgid "Select a logo from the media library to include in the user copy email."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:385
+#: includes/tabs/contact-form/contact-form-settings.php:388
 msgid "Enter the URL of your company. The logo in the user copy email will link to this URL."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:409
+#: includes/tabs/contact-form/contact-form-settings.php:412
 msgid "Select the page for your privacy policy."
 msgstr ""
 
 #. translators: %s is the placeholder where the privacy policy page link will appear.
-#: includes/tabs/contact-form/contact-form-settings.php:425
+#: includes/tabs/contact-form/contact-form-settings.php:428
 #, php-format
 msgid "Text displayed next to the checkbox. Use %s where the privacy policy page link should appear."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:449
+#: includes/tabs/contact-form/contact-form-settings.php:452
 msgid "Select the page for your legal notice."
 msgstr ""
 
 #. translators: %s is the placeholder where the legal notice page link should appear in the checkbox text.
-#: includes/tabs/contact-form/contact-form-settings.php:465
+#: includes/tabs/contact-form/contact-form-settings.php:468
 #, php-format
 msgid "Text displayed next to the checkbox. Use %s where the legal notice page link should appear."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:490
+#: includes/tabs/contact-form/contact-form-settings.php:493
 msgid "Select the page for your Terms & Conditions."
 msgstr ""
 
 #. translators: %s is the placeholder where the terms and conditions page link will appear in the checkbox text.
-#: includes/tabs/contact-form/contact-form-settings.php:507
+#: includes/tabs/contact-form/contact-form-settings.php:510
 #, php-format
 msgid "Text displayed next to the checkbox. Use %s where the terms and conditions page link should appear."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:521
+#: includes/tabs/contact-form/contact-form-settings.php:524
 msgid "Activate Marketing Opt-In field"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:523
+#: includes/tabs/contact-form/contact-form-settings.php:526
 msgid "Show a marketing opt-in checkbox below Legal Notice."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:538
+#: includes/tabs/contact-form/contact-form-settings.php:541
 msgid "Text displayed next to the marketing opt-in checkbox."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:552
-msgid "Text explaining the purpose of the contact form."
+#: includes/tabs/contact-form/contact-form-settings.php:565
+msgid "Use formatting to explain the purpose of the contact form."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:565
+#: includes/tabs/contact-form/contact-form-settings.php:577
+msgid "Text displayed before the privacy and legal consent checkboxes."
+msgstr ""
+
+#: includes/tabs/contact-form/contact-form-settings.php:590
 msgid "Enter the footer notice to be appended at the bottom of the email."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:578
+#: includes/tabs/contact-form/contact-form-settings.php:603
 msgid "Enable reCAPTCHA v3 on the form"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:592
+#: includes/tabs/contact-form/contact-form-settings.php:617
 msgid "Enter the reCAPTCHA v3 Site Key."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:605
+#: includes/tabs/contact-form/contact-form-settings.php:630
 msgid "Enter the reCAPTCHA v3 Secret Key."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:662
+#: includes/tabs/contact-form/contact-form-settings.php:687
 msgid "Order"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:663
+#: includes/tabs/contact-form/contact-form-settings.php:688
 msgid "Label"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:665
+#: includes/tabs/contact-form/contact-form-settings.php:690
 msgid "Type"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:666
+#: includes/tabs/contact-form/contact-form-settings.php:691
 msgid "Required"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:667
+#: includes/tabs/contact-form/contact-form-settings.php:692
 msgid "Placeholder"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:668
+#: includes/tabs/contact-form/contact-form-settings.php:693
 msgid "Options"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:669
+#: includes/tabs/contact-form/contact-form-settings.php:694
 #: includes/tabs/cookies/cookies-settings.php:432
 msgid "Actions"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:723
+#: includes/tabs/contact-form/contact-form-settings.php:748
 msgid "User Email"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:738
+#: includes/tabs/contact-form/contact-form-settings.php:763
 msgid "Select (Single)"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:741
+#: includes/tabs/contact-form/contact-form-settings.php:766
 msgid "Select (Multiple)"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:760
+#: includes/tabs/contact-form/contact-form-settings.php:785
 msgid "Enter options separated by a vertical bar (|)."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form-settings.php:778
+#: includes/tabs/contact-form/contact-form-settings.php:803
 msgid "Add Field"
 msgstr ""
 
@@ -480,7 +488,7 @@ msgid "An error occurred while processing the request. Please try again later."
 msgstr ""
 
 #: includes/tabs/contact-form/contact-form.php:126
-#: includes/tabs/contact-form/contact-form.php:360
+#: includes/tabs/contact-form/contact-form.php:370
 msgid "Error verifying reCAPTCHA. Please try again later."
 msgstr ""
 
@@ -506,99 +514,99 @@ msgstr ""
 msgid "Select options"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:310
+#: includes/tabs/contact-form/contact-form.php:320
 msgid "Submit"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:326
+#: includes/tabs/contact-form/contact-form.php:336
 msgid "Form security not verified."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:342
+#: includes/tabs/contact-form/contact-form.php:352
 msgid "reCAPTCHA token not received."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:364
+#: includes/tabs/contact-form/contact-form.php:374
 msgid "Could not verify reCAPTCHA. Please try again."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:366
+#: includes/tabs/contact-form/contact-form.php:376
 msgid "Suspicious activity detected (low score). reCAPTCHA failed."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:374
+#: includes/tabs/contact-form/contact-form.php:384
 msgid "You must accept the privacy policy."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:379
+#: includes/tabs/contact-form/contact-form.php:389
 msgid "You must accept the legal notice."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:385
+#: includes/tabs/contact-form/contact-form.php:395
 msgid "You must accept the terms and conditions."
 msgstr ""
 
 #. translators: %s: placeholder for the human-readable label of the multiple selection field.
-#: includes/tabs/contact-form/contact-form.php:400
+#: includes/tabs/contact-form/contact-form.php:410
 #, php-format
 msgid "You must select at least one option in the field %s."
 msgstr ""
 
 #. translators: %s: the label of the single selection field that is required.
-#: includes/tabs/contact-form/contact-form.php:415
+#: includes/tabs/contact-form/contact-form.php:425
 #, php-format
 msgid "You must select an option in the field %s."
 msgstr ""
 
 #. translators: %s is the label of the textarea field that is required.
-#: includes/tabs/contact-form/contact-form.php:427
+#: includes/tabs/contact-form/contact-form.php:437
 #, php-format
 msgid "The textarea field %s is required."
 msgstr ""
 
 #. translators: %s is a placeholder for the field label. For instance, if the field is "Email", the placeholder will be replaced with "Email".
-#: includes/tabs/contact-form/contact-form.php:439
+#: includes/tabs/contact-form/contact-form.php:449
 #, php-format
 msgid "The field %s is required."
 msgstr ""
 
 #. translators: %s is the field label.
-#: includes/tabs/contact-form/contact-form.php:450
+#: includes/tabs/contact-form/contact-form.php:460
 #, php-format
 msgid "The field %s must be a valid email address."
 msgstr ""
 
 #. translators: %s is replaced with the field label that must be a valid URL.
-#: includes/tabs/contact-form/contact-form.php:454
+#: includes/tabs/contact-form/contact-form.php:464
 #, php-format
 msgid "The field %s must be a valid URL."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:482
+#: includes/tabs/contact-form/contact-form.php:492
 msgid "Yes"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:483
+#: includes/tabs/contact-form/contact-form.php:493
 msgid "No"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:489
+#: includes/tabs/contact-form/contact-form.php:499
 msgid "New contact message"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:516
+#: includes/tabs/contact-form/contact-form.php:526
 msgid "Message sent successfully!"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:518
+#: includes/tabs/contact-form/contact-form.php:528
 msgid "There was an error sending the message. Please try again later."
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:559
+#: includes/tabs/contact-form/contact-form.php:569
 msgid "Copy of your contact message"
 msgstr ""
 
-#: includes/tabs/contact-form/contact-form.php:625
+#: includes/tabs/contact-form/contact-form.php:635
 msgid "Anti-spam form customized by"
 msgstr ""
 
@@ -682,25 +690,25 @@ msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:47
 #: includes/tabs/contact-form/customizer.php:169
-#: includes/tabs/contact-form/customizer.php:259
+#: includes/tabs/contact-form/customizer.php:269
 msgid "Normal"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:48
 #: includes/tabs/contact-form/customizer.php:170
-#: includes/tabs/contact-form/customizer.php:260
+#: includes/tabs/contact-form/customizer.php:270
 msgid "Bold"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:49
 #: includes/tabs/contact-form/customizer.php:171
-#: includes/tabs/contact-form/customizer.php:261
+#: includes/tabs/contact-form/customizer.php:271
 msgid "Lighter"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:50
 #: includes/tabs/contact-form/customizer.php:172
-#: includes/tabs/contact-form/customizer.php:262
+#: includes/tabs/contact-form/customizer.php:272
 msgid "Bolder"
 msgstr ""
 
@@ -742,25 +750,25 @@ msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:101
 #: includes/tabs/contact-form/customizer.php:152
-#: includes/tabs/contact-form/customizer.php:247
+#: includes/tabs/contact-form/customizer.php:257
 msgid "Solid"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:102
 #: includes/tabs/contact-form/customizer.php:153
-#: includes/tabs/contact-form/customizer.php:248
+#: includes/tabs/contact-form/customizer.php:258
 msgid "Dashed"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:103
 #: includes/tabs/contact-form/customizer.php:154
-#: includes/tabs/contact-form/customizer.php:249
+#: includes/tabs/contact-form/customizer.php:259
 msgid "Dotted"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:104
 #: includes/tabs/contact-form/customizer.php:155
-#: includes/tabs/contact-form/customizer.php:250
+#: includes/tabs/contact-form/customizer.php:260
 msgid "Double"
 msgstr ""
 
@@ -825,96 +833,104 @@ msgid "Select Text Align (Single/Multi)"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:200
-#: includes/tabs/contact-form/customizer.php:285
+#: includes/tabs/contact-form/customizer.php:295
 #: includes/tabs/cookies/cookies-settings.php:395
 msgid "Left"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:201
-#: includes/tabs/contact-form/customizer.php:286
+#: includes/tabs/contact-form/customizer.php:296
 #: includes/tabs/cookies/cookies-settings.php:396
 msgid "Center"
 msgstr ""
 
 #: includes/tabs/contact-form/customizer.php:202
-#: includes/tabs/contact-form/customizer.php:287
+#: includes/tabs/contact-form/customizer.php:297
 #: includes/tabs/cookies/cookies-settings.php:397
 msgid "Right"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:208
+#: includes/tabs/contact-form/customizer.php:207
+msgid "Consent Instructions Font Color"
+msgstr ""
+
+#: includes/tabs/contact-form/customizer.php:212
+msgid "Consent Instructions Font Size"
+msgstr ""
+
+#: includes/tabs/contact-form/customizer.php:218
 msgid "Form Explanation Font Size"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:214
+#: includes/tabs/contact-form/customizer.php:224
 msgid "Submit Button Background Color"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:219
+#: includes/tabs/contact-form/customizer.php:229
 msgid "Submit Button Hover Background Color"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:224
+#: includes/tabs/contact-form/customizer.php:234
 msgid "Submit Button Font Color"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:229
+#: includes/tabs/contact-form/customizer.php:239
 msgid "Submit Button Font Size"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:234
+#: includes/tabs/contact-form/customizer.php:244
 msgid "Submit Button Border Color"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:239
+#: includes/tabs/contact-form/customizer.php:249
 msgid "Submit Button Border Width"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:244
+#: includes/tabs/contact-form/customizer.php:254
 msgid "Submit Button Border Style"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:256
+#: includes/tabs/contact-form/customizer.php:266
 msgid "Submit Button Font Weight"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:267
+#: includes/tabs/contact-form/customizer.php:277
 msgid "Submit Button Border Radius"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:272
+#: includes/tabs/contact-form/customizer.php:282
 msgid "Submit Button Width"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:277
+#: includes/tabs/contact-form/customizer.php:287
 msgid "Submit Button Height"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:282
+#: includes/tabs/contact-form/customizer.php:292
 msgid "Submit Button Alignment"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:294
+#: includes/tabs/contact-form/customizer.php:304
 msgid "Links Color (Privacy / Legal)"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:301
+#: includes/tabs/contact-form/customizer.php:311
 msgid "Recaptcha Bottom Margin"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:308
+#: includes/tabs/contact-form/customizer.php:318
 msgid "Error Message Color"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:313
+#: includes/tabs/contact-form/customizer.php:323
 msgid "Error Message Font Size"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:318
+#: includes/tabs/contact-form/customizer.php:328
 msgid "Success Message Color"
 msgstr ""
 
-#: includes/tabs/contact-form/customizer.php:323
+#: includes/tabs/contact-form/customizer.php:333
 msgid "Success Message Font Size"
 msgstr ""
 
