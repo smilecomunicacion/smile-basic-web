@@ -469,10 +469,22 @@ section .sbwscf-contact-form .sbwscf-form-explanation p:not(.text-emphasis):not(
         color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
 }
 
+section .sbwscf-contact-form .sbwscf-form-explanation :is(ol, ul, li) {
+        color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
+}
+
+section .sbwscf-contact-form .sbwscf-form-explanation li::marker {
+        color: <?php echo esc_attr( $form_explanation_font_color ); ?>;
+}
+
+section .sbwscf-contact-form .sbwscf-form-explanation li :is(strong, em, b) {
+        color: inherit;
+}
+
 section .sbwscf-contact-form p.sbwscf-consent-instructions,
 .sbwscf-contact-form .sbwscf-consent-instructions {
-       color: <?php echo esc_attr( $consent_instructions_font_color ); ?> !important;
-       font-size: <?php echo esc_attr( $consent_instructions_font_size ); ?>;
+        color: <?php echo esc_attr( $consent_instructions_font_color ); ?> !important;
+        font-size: <?php echo esc_attr( $consent_instructions_font_size ); ?>;
 }
 
 /* ==================== */
