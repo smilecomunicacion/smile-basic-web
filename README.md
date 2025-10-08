@@ -3,7 +3,7 @@ Contributors: smilecomunicacion
 Tags: contact, reCAPTCHA, SMTP, sitemaps, svg
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.3
+Stable tag: 1.3.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,11 @@ Yes. This plugin was built with GDPR and ePrivacy Directive in mind.
 Absolutely. You can register any custom script in the admin panel, along with a name and purpose.
 
 == Changelog ==
+
+= 1.3.9 =
+* UPDATED: Documented compatibility with WordPress 6.8 and modern PHP versions.
+* FIXED: Clarified consent-instructions workflow to prevent confusing field duplication in multilingual installs.
+* FIXED: Hardened sanitization around Customizer previews so live form styles render reliably.
 
 = 1.3.3 =
 * FIXED: allow pasting hexadecimal color values in the colour picker input.
