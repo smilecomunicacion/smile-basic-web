@@ -3,7 +3,7 @@ Contributors: smilecomunicacion
 Tags: contact, reCAPTCHA, SMTP, sitemaps, svg
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.7
+Stable tag: 1.3.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -110,6 +110,11 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 
 == Changelog ==
 
+= 1.3.8 =
+* NEW: Upgraded the Form Explanation setting to use the WordPress editor for bold text, separators, and other formatting.
+* UPDATED: Store formatted explanations with `wp_kses_post()` so only trusted HTML is saved.
+* UPDATED: Render explanation content with `wpautop()` to preserve administrator formatting on the front end.
+
 = 1.3.7 =
 * NEW: Added a consent instructions field so site owners can clarify data usage directly in the form.
 * UPDATED: Introduced style controls in the WordPress Customizer to fine-tune consent panel typography and colors.
@@ -187,6 +192,9 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 * Integrated Google reCAPTCHA v3.
 
 == Upgrade Notice ==
+
+= 1.3.8 =
+Upgrade to let administrators format the form explanation with headings, lists, and other safe HTML while ensuring the public view matches their layout.
 
 = 1.3.7 =
 Customize the consent experience with new instructions and appearance controls directly in the Customizer, improving clarity for visitors.
