@@ -217,7 +217,7 @@ if ( ! class_exists( 'SMiLE_Contact_Form' ) ) :
 			<?php
 				$input_type = ( 'email usuario' === $type ) ? 'email' : $type;
 			?>
-		<input type="<?php echo esc_attr( $input_type ); ?>" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>" <?php echo $required ? 'required="required"' : ''; ?> placeholder="<?php echo esc_attr( $placeholder ); ?>" 
+		<input type="<?php echo esc_attr( $input_type ); ?>" id="<?php echo esc_attr( 'sbwscf-' . $name ); ?>" name="<?php echo esc_attr( 'sbwscf_' . $name ); ?>" <?php echo $required ? 'required="required"' : ''; ?> placeholder="<?php echo esc_attr( $placeholder ); ?>"
 								<?php
 								if ( 'text' === $type ) {
 									echo 'maxlength="250"';
@@ -237,26 +237,26 @@ if ( ! class_exists( 'SMiLE_Contact_Form' ) ) :
 					<?php
 				endforeach;
 		endif;
-                        ?>
+			?>
 
-                        <?php if ( ! empty( $settings['consent_instructions'] ) ) : ?>
-                <p class="sbwscf-consent-instructions">
-                        <?php echo wp_kses_post( nl2br( $settings['consent_instructions'] ) ); ?>
-                </p>
-                <?php endif; ?>
+						<?php if ( ! empty( $settings['consent_instructions'] ) ) : ?>
+				<p class="sbwscf-consent-instructions">
+							<?php echo wp_kses_post( nl2br( $settings['consent_instructions'] ) ); ?>
+				</p>
+				<?php endif; ?>
 
-                        <?php if ( 0 !== $policy_page_id ) : ?>
-                <p>
-                        <label>
-                                <input type="checkbox" name="sbwscf_privacy_check" value="1" required>
-				<?php
-				$policy_text = $settings['privacy_policy_text']
-					/* translators: %s is the placeholder for the privacy policy page link. */
-					?? __( 'I have read and accept the %s', 'smile-basic-web' );
-				echo wp_kses_post(
-					nl2br( self::format_text_with_link( $policy_text, $policy_link ) )
-				);
-				?>
+						<?php if ( 0 !== $policy_page_id ) : ?>
+				<p>
+						<label>
+								<input type="checkbox" name="sbwscf_privacy_check" value="1" required>
+							<?php
+							$policy_text = $settings['privacy_policy_text']
+							/* translators: %s is the placeholder for the privacy policy page link. */
+							?? __( 'I have read and accept the %s', 'smile-basic-web' );
+							echo wp_kses_post(
+								nl2br( self::format_text_with_link( $policy_text, $policy_link ) )
+							);
+							?>
 			</label>
 		</p>
 		<?php endif; ?>
@@ -305,11 +305,11 @@ if ( ! class_exists( 'SMiLE_Contact_Form' ) ) :
 			<?php if ( ! empty( $settings['form_explanation'] ) ) : ?>
 		<p class="sbwscf-form-explanation">
 			<label>
-                                <?php
-                                $explanation = isset( $settings['form_explanation'] ) ? wp_kses_post( $settings['form_explanation'] ) : '';
-                                $explanation = wpautop( $explanation );
-                                echo wp_kses_post( $explanation );
-                                ?>
+								<?php
+								$explanation = isset( $settings['form_explanation'] ) ? wp_kses_post( $settings['form_explanation'] ) : '';
+								$explanation = wpautop( $explanation );
+								echo wp_kses_post( $explanation );
+								?>
 			</label>
 		</p>
 		<?php endif; ?>

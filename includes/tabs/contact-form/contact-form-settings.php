@@ -80,11 +80,11 @@ function smile_basic_web_sanitize_settings( $input ): array {
 	? sanitize_textarea_field( $input['marketing_text'] )
 	: '';
 	// Explanation & footer.
-        $sanitized['form_explanation']     = isset( $input['form_explanation'] )
-                ? wp_kses_post( $input['form_explanation'] )
-                : '';
-        $sanitized['consent_instructions'] = isset( $input['consent_instructions'] ) ? sanitize_textarea_field( $input['consent_instructions'] ) : '';
-        $sanitized['footer_notice']        = isset( $input['footer_notice'] ) ? sanitize_textarea_field( $input['footer_notice'] ) : '';
+		$sanitized['form_explanation']     = isset( $input['form_explanation'] )
+				? wp_kses_post( $input['form_explanation'] )
+				: '';
+		$sanitized['consent_instructions'] = isset( $input['consent_instructions'] ) ? sanitize_textarea_field( $input['consent_instructions'] ) : '';
+		$sanitized['footer_notice']        = isset( $input['footer_notice'] ) ? sanitize_textarea_field( $input['footer_notice'] ) : '';
 	// reCAPTCHA.
 	$sanitized['recaptcha_enabled']    = ! empty( $input['recaptcha_enabled'] );
 	$sanitized['recaptcha_site_key']   = isset( $input['recaptcha_site_key'] ) ? sanitize_text_field( $input['recaptcha_site_key'] ) : '';
@@ -548,34 +548,34 @@ function smile_basic_web_render_marketing_text_field() {
  * Renderiza el campo para el texto explicativo de los fines del formulario.
  */
 function smile_basic_web_render_form_explanation_field() {
-        $options = get_option( 'sbwscf_settings', array() );
-        $content = isset( $options['form_explanation'] ) ? wp_kses_post( $options['form_explanation'] ) : '';
+		$options = get_option( 'sbwscf_settings', array() );
+		$content = isset( $options['form_explanation'] ) ? wp_kses_post( $options['form_explanation'] ) : '';
 
-        wp_editor(
-                $content,
-                'sbwscf_form_explanation',
-                array(
-                        'textarea_name' => 'sbwscf_settings[form_explanation]',
-                        'textarea_rows' => 8,
-                        'teeny'         => true,
-                        'media_buttons' => false,
-                )
-        );
-        ?>
+		wp_editor(
+			$content,
+			'sbwscf_form_explanation',
+			array(
+				'textarea_name' => 'sbwscf_settings[form_explanation]',
+				'textarea_rows' => 8,
+				'teeny'         => true,
+				'media_buttons' => false,
+			)
+		);
+	?>
 <p class="description"><?php esc_html_e( 'Use formatting to explain the purpose of the contact form.', 'smile-basic-web' ); ?></p>
-        <?php
+		<?php
 }
 
 /**
  * Renderiza el campo Consent Instructions.
  */
 function smile_basic_web_render_consent_instructions_field() {
-        $options = get_option( 'sbwscf_settings', array() );
-        ?>
+		$options = get_option( 'sbwscf_settings', array() );
+	?>
 <textarea name="sbwscf_settings[consent_instructions]" rows="4" cols="50"
-        class="large-text"><?php echo esc_textarea( $options['consent_instructions'] ?? '' ); ?></textarea>
+		class="large-text"><?php echo esc_textarea( $options['consent_instructions'] ?? '' ); ?></textarea>
 <p class="description"><?php esc_html_e( 'Text displayed before the privacy and legal consent checkboxes.', 'smile-basic-web' ); ?></p>
-        <?php
+		<?php
 }
 
 /**
