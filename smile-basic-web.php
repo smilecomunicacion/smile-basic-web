@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SMiLE Basic Web
  * Description: Modular plugin bundling the Contact-Form and Sitemaps features.
- * Version:     1.3.8
+ * Version:     1.3.9
  * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:      smilecomunicacion
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit; // Prevent direct access.
 define( 'SMILE_BASIC_WEB_PLUGIN_FILE', __FILE__ );
 define( 'SMILE_BASIC_WEB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SMILE_BASIC_WEB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'SMILE_BASIC_WEB_VERSION', '1.3.8' );
+define( 'SMILE_BASIC_WEB_VERSION', '1.3.9' );
 
 /**
  * Main plugin singleton.
