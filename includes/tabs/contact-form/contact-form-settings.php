@@ -80,7 +80,9 @@ function smile_basic_web_sanitize_settings( $input ): array {
 	? sanitize_textarea_field( $input['marketing_text'] )
 	: '';
 	// Explanation & footer.
-        $sanitized['form_explanation']     = isset( $input['form_explanation'] ) ? sanitize_textarea_field( $input['form_explanation'] ) : '';
+        $sanitized['form_explanation']     = isset( $input['form_explanation'] )
+                ? wp_kses_post( $input['form_explanation'] )
+                : '';
         $sanitized['consent_instructions'] = isset( $input['consent_instructions'] ) ? sanitize_textarea_field( $input['consent_instructions'] ) : '';
         $sanitized['footer_notice']        = isset( $input['footer_notice'] ) ? sanitize_textarea_field( $input['footer_notice'] ) : '';
 	// reCAPTCHA.
@@ -547,10 +549,20 @@ function smile_basic_web_render_marketing_text_field() {
  */
 function smile_basic_web_render_form_explanation_field() {
         $options = get_option( 'sbwscf_settings', array() );
+        $content = isset( $options['form_explanation'] ) ? wp_kses_post( $options['form_explanation'] ) : '';
+
+        wp_editor(
+                $content,
+                'sbwscf_form_explanation',
+                array(
+                        'textarea_name' => 'sbwscf_settings[form_explanation]',
+                        'textarea_rows' => 8,
+                        'teeny'         => true,
+                        'media_buttons' => false,
+                )
+        );
         ?>
-<textarea name="sbwscf_settings[form_explanation]" rows="4" cols="50"
-        class="large-text"><?php echo esc_textarea( $options['form_explanation'] ?? '' ); ?></textarea>
-<p class="description"><?php esc_html_e( 'Text explaining the purpose of the contact form.', 'smile-basic-web' ); ?></p>
+<p class="description"><?php esc_html_e( 'Use formatting to explain the purpose of the contact form.', 'smile-basic-web' ); ?></p>
         <?php
 }
 
