@@ -48,7 +48,9 @@ function sbwscf_output_cookie_consent_panel(): void {
 	* Obtener opciones de configuración del usuario
 	* ------------------------------------------------------------------
 	*/
-	$message         = get_option( 'sbwscf_cookie_message', '' );
+        $message         = get_option( 'sbwscf_cookie_message', '' );
+        $panel_title     = get_option( 'sbwscf_cookie_panel_title', '' );
+        $panel_title     = '' !== trim( (string) $panel_title ) ? $panel_title : __( 'Manage Consent', 'smile-basic-web' );
 	$bg_color        = $color_or_default( 'sbwscf_cookie_color_background', '#fff' );
 	$text_color      = $color_or_default( 'sbwscf_cookie_color_text', '#000000' );
 	$accept_bg       = $color_or_default( 'sbwscf_cookie_color_accept', '#4caf50' );
@@ -100,12 +102,12 @@ function sbwscf_output_cookie_consent_panel(): void {
 <div id="sbwscf-smile-cookies-panel" class="sbwscf-smile-cookies-panel sbwscf-smile-size-<?php echo esc_attr( $panel_size ); ?>" role="dialog" aria-live="polite">
 	<div class="sbwscf-smile-cookies-box">
 		<div class="sbwscf-smile-cookies-header">
-			<strong class="sbwscf-smile-cookies-title"><?php esc_html_e( 'Manage Consent', 'smile-basic-web' ); ?></strong>
+                        <strong class="sbwscf-smile-cookies-title"><?php echo esc_html( $panel_title ); ?></strong>
 		</div>
 		<div class="sbwscf-smile-cookies-message">
 			<?php
-			if ( '' !== trim( $message ) ) {
-				echo wp_kses_post( wpautop( $message ) );
+                        if ( '' !== trim( wp_strip_all_tags( (string) $message ) ) ) {
+                                echo wp_kses_post( wpautop( $message ) );
 			} else {
 				esc_html_e( 'To offer the best experience, we use cookies to store or access device information. Your consent allows us to process browsing behavior or unique IDs on this site. Refusing or withdrawing consent may affect site features.', 'smile-basic-web' );
 			}
@@ -209,9 +211,9 @@ function sbwscf_output_cookie_consent_panel(): void {
 	$show_label_class   = get_option( 'sbwscf_show_manage_minified_label', '' ) === '1' ? 'show-label' : 'hide-label';
 	?>
 <div id="sbwscf-manage-consent-container" class="sbwscf-manage-consent-container sbwscf-position-<?php echo esc_attr( $minimized_position ); ?>">
-	<button id="sbwscf-manage-consent-btn" class="sbwscf-manage-consent-button <?php echo esc_attr( $show_label_class ); ?>">
-		<?php esc_html_e( 'Manage Consent', 'smile-basic-web' ); ?>
-	</button>
+        <button id="sbwscf-manage-consent-btn" class="sbwscf-manage-consent-button <?php echo esc_attr( $show_label_class ); ?>">
+                <?php echo esc_html( $panel_title ); ?>
+        </button>
 </div>
 
 
