@@ -25,17 +25,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (container) container.style.display = ''
         }
 
-	function restorePanel() {
-		if (panel) {
-			panel.style.display = 'flex'
-			matchButtonWidths()
-		}
-		if (container) container.style.display = 'none'
-		if (categoriesBox) {
-			categoriesBox.hidden = true
-		}
-                if (preferencesBtn) preferencesBtn.textContent = preferencesDefaultLabel
-	}
+        function restorePanel() {
+                const status = localStorage.getItem('sbwscf-cookie-status')
+
+                if (panel) {
+                        panel.style.display = 'flex'
+                }
+                if (container) container.style.display = 'none'
+
+                if (categoriesBox) {
+                        categoriesBox.hidden = !status
+                }
+
+                if (preferencesBtn) {
+                        preferencesBtn.textContent = status
+                                ? preferencesAcceptLabel
+                                : preferencesDefaultLabel
+                }
+
+                matchButtonWidths()
+        }
 
 	function savePreferences() {
 		const prefs = {}
@@ -204,20 +213,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	 */
 	const hasStorage = localStorage.getItem('sbwscf-cookie-status')
 
-	if (!hasStorage) {
-		// Primera visita: mostrar panel con categorías expandidas
-		if (panel) panel.style.display = 'flex'
-		if (container) container.style.display = 'none'
+        if (!hasStorage) {
+                // Primera visita: mostrar panel con las opciones generales
+                if (panel) panel.style.display = 'flex'
+                if (container) container.style.display = 'none'
 
-		if (categoriesBox) {
-			categoriesBox.hidden = false
-		}
+                if (categoriesBox) {
+                        categoriesBox.hidden = true
+                }
 
-                if (preferencesBtn) preferencesBtn.textContent = preferencesAcceptLabel
+                if (preferencesBtn) preferencesBtn.textContent = preferencesDefaultLabel
 
-		// Carga (vacía) preferencias y ajusta anchos
-		loadPreferences()
-		matchButtonWidths()
+                // Carga (vacía) preferencias y ajusta anchos
+                loadPreferences()
+                matchButtonWidths()
 	} else {
 		// Ya configurado: ocultar panel y mostrar manage consent
 		if (categoriesBox) categoriesBox.hidden = true
