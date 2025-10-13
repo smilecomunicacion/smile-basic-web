@@ -17,10 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	const preferenceInputs = document.querySelectorAll('[data-category]')
 	const categoriesBox = document.getElementById('sbwscf-cookie-categories')
 
-	function minimizePanel() {
-		if (panel) panel.style.display = 'none'
-		if (container) container.style.display = ''
-	}
+        const preferencesDefaultLabel = preferencesBtn?.dataset?.preferencesLabel || wp.i18n.__('Preferences', 'smile-basic-web')
+        const preferencesAcceptLabel = preferencesBtn?.dataset?.acceptPreferencesLabel || wp.i18n.__('Accept Preferences', 'smile-basic-web')
+
+        function minimizePanel() {
+                if (panel) panel.style.display = 'none'
+                if (container) container.style.display = ''
+        }
 
 	function restorePanel() {
 		if (panel) {
@@ -31,10 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (categoriesBox) {
 			categoriesBox.hidden = true
 		}
-		if (preferencesBtn) {
-			/* translators: Label for the Preferences button (initial and reset states). */
-			preferencesBtn.textContent = wp.i18n.__('Preferences', 'smile-basic-web')
-		}
+                if (preferencesBtn) preferencesBtn.textContent = preferencesDefaultLabel
 	}
 
 	function savePreferences() {
@@ -162,8 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (categoriesBox.hidden) {
 				categoriesBox.hidden = false
 
-				/* translators: Label for the Preferences button on initial load or expanded. */
-				preferencesBtn.textContent = wp.i18n.__('Accept Preferences', 'smile-basic-web')
+                                preferencesBtn.textContent = preferencesAcceptLabel
 
 				// Recalcular anchos para el nuevo texto
 				matchButtonWidths()
@@ -190,8 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				categoriesBox.hidden = true
 				minimizePanel()
 
-				/* translators: Label for the Preferences button (initial and reset states). */
-				preferencesBtn.textContent = wp.i18n.__('Preferences', 'smile-basic-web')
+                                preferencesBtn.textContent = preferencesDefaultLabel
 
 				// Recalcular anchos para restaurar
 				matchButtonWidths()
@@ -215,10 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			categoriesBox.hidden = false
 		}
 
-		if (preferencesBtn) {
-			/* translators: Label for the Preferences button on initial load or expanded. */
-			preferencesBtn.textContent = wp.i18n.__('Accept Preferences', 'smile-basic-web')
-		}
+                if (preferencesBtn) preferencesBtn.textContent = preferencesAcceptLabel
 
 		// Carga (vacía) preferencias y ajusta anchos
 		loadPreferences()
