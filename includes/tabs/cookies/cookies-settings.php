@@ -84,8 +84,12 @@ function sbwscf_cookies_register_settings(): void {
         $settings_to_register = array(
                 'sbwscf_cookie_panel_title'           => 'sbwscf_sanitize_cookie_title',
                 'sbwscf_cookie_message'                => 'sbwscf_sanitize_cookie_message',
-		'sbwscf_cookie_panel_size'             => 'sanitize_text_field',
-		'sbwscf_cookie_minimized_position'     => 'sanitize_text_field',
+                'sbwscf_cookie_label_accept_all'       => 'sbwscf_sanitize_cookie_label',
+                'sbwscf_cookie_label_deny_all'         => 'sbwscf_sanitize_cookie_label',
+                'sbwscf_cookie_label_preferences'      => 'sbwscf_sanitize_cookie_label',
+                'sbwscf_cookie_label_accept_prefs'     => 'sbwscf_sanitize_cookie_label',
+                'sbwscf_cookie_panel_size'             => 'sanitize_text_field',
+                'sbwscf_cookie_minimized_position'     => 'sanitize_text_field',
 		'sbwscf_show_manage_minified_label'    => 'sbwscf_sanitize_checkbox',
 		'sbwscf_cookie_policy_page'            => 'absint',
 		'sbwscf_privacy_policy_page'           => 'absint',
@@ -132,7 +136,59 @@ function sbwscf_cookies_register_settings(): void {
                 'sbwscf_cookie_message_cb',
                 'sbwscf_cookies',
                 'sbwscf_cookies_panel_section'
-	);
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_label_accept_all',
+                esc_html__( 'Accept All button label', 'smile-basic-web' ),
+                'sbwscf_cookie_label_field_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section',
+                array(
+                        'option'      => 'sbwscf_cookie_label_accept_all',
+                        'default'     => __( 'Accept All', 'smile-basic-web' ),
+                        'description' => esc_html__( 'Text displayed on the "Accept All" button.', 'smile-basic-web' ),
+                )
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_label_deny_all',
+                esc_html__( 'Deny All button label', 'smile-basic-web' ),
+                'sbwscf_cookie_label_field_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section',
+                array(
+                        'option'      => 'sbwscf_cookie_label_deny_all',
+                        'default'     => __( 'Deny All', 'smile-basic-web' ),
+                        'description' => esc_html__( 'Text displayed on the "Deny All" button.', 'smile-basic-web' ),
+                )
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_label_preferences',
+                esc_html__( 'Preferences button label', 'smile-basic-web' ),
+                'sbwscf_cookie_label_field_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section',
+                array(
+                        'option'      => 'sbwscf_cookie_label_preferences',
+                        'default'     => __( 'Preferences', 'smile-basic-web' ),
+                        'description' => esc_html__( 'Text displayed on the "Preferences" button when collapsed.', 'smile-basic-web' ),
+                )
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_label_accept_prefs',
+                esc_html__( 'Accept Preferences button label', 'smile-basic-web' ),
+                'sbwscf_cookie_label_field_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section',
+                array(
+                        'option'      => 'sbwscf_cookie_label_accept_prefs',
+                        'default'     => __( 'Accept Preferences', 'smile-basic-web' ),
+                        'description' => esc_html__( 'Text displayed on the "Preferences" button after expanding the categories.', 'smile-basic-web' ),
+                )
+        );
 
 	add_settings_field(
 		'sbwscf_privacy_policy_page',
@@ -316,6 +372,35 @@ function sbwscf_cookie_message_cb(): void {
         );
 
         echo '<p class="description">' . esc_html__( 'Use bold text, lists, or links to craft the cookie notice shown to visitors.', 'smile-basic-web' ) . '</p>';
+}
+
+/**
+ * Field callback: Cookie button label input.
+ *
+ * @param array $args {
+ *     Field arguments.
+ *
+ *     @type string $option      Option name.
+ *     @type string $default     Default label value.
+ *     @type string $description Field description.
+ * }
+ * @return void
+ */
+function sbwscf_cookie_label_field_cb( $args ): void {
+        $option      = $args['option'];
+        $default     = $args['default'];
+        $description = $args['description'];
+        $value       = sbwscf_get_cookie_label( $option, $default );
+
+        printf(
+                '<input type="text" name="%1$s" id="%1$s" value="%2$s" class="regular-text" />',
+                esc_attr( $option ),
+                esc_attr( $value )
+        );
+
+        if ( '' !== $description ) {
+                echo '<p class="description">' . esc_html( $description ) . '</p>';
+        }
 }
 
 /**
@@ -521,6 +606,16 @@ function sbwscf_sanitize_cookie_message( $value ): string {
 }
 
 /**
+ * Sanitize cookie button label input.
+ *
+ * @param string $value Raw value.
+ * @return string Sanitized value.
+ */
+function sbwscf_sanitize_cookie_label( $value ): string {
+        return sanitize_text_field( $value );
+}
+
+/**
  * Sanitize tracking scripts array.
  *
  * @param array|string $input Raw input.
@@ -546,4 +641,21 @@ function sbwscf_sanitize_tracking_scripts( $input ): array {
 	}
 
 	return $sanitized;
+}
+
+/**
+ * Retrieve a cookie label with a default fallback.
+ *
+ * @param string $option  Option name.
+ * @param string $default Default label value.
+ * @return string Label to display.
+ */
+function sbwscf_get_cookie_label( string $option, string $default ): string {
+        $value = sanitize_text_field( (string) get_option( $option, '' ) );
+
+        if ( '' === trim( $value ) ) {
+                return $default;
+        }
+
+        return $value;
 }
