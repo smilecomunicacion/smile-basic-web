@@ -81,8 +81,9 @@ function sbwscf_cookies_register_settings(): void {
 	 * Section 2: Cookie Panel Settings
 	 * ------------------------------------------------------------------
 	 */
-	$settings_to_register = array(
-		'sbwscf_cookie_message'                => 'sanitize_textarea_field',
+        $settings_to_register = array(
+                'sbwscf_cookie_panel_title'           => 'sbwscf_sanitize_cookie_title',
+                'sbwscf_cookie_message'                => 'sbwscf_sanitize_cookie_message',
 		'sbwscf_cookie_panel_size'             => 'sanitize_text_field',
 		'sbwscf_cookie_minimized_position'     => 'sanitize_text_field',
 		'sbwscf_show_manage_minified_label'    => 'sbwscf_sanitize_checkbox',
@@ -117,12 +118,20 @@ function sbwscf_cookies_register_settings(): void {
 		'sbwscf_cookies'
 	);
 
-	add_settings_field(
-		'sbwscf_cookie_message',
-		esc_html__( 'Message Text', 'smile-basic-web' ),
-		'sbwscf_cookie_message_cb',
-		'sbwscf_cookies',
-		'sbwscf_cookies_panel_section'
+        add_settings_field(
+                'sbwscf_cookie_panel_title',
+                esc_html__( 'Panel Title', 'smile-basic-web' ),
+                'sbwscf_cookie_panel_title_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section'
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_message',
+                esc_html__( 'Message Text', 'smile-basic-web' ),
+                'sbwscf_cookie_message_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section'
 	);
 
 	add_settings_field(
@@ -270,16 +279,43 @@ function sbwscf_cookies_panel_section_cb(): void {
 }
 
 /**
- * Field callback: Cookie message textarea.
+ * Field callback: Cookie panel title input.
+ *
+ * @return void
+ */
+function sbwscf_cookie_panel_title_cb(): void {
+        $value = get_option( 'sbwscf_cookie_panel_title', '' );
+        printf(
+                '<input type="text" name="sbwscf_cookie_panel_title" value="%s" class="regular-text" />',
+                esc_attr( $value )
+        );
+        echo '<p class="description">' . esc_html__( 'Define the heading shown at the top of the cookie consent panel.', 'smile-basic-web' ) . '</p>';
+}
+
+/**
+ * Field callback: Cookie message editor.
  *
  * @return void
  */
 function sbwscf_cookie_message_cb(): void {
-	$value = get_option( 'sbwscf_cookie_message', '' );
-	printf(
-		'<textarea name="sbwscf_cookie_message" rows="4" class="large-text">%s</textarea>',
-		esc_textarea( $value )
-	);
+        $value = get_option( 'sbwscf_cookie_message', '' );
+
+        if ( function_exists( 'wp_enqueue_editor' ) ) {
+                wp_enqueue_editor();
+        }
+
+        wp_editor(
+                wp_kses_post( $value ),
+                'sbwscf_cookie_message_editor',
+                array(
+                        'textarea_name' => 'sbwscf_cookie_message',
+                        'textarea_rows' => 8,
+                        'teeny'         => true,
+                        'media_buttons' => false,
+                )
+        );
+
+        echo '<p class="description">' . esc_html__( 'Use bold text, lists, or links to craft the cookie notice shown to visitors.', 'smile-basic-web' ) . '</p>';
 }
 
 /**
@@ -461,7 +497,27 @@ function sbwscf_tracking_scripts_cb(): void {
  * @return string Sanitized value.
  */
 function sbwscf_sanitize_checkbox( $value ): string {
-	return ( isset( $value ) && '1' === $value ) ? '1' : '';
+        return ( isset( $value ) && '1' === $value ) ? '1' : '';
+}
+
+/**
+ * Sanitize cookie panel title input.
+ *
+ * @param string $value Raw value.
+ * @return string Sanitized value.
+ */
+function sbwscf_sanitize_cookie_title( $value ): string {
+        return sanitize_text_field( $value );
+}
+
+/**
+ * Sanitize cookie message content allowing basic formatting.
+ *
+ * @param string $value Raw value.
+ * @return string Sanitized value.
+ */
+function sbwscf_sanitize_cookie_message( $value ): string {
+        return wp_kses_post( $value );
 }
 
 /**
