@@ -199,6 +199,10 @@
         text-decoration-color: currentColor;
 }
 
+#sbwscf-smile-cookies-panel a:hover {
+        text-decoration: none;
+}
+
 .sbwscf-cookie-description,
 .sbwscf-cookie-description *,
 .sbwscf-cookie-description p {
