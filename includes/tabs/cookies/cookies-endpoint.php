@@ -67,6 +67,7 @@ function sbwscf_output_cookie_consent_panel(): void {
         }
         $functional_description = get_option( 'sbwscf_cookie_functional_description', '' );
         $bg_color = $color_or_default( 'sbwscf_cookie_color_background', '#fff' );
+        $title_color = $color_or_default( 'sbwscf_cookie_color_titles', '#000000' );
         $text_color = $color_or_default( 'sbwscf_cookie_color_text', '#000000' );
         $accept_bg = $color_or_default( 'sbwscf_cookie_color_accept', '#4caf50' );
         $accept_txt = $color_or_default( 'sbwscf_cookie_color_accept_text', '#fff' );
@@ -92,12 +93,25 @@ function sbwscf_output_cookie_consent_panel(): void {
 	*/
 	?>
 	<style>
-	#sbwscf-smile-cookies-panel {
-		color: <?php echo esc_attr( $text_color ); ?>;
-	}
-	.sbwscf-smile-cookies-box {
-		background-color: <?php echo esc_attr( $bg_color ); ?>;
-	}
+        #sbwscf-smile-cookies-panel {
+                --sbwscf-bg-color: <?php echo esc_attr( $bg_color ); ?>;
+                --sbwscf-text-color: <?php echo esc_attr( $text_color ); ?>;
+                --sbwscf-title-color: <?php echo esc_attr( $title_color ); ?>;
+                color: <?php echo esc_attr( $text_color ); ?>;
+        }
+        .sbwscf-smile-cookies-box {
+                background-color: <?php echo esc_attr( $bg_color ); ?>;
+        }
+        #sbwscf-smile-cookies-panel .sbwscf-smile-cookies-title,
+        #sbwscf-smile-cookies-panel .sbwscf-cookie-title {
+                color: <?php echo esc_attr( $title_color ); ?>;
+        }
+        #sbwscf-smile-cookies-panel .sbwscf-cookie-summary,
+        #sbwscf-smile-cookies-panel .sbwscf-cookie-description,
+        #sbwscf-smile-cookies-panel .sbwscf-cookie-checkbox,
+        #sbwscf-smile-cookies-panel .sbwscf-cookie-checkbox label {
+                color: <?php echo esc_attr( $text_color ); ?>;
+        }
 	#sbwscf-smile-cookies-panel .sbwscf-smile-cookies-accept {
 		background-color: <?php echo esc_attr( $accept_bg ); ?>;
 		color:            <?php echo esc_attr( $accept_txt ); ?>;

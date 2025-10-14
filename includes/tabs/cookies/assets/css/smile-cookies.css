@@ -4,6 +4,7 @@
 :root {
 	--sbwscf-bg-color: #fff;
 	--sbwscf-text-color: #000000;
+	--sbwscf-title-color: #000000;
 	--sbwscf-accept-bg: #4caf50;
 	--sbwscf-accept-text: #fff;
 	--sbwscf-reject-bg: #f44336;
@@ -44,7 +45,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #000;
+	color: var(--sbwscf-text-color);
 	padding: 2rem;
 	border-radius: 8px;
 }
@@ -59,7 +60,7 @@
 	justify-content: end;
 	align-items: stretch;
 	background-color: #fff;
-	color: #000;
+	color: var(--sbwscf-text-color);
 	width: 95%;
 	max-width: 1600px;
 	border-radius: 8px;
@@ -97,6 +98,7 @@
 .sbwscf-smile-cookies-title {
 	font-size: 1.25rem;
 	font-weight: 600;
+	color: var(--sbwscf-title-color);
 }
 
 .sbwscf-smile-cookies-close {
@@ -289,13 +291,14 @@
 	padding: 0.75rem 1rem;
 	font-weight: 400;
 	background-color: #f0f0f0;
-	color: #333;
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-cookie-title {
 	display: inline-block;
 	font-size: 1rem;
 	line-height: 1.2rem;
+	color: var(--sbwscf-title-color);
 }
 
 .sbwscf-cookie-checkbox {
@@ -310,7 +313,7 @@
 	background-color: #f8f8f8;
 	font-size: 0.9rem;
 	line-height: 1.5;
-	color: #000;
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-cookie-description span {

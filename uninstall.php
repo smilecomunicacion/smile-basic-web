@@ -46,6 +46,7 @@ function sbwscf_uninstall_site_cleanup() {
 		'sbwscf_privacy_policy_page',
 		'sbwscf_legal_notice_page',
 		'sbwscf_cookie_color_background',
+		'sbwscf_cookie_color_titles',
 		'sbwscf_cookie_color_text',
 		'sbwscf_cookie_color_accept',
 		'sbwscf_cookie_color_accept_text',

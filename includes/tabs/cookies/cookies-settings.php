@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function sbwscf_seed_default_cookie_colors(): void {
         $defaults = array(
                 'background'        => '#ffffff',
+                'titles'            => '#000000',
                 'text'              => '#000000',
                 'accept'            => '#4caf50',
                 'accept_text'       => '#ffffff',
@@ -101,8 +102,9 @@ function sbwscf_cookies_register_settings(): void {
                 'sbwscf_cookie_policy_page'            => 'absint',
                 'sbwscf_privacy_policy_page'           => 'absint',
                 'sbwscf_legal_notice_page'             => 'absint',
-                'sbwscf_cookie_color_background'       => 'sanitize_hex_color',
-                'sbwscf_cookie_color_text'             => 'sanitize_hex_color',
+                'sbwscf_cookie_color_background'        => 'sanitize_hex_color',
+                'sbwscf_cookie_color_titles'            => 'sanitize_hex_color',
+                'sbwscf_cookie_color_text'              => 'sanitize_hex_color',
                 'sbwscf_cookie_color_accept'           => 'sanitize_hex_color',
                 'sbwscf_cookie_color_accept_text'      => 'sanitize_hex_color',
                 'sbwscf_cookie_color_reject'           => 'sanitize_hex_color',
@@ -297,6 +299,7 @@ function sbwscf_cookies_register_settings(): void {
 
         $colors = array(
                 'background'       => __( 'Background Color', 'smile-basic-web' ),
+                'titles'           => __( 'Title Color', 'smile-basic-web' ),
                 'text'             => __( 'Text Color', 'smile-basic-web' ),
                 'accept'           => __( 'Accept Button Color', 'smile-basic-web' ),
                 'accept_text'      => __( 'Accept Text Color', 'smile-basic-web' ),
