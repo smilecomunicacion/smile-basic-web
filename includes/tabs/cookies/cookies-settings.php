@@ -673,6 +673,16 @@ function sbwscf_tracking_scripts_cb(): void {
                 'media_buttons' => false,
                 'teeny'         => true,
                 'textarea_rows' => 6,
+                'tinymce'       => array(
+                        'toolbar1'          => 'bold italic underline | bullist numlist | link unlink | removeformat | undo redo',
+                        'toolbar2'          => '',
+                        'forced_root_block' => 'p',
+                        'force_br_newlines' => false,
+                        'force_p_newlines'  => true,
+                ),
+                'quicktags'     => array(
+                        'buttons' => 'strong,em,link,del,ins,code,close',
+                ),
         );
 
         wp_localize_script(
