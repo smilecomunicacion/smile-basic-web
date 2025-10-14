@@ -57,6 +57,7 @@ function sbwscf_output_cookie_consent_panel(): void {
         $deny_all_label       = sbwscf_get_cookie_label( 'sbwscf_cookie_label_deny_all', __( 'Deny All', 'smile-basic-web' ) );
         $preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_preferences', __( 'Preferences', 'smile-basic-web' ) );
         $accept_preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_prefs', __( 'Accept Preferences', 'smile-basic-web' ) );
+        $manage_button_label = sanitize_text_field( (string) get_option( 'sbwscf_cookie_label_manage', '' ) );
         $functional_title = get_option( 'sbwscf_cookie_functional_title', '' );
         $functional_title = sbwscf_sanitize_cookie_inline_html( $functional_title );
         $functional_title = sbwscf_format_cookie_inline_html( $functional_title );
@@ -74,9 +75,15 @@ function sbwscf_output_cookie_consent_panel(): void {
         $preferences_bg = $color_or_default( 'sbwscf_cookie_color_preferences', '#2196f3' );
         $preferences_txt = $color_or_default( 'sbwscf_cookie_color_preferences_text', '#fff' );
         $link_color = $color_or_default( 'sbwscf_cookie_color_link', '#0000ee' );
-	// Tamaño del panel de cookies.
-	// Por defecto, se usa 'small' si no se ha configurado.
-	$panel_size = get_option( 'sbwscf_cookie_panel_size', 'small' );
+        $manage_btn_bg = $color_or_default( 'sbwscf_cookie_color_manage_background', $bg_color );
+        $manage_btn_txt = $color_or_default( 'sbwscf_cookie_color_manage_text', $text_color );
+        // Tamaño del panel de cookies.
+        // Por defecto, se usa 'small' si no se ha configurado.
+        $panel_size = get_option( 'sbwscf_cookie_panel_size', 'small' );
+
+        if ( '' === trim( $manage_button_label ) ) {
+                $manage_button_label = sanitize_text_field( (string) $panel_title );
+        }
 
 	/*
 	* ------------------------------------------------------------------
@@ -106,10 +113,10 @@ function sbwscf_output_cookie_consent_panel(): void {
 	#sbwscf-smile-cookies-panel .sbwscf-smile-cookies-links a {
 		color: <?php echo esc_attr( $link_color ); ?>;
 	}
-	#sbwscf-manage-consent-btn {
-		background-color: <?php echo esc_attr( $bg_color ); ?>;
-		color:            <?php echo esc_attr( $text_color ); ?>;
-	}
+        #sbwscf-manage-consent-btn {
+                background-color: <?php echo esc_attr( $manage_btn_bg ); ?>;
+                color:            <?php echo esc_attr( $manage_btn_txt ); ?>;
+        }
 	</style>
 
 
@@ -250,7 +257,7 @@ function sbwscf_output_cookie_consent_panel(): void {
 	?>
 <div id="sbwscf-manage-consent-container" class="sbwscf-manage-consent-container sbwscf-position-<?php echo esc_attr( $minimized_position ); ?>">
         <button id="sbwscf-manage-consent-btn" class="sbwscf-manage-consent-button <?php echo esc_attr( $show_label_class ); ?>">
-                <?php echo esc_html( $panel_title ); ?>
+                <?php echo esc_html( $manage_button_label ); ?>
         </button>
 </div>
 

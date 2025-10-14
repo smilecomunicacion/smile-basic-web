@@ -20,17 +20,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return void
  */
 function sbwscf_seed_default_cookie_colors(): void {
-	$defaults = array(
-		'background'       => '#ffffff',
-		'text'             => '#000000',
-		'accept'           => '#4caf50',
-		'accept_text'      => '#ffffff',
-		'reject'           => '#f44336',
-		'reject_text'      => '#ffffff',
-		'preferences'      => '#e0e0e0',
-		'preferences_text' => '#000000',
-		'link'             => '#0000ee',
-	);
+        $defaults = array(
+                'background'        => '#ffffff',
+                'text'              => '#000000',
+                'accept'            => '#4caf50',
+                'accept_text'       => '#ffffff',
+                'reject'            => '#f44336',
+                'reject_text'       => '#ffffff',
+                'preferences'       => '#e0e0e0',
+                'preferences_text'  => '#000000',
+                'link'              => '#0000ee',
+                'manage_background' => '#ffffff',
+                'manage_text'       => '#000000',
+        );
 
 	foreach ( $defaults as $key => $color ) {
 		$option_name = 'sbwscf_cookie_color_' . $key;
@@ -92,22 +94,25 @@ function sbwscf_cookies_register_settings(): void {
                 'sbwscf_cookie_label_deny_all'         => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_preferences'      => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_accept_prefs'     => 'sbwscf_sanitize_cookie_label',
+                'sbwscf_cookie_label_manage'           => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_panel_size'             => 'sanitize_text_field',
                 'sbwscf_cookie_minimized_position'     => 'sanitize_text_field',
-		'sbwscf_show_manage_minified_label'    => 'sbwscf_sanitize_checkbox',
-		'sbwscf_cookie_policy_page'            => 'absint',
-		'sbwscf_privacy_policy_page'           => 'absint',
-		'sbwscf_legal_notice_page'             => 'absint',
-		'sbwscf_cookie_color_background'       => 'sanitize_hex_color',
-		'sbwscf_cookie_color_text'             => 'sanitize_hex_color',
-		'sbwscf_cookie_color_accept'           => 'sanitize_hex_color',
-		'sbwscf_cookie_color_accept_text'      => 'sanitize_hex_color',
-		'sbwscf_cookie_color_reject'           => 'sanitize_hex_color',
-		'sbwscf_cookie_color_reject_text'      => 'sanitize_hex_color',
-		'sbwscf_cookie_color_preferences'      => 'sanitize_hex_color',
-		'sbwscf_cookie_color_preferences_text' => 'sanitize_hex_color',
-		'sbwscf_cookie_color_link'             => 'sanitize_hex_color',
-	);
+                'sbwscf_show_manage_minified_label'    => 'sbwscf_sanitize_checkbox',
+                'sbwscf_cookie_policy_page'            => 'absint',
+                'sbwscf_privacy_policy_page'           => 'absint',
+                'sbwscf_legal_notice_page'             => 'absint',
+                'sbwscf_cookie_color_background'       => 'sanitize_hex_color',
+                'sbwscf_cookie_color_text'             => 'sanitize_hex_color',
+                'sbwscf_cookie_color_accept'           => 'sanitize_hex_color',
+                'sbwscf_cookie_color_accept_text'      => 'sanitize_hex_color',
+                'sbwscf_cookie_color_reject'           => 'sanitize_hex_color',
+                'sbwscf_cookie_color_reject_text'      => 'sanitize_hex_color',
+                'sbwscf_cookie_color_preferences'      => 'sanitize_hex_color',
+                'sbwscf_cookie_color_preferences_text' => 'sanitize_hex_color',
+                'sbwscf_cookie_color_link'             => 'sanitize_hex_color',
+                'sbwscf_cookie_color_manage_background' => 'sanitize_hex_color',
+                'sbwscf_cookie_color_manage_text'       => 'sanitize_hex_color',
+        );
 
 	foreach ( $settings_to_register as $option => $callback ) {
 		register_setting(
@@ -269,25 +274,40 @@ function sbwscf_cookies_register_settings(): void {
 		)
 	);
 
-	add_settings_field(
-		'sbwscf_show_manage_minified_label',
-		esc_html__( 'Show label title on minimized tab', 'smile-basic-web' ),
-		'sbwscf_show_manage_minified_label_cb',
-		'sbwscf_cookies',
-		'sbwscf_cookies_panel_section'
-	);
+        add_settings_field(
+                'sbwscf_show_manage_minified_label',
+                esc_html__( 'Show label title on minimized tab', 'smile-basic-web' ),
+                'sbwscf_show_manage_minified_label_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section'
+        );
 
-	$colors = array(
-		'background'       => __( 'Background Color', 'smile-basic-web' ),
-		'text'             => __( 'Text Color', 'smile-basic-web' ),
-		'accept'           => __( 'Accept Button Color', 'smile-basic-web' ),
-		'accept_text'      => __( 'Accept Text Color', 'smile-basic-web' ),
-		'reject'           => __( 'Reject Button Color', 'smile-basic-web' ),
-		'reject_text'      => __( 'Reject Text Color', 'smile-basic-web' ),
-		'preferences'      => __( 'Preferences Button Color', 'smile-basic-web' ),
-		'preferences_text' => __( 'Preferences Text Color', 'smile-basic-web' ),
-		'link'             => __( 'Link Color', 'smile-basic-web' ),
-	);
+        add_settings_field(
+                'sbwscf_cookie_label_manage',
+                esc_html__( 'Manage Consent button label', 'smile-basic-web' ),
+                'sbwscf_cookie_label_field_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section',
+                array(
+                        'option'      => 'sbwscf_cookie_label_manage',
+                        'default'     => __( 'Manage Consent', 'smile-basic-web' ),
+                        'description' => esc_html__( 'Text displayed on the floating button that reopens the cookies panel.', 'smile-basic-web' ),
+                )
+        );
+
+        $colors = array(
+                'background'       => __( 'Background Color', 'smile-basic-web' ),
+                'text'             => __( 'Text Color', 'smile-basic-web' ),
+                'accept'           => __( 'Accept Button Color', 'smile-basic-web' ),
+                'accept_text'      => __( 'Accept Text Color', 'smile-basic-web' ),
+                'reject'           => __( 'Reject Button Color', 'smile-basic-web' ),
+                'reject_text'      => __( 'Reject Text Color', 'smile-basic-web' ),
+                'preferences'      => __( 'Preferences Button Color', 'smile-basic-web' ),
+                'preferences_text' => __( 'Preferences Text Color', 'smile-basic-web' ),
+                'link'             => __( 'Link Color', 'smile-basic-web' ),
+                'manage_background' => __( 'Manage Consent Button Background', 'smile-basic-web' ),
+                'manage_text'       => __( 'Manage Consent Button Text Color', 'smile-basic-web' ),
+        );
 
 	foreach ( $colors as $key => $label ) {
 		add_settings_field(
