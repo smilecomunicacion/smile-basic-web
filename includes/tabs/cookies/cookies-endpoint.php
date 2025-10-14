@@ -92,11 +92,12 @@ function sbwscf_output_cookie_consent_panel(): void {
 	* ------------------------------------------------------------------
 	*/
 	?>
-	<style>
+        <style>
         #sbwscf-smile-cookies-panel {
                 --sbwscf-bg-color: <?php echo esc_attr( $bg_color ); ?>;
                 --sbwscf-text-color: <?php echo esc_attr( $text_color ); ?>;
                 --sbwscf-title-color: <?php echo esc_attr( $title_color ); ?>;
+                --sbwscf-link-color: <?php echo esc_attr( $link_color ); ?>;
                 color: <?php echo esc_attr( $text_color ); ?>;
         }
         .sbwscf-smile-cookies-box {
@@ -114,9 +115,6 @@ function sbwscf_output_cookie_consent_panel(): void {
         #sbwscf-smile-cookies-panel .sbwscf-cookie-checkbox,
         #sbwscf-smile-cookies-panel .sbwscf-cookie-checkbox label {
                 color: <?php echo esc_attr( $text_color ); ?> !important;
-        }
-        #sbwscf-smile-cookies-panel .sbwscf-smile-cookies-message a {
-                color: <?php echo esc_attr( $link_color ); ?> !important;
         }
 	#sbwscf-smile-cookies-panel .sbwscf-smile-cookies-accept {
 		background-color: <?php echo esc_attr( $accept_bg ); ?>;

@@ -189,6 +189,16 @@
         text-decoration: underline;
 }
 
+#sbwscf-smile-cookies-panel .sbwscf-smile-cookies-title a,
+#sbwscf-smile-cookies-panel .sbwscf-cookie-title a,
+#sbwscf-smile-cookies-panel .sbwscf-cookie-summary a,
+#sbwscf-smile-cookies-panel .sbwscf-smile-cookies-message a,
+#sbwscf-smile-cookies-panel .sbwscf-cookie-description a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: currentColor;
+}
+
 .sbwscf-cookie-description,
 .sbwscf-cookie-description *,
 .sbwscf-cookie-description p {
