@@ -84,7 +84,7 @@ function sbwscf_cookies_register_settings(): void {
         $settings_to_register = array(
                 'sbwscf_cookie_panel_title'           => 'sbwscf_sanitize_cookie_title',
                 'sbwscf_cookie_message'                => 'sbwscf_sanitize_cookie_message',
-                'sbwscf_cookie_functional_title'       => 'sbwscf_sanitize_cookie_title',
+                'sbwscf_cookie_functional_title'       => 'sbwscf_sanitize_cookie_inline_html',
                 'sbwscf_cookie_functional_description' => 'sbwscf_sanitize_cookie_message',
                 'sbwscf_cookie_label_accept_initial'   => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_deny_initial'     => 'sbwscf_sanitize_cookie_label',
@@ -421,30 +421,62 @@ function sbwscf_cookie_message_cb(): void {
 }
 
 /**
- * Field callback: Functional cookies title input.
+ * Field callback: Functional cookies title editor.
  *
  * @return void
  */
 function sbwscf_cookie_functional_title_cb(): void {
         $value = get_option( 'sbwscf_cookie_functional_title', '' );
-        printf(
-                '<input type="text" name="sbwscf_cookie_functional_title" value="%s" class="regular-text" />',
-                esc_attr( $value )
+
+        if ( function_exists( 'wp_enqueue_editor' ) ) {
+                wp_enqueue_editor();
+        }
+
+        wp_editor(
+                sbwscf_sanitize_cookie_inline_html( $value ),
+                'sbwscf_cookie_functional_title_editor',
+                array(
+                        'textarea_name' => 'sbwscf_cookie_functional_title',
+                        'textarea_rows' => 3,
+                        'media_buttons' => false,
+                        'teeny'         => false,
+                        'tinymce'       => array(
+                                'toolbar1'          => 'bold italic underline | link unlink | superscript subscript | removeformat',
+                                'toolbar2'          => '',
+                                'forced_root_block' => '',
+                                'force_br_newlines' => true,
+                                'force_p_newlines'  => false,
+                        ),
+                        'quicktags'     => false,
+                )
         );
+
         echo '<p class="description">' . esc_html__( 'Customize the title displayed for the Functional cookies category.', 'smile-basic-web' ) . '</p>';
 }
 
 /**
- * Field callback: Functional cookies description textarea.
+ * Field callback: Functional cookies description editor.
  *
  * @return void
  */
 function sbwscf_cookie_functional_description_cb(): void {
         $value = get_option( 'sbwscf_cookie_functional_description', '' );
-        printf(
-                '<textarea name="sbwscf_cookie_functional_description" rows="4" class="large-text">%s</textarea>',
-                esc_textarea( $value )
+
+        if ( function_exists( 'wp_enqueue_editor' ) ) {
+                wp_enqueue_editor();
+        }
+
+        wp_editor(
+                wp_kses_post( $value ),
+                'sbwscf_cookie_functional_description_editor',
+                array(
+                        'textarea_name' => 'sbwscf_cookie_functional_description',
+                        'textarea_rows' => 6,
+                        'teeny'         => true,
+                        'media_buttons' => false,
+                )
         );
+
         echo '<p class="description">' . esc_html__( 'Define the explanatory text shown under the Functional cookies category.', 'smile-basic-web' ) . '</p>';
 }
 
@@ -677,6 +709,51 @@ function sbwscf_sanitize_cookie_title( $value ): string {
  */
 function sbwscf_sanitize_cookie_message( $value ): string {
         return wp_kses_post( $value );
+}
+
+/**
+ * Returns allowed inline HTML tags for cookie titles.
+ *
+ * @return array Allowed tags for inline cookie text.
+ */
+function sbwscf_get_cookie_inline_allowed_tags(): array {
+        return array(
+                'a'      => array(
+                        'href'   => true,
+                        'title'  => true,
+                        'target' => true,
+                        'rel'    => true,
+                ),
+                'abbr'   => array(
+                        'title' => true,
+                ),
+                'strong' => array(),
+                'em'     => array(),
+                'b'      => array(),
+                'i'      => array(),
+                'u'      => array(),
+                'sup'    => array(),
+                'sub'    => array(),
+                'code'   => array(),
+                'mark'   => array(),
+                'small'  => array(),
+                'del'    => array(),
+                'ins'    => array(),
+                'span'   => array(
+                        'class' => true,
+                ),
+                'br'     => array(),
+        );
+}
+
+/**
+ * Sanitize cookie titles that support inline formatting.
+ *
+ * @param string $value Raw value.
+ * @return string Sanitized value.
+ */
+function sbwscf_sanitize_cookie_inline_html( $value ): string {
+        return wp_kses( (string) $value, sbwscf_get_cookie_inline_allowed_tags() );
 }
 
 /**
