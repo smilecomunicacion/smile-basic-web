@@ -50,7 +50,7 @@
 }
 
 .sbwscf-smile-size-fullscreen .sbwscf-smile-cookies-box {
-	max-width: 660px;
+	max-width: 760px;
 }
 
 /* Corregir large para que no sea fullscreen */
@@ -73,7 +73,7 @@
 	bottom: 1rem;
 	left: 1rem;
 	z-index: 9999;
-	max-width: 660px;
+	max-width: 760px;
 	width: 95%;
 	box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 	border-radius: 6px;
