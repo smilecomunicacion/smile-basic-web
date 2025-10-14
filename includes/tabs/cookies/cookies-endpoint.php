@@ -155,30 +155,32 @@ function sbwscf_output_cookie_consent_panel(): void {
 			<?php
 			$scripts = get_option( 'sbwscf_tracking_scripts', array() );
 
-			if ( is_array( $scripts ) && ! empty( $scripts ) ) :
-				foreach ( $scripts as $i => $script ) :
-					$name = trim( $script['name'] ?? '' );
-					$desc = trim( $script['description'] ?? '' );
+                        if ( is_array( $scripts ) && ! empty( $scripts ) ) :
+                                foreach ( $scripts as $i => $script ) :
+                                        $raw_name        = $script['name'] ?? '';
+                                        $raw_description = $script['description'] ?? '';
+                                        $name            = sbwscf_sanitize_cookie_inline_html( (string) $raw_name );
+                                        $description     = wp_kses_post( (string) $raw_description );
 
-					if ( '' !== $name && '' !== $desc ) :
-						$input_id = 'sbwscf-optin-' . $i;
-						?>
-			<details class="sbwscf-cookie-category">
-				<summary class="sbwscf-cookie-summary">
-					<span class="sbwscf-cookie-title"><?php echo esc_html( $name ); ?></span>
-					<span class="sbwscf-cookie-checkbox">
-						<input type="checkbox" id="<?php echo esc_attr( $input_id ); ?>" data-category="<?php echo esc_attr( sanitize_title( $name ) ); ?>" />
-						<label for="<?php echo esc_attr( $input_id ); ?>"><?php esc_html_e( 'Enable', 'smile-basic-web' ); ?></label>
-					</span>
-				</summary>
-				<div class="sbwscf-cookie-description">
-						<?php echo esc_html( $desc ); ?>
-				</div>
-			</details>
-						<?php
-					endif;
-				endforeach;
-			endif;
+                                        if ( '' !== trim( wp_strip_all_tags( $name ) ) && '' !== trim( wp_strip_all_tags( $description ) ) ) :
+                                                $input_id = 'sbwscf-optin-' . $i;
+                                                ?>
+                        <details class="sbwscf-cookie-category">
+                                <summary class="sbwscf-cookie-summary">
+                                        <span class="sbwscf-cookie-title"><?php echo wp_kses( sbwscf_format_cookie_inline_html( $name ), sbwscf_get_cookie_inline_allowed_tags() ); ?></span>
+                                        <span class="sbwscf-cookie-checkbox">
+                                                <input type="checkbox" id="<?php echo esc_attr( $input_id ); ?>" data-category="<?php echo esc_attr( sanitize_title( wp_strip_all_tags( $name ) ) ); ?>" />
+                                                <label for="<?php echo esc_attr( $input_id ); ?>"><?php esc_html_e( 'Enable', 'smile-basic-web' ); ?></label>
+                                        </span>
+                                </summary>
+                                <div class="sbwscf-cookie-description">
+                                                <?php echo wp_kses_post( wpautop( $description ) ); ?>
+                                </div>
+                        </details>
+                                                <?php
+                                        endif;
+                                endforeach;
+                        endif;
 			?>
 		</div>
 
