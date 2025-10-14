@@ -59,6 +59,7 @@ function sbwscf_output_cookie_consent_panel(): void {
         $accept_preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_prefs', __( 'Accept Preferences', 'smile-basic-web' ) );
         $functional_title = get_option( 'sbwscf_cookie_functional_title', '' );
         $functional_title = sbwscf_sanitize_cookie_inline_html( $functional_title );
+        $functional_title = sbwscf_format_cookie_inline_html( $functional_title );
 
         if ( '' === trim( wp_strip_all_tags( (string) $functional_title ) ) ) {
                 $functional_title = __( 'Functional', 'smile-basic-web' );

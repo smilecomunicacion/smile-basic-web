@@ -437,21 +437,23 @@ function sbwscf_cookie_functional_title_cb(): void {
                 'sbwscf_cookie_functional_title_editor',
                 array(
                         'textarea_name' => 'sbwscf_cookie_functional_title',
-                        'textarea_rows' => 3,
+                        'textarea_rows' => 4,
                         'media_buttons' => false,
                         'teeny'         => false,
                         'tinymce'       => array(
-                                'toolbar1'          => 'bold italic underline | link unlink | superscript subscript | removeformat',
+                                'toolbar1'          => 'bold italic underline | superscript subscript | link unlink | removeformat | undo redo',
                                 'toolbar2'          => '',
                                 'forced_root_block' => '',
                                 'force_br_newlines' => true,
                                 'force_p_newlines'  => false,
                         ),
-                        'quicktags'     => false,
+                        'quicktags'     => array(
+                                'buttons' => 'strong,em,link,del,ins,code,close',
+                        ),
                 )
         );
 
-        echo '<p class="description">' . esc_html__( 'Customize the title displayed for the Functional cookies category.', 'smile-basic-web' ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'Use line breaks or inline formatting to refine how the Functional cookies title appears in the preferences panel.', 'smile-basic-web' ) . '</p>';
 }
 
 /**
@@ -754,6 +756,24 @@ function sbwscf_get_cookie_inline_allowed_tags(): array {
  */
 function sbwscf_sanitize_cookie_inline_html( $value ): string {
         return wp_kses( (string) $value, sbwscf_get_cookie_inline_allowed_tags() );
+}
+
+/**
+ * Normalize line breaks for cookie inline HTML values.
+ *
+ * Converts plain newline characters into `<br />` tags so that manually
+ * entered line breaks appear correctly inside the cookies preferences
+ * summary, which only supports phrasing content.
+ *
+ * @param string $value Sanitized value.
+ * @return string Value with normalized line breaks.
+ */
+function sbwscf_format_cookie_inline_html( string $value ): string {
+        if ( '' === $value ) {
+                return '';
+        }
+
+        return preg_replace( '/(?:\r\n|\r|\n)/', "<br />\n", $value );
 }
 
 /**
