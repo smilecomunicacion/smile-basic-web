@@ -57,6 +57,9 @@ function sbwscf_output_cookie_consent_panel(): void {
         $deny_all_label       = sbwscf_get_cookie_label( 'sbwscf_cookie_label_deny_all', __( 'Deny All', 'smile-basic-web' ) );
         $preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_preferences', __( 'Preferences', 'smile-basic-web' ) );
         $accept_preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_prefs', __( 'Accept Preferences', 'smile-basic-web' ) );
+        $functional_title = get_option( 'sbwscf_cookie_functional_title', '' );
+        $functional_title = '' !== trim( (string) $functional_title ) ? $functional_title : __( 'Functional', 'smile-basic-web' );
+        $functional_description = get_option( 'sbwscf_cookie_functional_description', '' );
         $bg_color = $color_or_default( 'sbwscf_cookie_color_background', '#fff' );
         $text_color = $color_or_default( 'sbwscf_cookie_color_text', '#000000' );
         $accept_bg = $color_or_default( 'sbwscf_cookie_color_accept', '#4caf50' );
@@ -124,7 +127,7 @@ function sbwscf_output_cookie_consent_panel(): void {
                         <strong class="sbwscf-smile-cookies-title"><?php echo esc_html( $preferences_label ); ?></strong>
 			<details class="sbwscf-cookie-category">
 				<summary class="sbwscf-cookie-summary">
-					<span class="sbwscf-cookie-title"><?php esc_html_e( 'Functional', 'smile-basic-web' ); ?></span>
+                                        <span class="sbwscf-cookie-title"><?php echo esc_html( $functional_title ); ?></span>
 					<span>
 						<label class="sbwscf-cookie-checkbox" for="sbwscf-functional-always-active">
 							<input type="checkbox" id="sbwscf-functional-always-active" name="sbwscf_cookie_functional" checked
@@ -133,9 +136,15 @@ function sbwscf_output_cookie_consent_panel(): void {
 						</label>
 					</span>
 				</summary>
-				<div class="sbwscf-cookie-description">
-					<?php esc_html_e( 'Technical storage or access is strictly necessary to enable the use of a specific service explicitly requested by the user or to carry out the transmission of a communication over an electronic communications network.', 'smile-basic-web' ); ?>
-				</div>
+                                <div class="sbwscf-cookie-description">
+                                        <?php
+                                        if ( '' !== trim( wp_strip_all_tags( (string) $functional_description ) ) ) {
+                                                echo wp_kses_post( wpautop( $functional_description ) );
+                                        } else {
+                                                esc_html_e( 'Technical storage or access is strictly necessary to enable the use of a specific service explicitly requested by the user or to carry out the transmission of a communication over an electronic communications network.', 'smile-basic-web' );
+                                        }
+                                        ?>
+                                </div>
 			</details>
 
 			<?php

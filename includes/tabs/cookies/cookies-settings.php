@@ -84,6 +84,8 @@ function sbwscf_cookies_register_settings(): void {
         $settings_to_register = array(
                 'sbwscf_cookie_panel_title'           => 'sbwscf_sanitize_cookie_title',
                 'sbwscf_cookie_message'                => 'sbwscf_sanitize_cookie_message',
+                'sbwscf_cookie_functional_title'       => 'sbwscf_sanitize_cookie_title',
+                'sbwscf_cookie_functional_description' => 'sbwscf_sanitize_cookie_message',
                 'sbwscf_cookie_label_accept_initial'   => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_deny_initial'     => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_accept_all'       => 'sbwscf_sanitize_cookie_label',
@@ -136,6 +138,22 @@ function sbwscf_cookies_register_settings(): void {
                 'sbwscf_cookie_message',
                 esc_html__( 'Message Text', 'smile-basic-web' ),
                 'sbwscf_cookie_message_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section'
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_functional_title',
+                esc_html__( 'Functional Cookies Title', 'smile-basic-web' ),
+                'sbwscf_cookie_functional_title_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section'
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_functional_description',
+                esc_html__( 'Functional Cookies Description', 'smile-basic-web' ),
+                'sbwscf_cookie_functional_description_cb',
                 'sbwscf_cookies',
                 'sbwscf_cookies_panel_section'
         );
@@ -400,6 +418,34 @@ function sbwscf_cookie_message_cb(): void {
         );
 
         echo '<p class="description">' . esc_html__( 'Use bold text, lists, or links to craft the cookie notice shown to visitors.', 'smile-basic-web' ) . '</p>';
+}
+
+/**
+ * Field callback: Functional cookies title input.
+ *
+ * @return void
+ */
+function sbwscf_cookie_functional_title_cb(): void {
+        $value = get_option( 'sbwscf_cookie_functional_title', '' );
+        printf(
+                '<input type="text" name="sbwscf_cookie_functional_title" value="%s" class="regular-text" />',
+                esc_attr( $value )
+        );
+        echo '<p class="description">' . esc_html__( 'Customize the title displayed for the Functional cookies category.', 'smile-basic-web' ) . '</p>';
+}
+
+/**
+ * Field callback: Functional cookies description textarea.
+ *
+ * @return void
+ */
+function sbwscf_cookie_functional_description_cb(): void {
+        $value = get_option( 'sbwscf_cookie_functional_description', '' );
+        printf(
+                '<textarea name="sbwscf_cookie_functional_description" rows="4" class="large-text">%s</textarea>',
+                esc_textarea( $value )
+        );
+        echo '<p class="description">' . esc_html__( 'Define the explanatory text shown under the Functional cookies category.', 'smile-basic-web' ) . '</p>';
 }
 
 /**
