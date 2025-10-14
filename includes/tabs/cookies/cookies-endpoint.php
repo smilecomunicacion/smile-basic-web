@@ -58,7 +58,11 @@ function sbwscf_output_cookie_consent_panel(): void {
         $preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_preferences', __( 'Preferences', 'smile-basic-web' ) );
         $accept_preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_prefs', __( 'Accept Preferences', 'smile-basic-web' ) );
         $functional_title = get_option( 'sbwscf_cookie_functional_title', '' );
-        $functional_title = '' !== trim( (string) $functional_title ) ? $functional_title : __( 'Functional', 'smile-basic-web' );
+        $functional_title = sbwscf_sanitize_cookie_inline_html( $functional_title );
+
+        if ( '' === trim( wp_strip_all_tags( (string) $functional_title ) ) ) {
+                $functional_title = __( 'Functional', 'smile-basic-web' );
+        }
         $functional_description = get_option( 'sbwscf_cookie_functional_description', '' );
         $bg_color = $color_or_default( 'sbwscf_cookie_color_background', '#fff' );
         $text_color = $color_or_default( 'sbwscf_cookie_color_text', '#000000' );
@@ -127,7 +131,7 @@ function sbwscf_output_cookie_consent_panel(): void {
                         <strong class="sbwscf-smile-cookies-title"><?php echo esc_html( $preferences_label ); ?></strong>
 			<details class="sbwscf-cookie-category">
 				<summary class="sbwscf-cookie-summary">
-                                        <span class="sbwscf-cookie-title"><?php echo esc_html( $functional_title ); ?></span>
+                                        <span class="sbwscf-cookie-title"><?php echo wp_kses( $functional_title, sbwscf_get_cookie_inline_allowed_tags() ); ?></span>
 					<span>
 						<label class="sbwscf-cookie-checkbox" for="sbwscf-functional-always-active">
 							<input type="checkbox" id="sbwscf-functional-always-active" name="sbwscf_cookie_functional" checked
