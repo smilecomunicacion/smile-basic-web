@@ -51,8 +51,10 @@ function sbwscf_output_cookie_consent_panel(): void {
         $message = get_option( 'sbwscf_cookie_message', '' );
         $panel_title = get_option( 'sbwscf_cookie_panel_title', '' );
         $panel_title = '' !== trim( (string) $panel_title ) ? $panel_title : __( 'Manage Consent', 'smile-basic-web' );
-        $accept_all_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_all', __( 'Accept All', 'smile-basic-web' ) );
-        $deny_all_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_deny_all', __( 'Deny All', 'smile-basic-web' ) );
+        $accept_initial_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_initial', __( 'Accept', 'smile-basic-web' ) );
+        $deny_initial_label   = sbwscf_get_cookie_label( 'sbwscf_cookie_label_deny_initial', __( 'Deny', 'smile-basic-web' ) );
+        $accept_all_label     = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_all', __( 'Accept All', 'smile-basic-web' ) );
+        $deny_all_label       = sbwscf_get_cookie_label( 'sbwscf_cookie_label_deny_all', __( 'Deny All', 'smile-basic-web' ) );
         $preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_preferences', __( 'Preferences', 'smile-basic-web' ) );
         $accept_preferences_label = sbwscf_get_cookie_label( 'sbwscf_cookie_label_accept_prefs', __( 'Accept Preferences', 'smile-basic-web' ) );
         $bg_color = $color_or_default( 'sbwscf_cookie_color_background', '#fff' );
@@ -167,10 +169,20 @@ function sbwscf_output_cookie_consent_panel(): void {
 		</div>
 
 		<div class="sbwscf-smile-cookies-buttons">
-                        <button class="sbwscf-smile-cookies-accept">
-                                <?php echo esc_html( $accept_all_label ); ?>
+                        <button
+                                class="sbwscf-smile-cookies-accept"
+                                data-initial-label="<?php echo esc_attr( $accept_initial_label ); ?>"
+                                data-all-label="<?php echo esc_attr( $accept_all_label ); ?>"
+                        >
+                                <?php echo esc_html( $accept_initial_label ); ?>
                         </button>
-                        <button class="sbwscf-smile-cookies-deny"><?php echo esc_html( $deny_all_label ); ?></button>
+                        <button
+                                class="sbwscf-smile-cookies-deny"
+                                data-initial-label="<?php echo esc_attr( $deny_initial_label ); ?>"
+                                data-all-label="<?php echo esc_attr( $deny_all_label ); ?>"
+                        >
+                                <?php echo esc_html( $deny_initial_label ); ?>
+                        </button>
                         <button
                                 class="sbwscf-smile-cookies-preferences"
                                 data-preferences-label="<?php echo esc_attr( $preferences_label ); ?>"
