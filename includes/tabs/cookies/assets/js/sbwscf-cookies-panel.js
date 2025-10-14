@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const preferencesDefaultLabel = preferencesBtn?.dataset?.preferencesLabel || wp.i18n.__('Preferences', 'smile-basic-web')
         const preferencesAcceptLabel = preferencesBtn?.dataset?.acceptPreferencesLabel || wp.i18n.__('Accept Preferences', 'smile-basic-web')
+        const acceptInitialLabel = acceptBtn?.dataset?.initialLabel || wp.i18n.__('Accept', 'smile-basic-web')
+        const acceptAllLabel = acceptBtn?.dataset?.allLabel || wp.i18n.__('Accept All', 'smile-basic-web')
+        const denyInitialLabel = denyBtn?.dataset?.initialLabel || wp.i18n.__('Deny', 'smile-basic-web')
+        const denyAllLabel = denyBtn?.dataset?.allLabel || wp.i18n.__('Deny All', 'smile-basic-web')
 
         function minimizePanel() {
                 if (panel) panel.style.display = 'none'
@@ -243,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Igualar ancho de botones al más ancho
 	// ------------------------------------------------------------------
 	function matchButtonWidths() {
+		updateActionButtons()
 		const btns = panel.querySelectorAll('.sbwscf-smile-cookies-buttons button')
 		if (!btns.length) {
 			return
@@ -263,5 +268,21 @@ document.addEventListener('DOMContentLoaded', function () {
 		btns.forEach((btn) => {
 			btn.style.width = maxW + 'px'
 		})
+	}
+
+	function updateActionButtons() {
+		if (!acceptBtn && !denyBtn) {
+			return
+		}
+
+		const preferencesOpen = !!categoriesBox && !categoriesBox.hidden
+
+		if (acceptBtn) {
+			acceptBtn.textContent = preferencesOpen ? acceptAllLabel : acceptInitialLabel
+		}
+
+		if (denyBtn) {
+			denyBtn.textContent = preferencesOpen ? denyAllLabel : denyInitialLabel
+		}
 	}
 })

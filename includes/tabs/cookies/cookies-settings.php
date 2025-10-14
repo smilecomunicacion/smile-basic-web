@@ -84,6 +84,8 @@ function sbwscf_cookies_register_settings(): void {
         $settings_to_register = array(
                 'sbwscf_cookie_panel_title'           => 'sbwscf_sanitize_cookie_title',
                 'sbwscf_cookie_message'                => 'sbwscf_sanitize_cookie_message',
+                'sbwscf_cookie_label_accept_initial'   => 'sbwscf_sanitize_cookie_label',
+                'sbwscf_cookie_label_deny_initial'     => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_accept_all'       => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_deny_all'         => 'sbwscf_sanitize_cookie_label',
                 'sbwscf_cookie_label_preferences'      => 'sbwscf_sanitize_cookie_label',
@@ -136,6 +138,32 @@ function sbwscf_cookies_register_settings(): void {
                 'sbwscf_cookie_message_cb',
                 'sbwscf_cookies',
                 'sbwscf_cookies_panel_section'
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_label_accept_initial',
+                esc_html__( 'Accept button label', 'smile-basic-web' ),
+                'sbwscf_cookie_label_field_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section',
+                array(
+                        'option'      => 'sbwscf_cookie_label_accept_initial',
+                        'default'     => __( 'Accept', 'smile-basic-web' ),
+                        'description' => esc_html__( 'Text displayed on the "Accept" button when the notice first appears.', 'smile-basic-web' ),
+                )
+        );
+
+        add_settings_field(
+                'sbwscf_cookie_label_deny_initial',
+                esc_html__( 'Deny button label', 'smile-basic-web' ),
+                'sbwscf_cookie_label_field_cb',
+                'sbwscf_cookies',
+                'sbwscf_cookies_panel_section',
+                array(
+                        'option'      => 'sbwscf_cookie_label_deny_initial',
+                        'default'     => __( 'Deny', 'smile-basic-web' ),
+                        'description' => esc_html__( 'Text displayed on the "Deny" button when the notice first appears.', 'smile-basic-web' ),
+                )
         );
 
         add_settings_field(
