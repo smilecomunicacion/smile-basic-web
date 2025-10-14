@@ -649,38 +649,101 @@ function sbwscf_cookies_tracking_section_cb(): void {
  * @return void
  */
 function sbwscf_tracking_scripts_cb(): void {
-	$scripts = get_option( 'sbwscf_tracking_scripts', array() );
-	?>
-	<div id="sbwscf-tracking-scripts-table">
-	<table class="widefat fixed">
-		<thead>
-			<tr>
-				<th><?php esc_html_e( 'Name', 'smile-basic-web' ); ?></th>
-				<th><?php esc_html_e( 'Description', 'smile-basic-web' ); ?></th>
-				<th><?php esc_html_e( 'Script Code', 'smile-basic-web' ); ?></th>
-				<th><?php esc_html_e( 'Actions', 'smile-basic-web' ); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-		<?php
-		if ( is_array( $scripts ) ) :
-			foreach ( $scripts as $i => $script ) :
-				?>
-				<tr>
-					<td><input type="text" name="sbwscf_tracking_scripts[<?php echo esc_attr( $i ); ?>][name]" value="<?php echo esc_attr( $script['name'] ?? '' ); ?>" class="regular-text" /></td>
-					<td><input type="text" name="sbwscf_tracking_scripts[<?php echo esc_attr( $i ); ?>][description]" value="<?php echo esc_attr( $script['description'] ?? '' ); ?>" class="regular-text" /></td>
-					<td><textarea name="sbwscf_tracking_scripts[<?php echo esc_attr( $i ); ?>][code]" rows="4" class="regular-text code"><?php echo esc_textarea( $script['code'] ?? '' ); ?></textarea></td>
-					<td><button type="button" class="button sbwscf-remove-script"><?php esc_html_e( 'Delete', 'smile-basic-web' ); ?></button></td>
-				</tr>
-				<?php
-			endforeach;
-		endif;
-		?>
-		</tbody>
-	</table>
-	</div>
-	<button type="button" class="button button-primary" id="sbwscf-add-script"><?php esc_html_e( 'Add Script', 'smile-basic-web' ); ?></button>
-	<?php
+        if ( function_exists( 'wp_enqueue_editor' ) ) {
+                wp_enqueue_editor();
+        }
+
+        $scripts                     = get_option( 'sbwscf_tracking_scripts', array() );
+        $name_editor_base_settings   = array(
+                'media_buttons' => false,
+                'teeny'         => false,
+                'textarea_rows' => 2,
+                'tinymce'       => array(
+                        'toolbar1'          => 'bold italic underline | superscript subscript | link unlink | removeformat | undo redo',
+                        'toolbar2'          => '',
+                        'forced_root_block' => '',
+                        'force_br_newlines' => true,
+                        'force_p_newlines'  => false,
+                ),
+                'quicktags'     => array(
+                        'buttons' => 'strong,em,link,del,ins,code,close',
+                ),
+        );
+        $description_editor_settings = array(
+                'media_buttons' => false,
+                'teeny'         => true,
+                'textarea_rows' => 6,
+        );
+
+        wp_localize_script(
+                'sbwscf-cookies-admin',
+                'sbwscfTrackingEditorSettings',
+                array(
+                        'name'        => $name_editor_base_settings,
+                        'description' => $description_editor_settings,
+                )
+        );
+        ?>
+        <div id="sbwscf-tracking-scripts-table">
+        <table class="widefat fixed">
+                <thead>
+                        <tr>
+                                <th><?php esc_html_e( 'Name', 'smile-basic-web' ); ?></th>
+                                <th><?php esc_html_e( 'Description', 'smile-basic-web' ); ?></th>
+                                <th><?php esc_html_e( 'Script Code', 'smile-basic-web' ); ?></th>
+                                <th><?php esc_html_e( 'Actions', 'smile-basic-web' ); ?></th>
+                        </tr>
+                </thead>
+                <tbody>
+                <?php
+                if ( is_array( $scripts ) ) :
+                        foreach ( $scripts as $i => $script ) :
+                                $name_editor_id        = 'sbwscf_tracking_scripts_' . $i . '_name';
+                                $description_editor_id = 'sbwscf_tracking_scripts_' . $i . '_description';
+                                ?>
+                                <tr data-row-index="<?php echo esc_attr( $i ); ?>" data-name-editor="<?php echo esc_attr( $name_editor_id ); ?>" data-description-editor="<?php echo esc_attr( $description_editor_id ); ?>">
+                                        <td>
+                                                <?php
+                                                wp_editor(
+                                                        sbwscf_sanitize_cookie_inline_html( (string) ( $script['name'] ?? '' ) ),
+                                                        $name_editor_id,
+                                                        array_merge(
+                                                                $name_editor_base_settings,
+                                                                array(
+                                                                        'textarea_name' => 'sbwscf_tracking_scripts[' . $i . '][name]',
+                                                                )
+                                                        )
+                                                );
+                                                ?>
+                                        </td>
+                                        <td>
+                                                <?php
+                                                wp_editor(
+                                                        wp_kses_post( (string) ( $script['description'] ?? '' ) ),
+                                                        $description_editor_id,
+                                                        array_merge(
+                                                                $description_editor_settings,
+                                                                array(
+                                                                        'textarea_name' => 'sbwscf_tracking_scripts[' . $i . '][description]',
+                                                                )
+                                                        )
+                                                );
+                                                ?>
+                                        </td>
+                                        <td>
+                                                <textarea id="sbwscf_tracking_scripts_<?php echo esc_attr( $i ); ?>_code" name="sbwscf_tracking_scripts[<?php echo esc_attr( $i ); ?>][code]" rows="4" class="regular-text code"><?php echo esc_textarea( $script['code'] ?? '' ); ?></textarea>
+                                        </td>
+                                        <td><button type="button" class="button sbwscf-remove-script"><?php esc_html_e( 'Delete', 'smile-basic-web' ); ?></button></td>
+                                </tr>
+                                <?php
+                        endforeach;
+                endif;
+                ?>
+                </tbody>
+        </table>
+        </div>
+        <button type="button" class="button button-primary" id="sbwscf-add-script"><?php esc_html_e( 'Add Script', 'smile-basic-web' ); ?></button>
+        <?php
 }
 
 /**
@@ -795,21 +858,21 @@ function sbwscf_sanitize_cookie_label( $value ): string {
 function sbwscf_sanitize_tracking_scripts( $input ): array {
 	$sanitized = array();
 
-	if ( is_array( $input ) ) {
-		foreach ( $input as $entry ) {
-			$name = isset( $entry['name'] ) ? sanitize_text_field( $entry['name'] ) : '';
-			$desc = isset( $entry['description'] ) ? sanitize_text_field( $entry['description'] ) : '';
-			$code = isset( $entry['code'] ) ? wp_kses_post( $entry['code'] ) : '';
+        if ( is_array( $input ) ) {
+                foreach ( $input as $entry ) {
+                        $name = isset( $entry['name'] ) ? sbwscf_sanitize_cookie_inline_html( wp_unslash( (string) $entry['name'] ) ) : '';
+                        $desc = isset( $entry['description'] ) ? wp_kses_post( wp_unslash( (string) $entry['description'] ) ) : '';
+                        $code = isset( $entry['code'] ) ? wp_kses_post( wp_unslash( (string) $entry['code'] ) ) : '';
 
-			if ( '' !== $name && '' !== $code ) {
-				$sanitized[] = array(
-					'name'        => $name,
-					'description' => $desc,
-					'code'        => $code,
-				);
-			}
-		}
-	}
+                        if ( '' !== trim( wp_strip_all_tags( $name ) ) && '' !== trim( $code ) ) {
+                                $sanitized[] = array(
+                                        'name'        => $name,
+                                        'description' => $desc,
+                                        'code'        => $code,
+                                );
+                        }
+                }
+        }
 
 	return $sanitized;
 }

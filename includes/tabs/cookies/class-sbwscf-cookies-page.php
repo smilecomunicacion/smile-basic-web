@@ -92,13 +92,13 @@ final class SBWSCF_Cookies_Page implements SBWSCF_Tab_Interface {
 			return;
 		}
 
-		wp_enqueue_script(
-			'sbwscf-cookies-admin',
-			esc_url( plugins_url( 'assets/js/sbwscf-cookies-admin.js', __FILE__ ) ),
-			array( 'wp-i18n' ),
-			SMILE_BASIC_WEB_VERSION,
-			true
-		);
+                wp_enqueue_script(
+                        'sbwscf-cookies-admin',
+                        esc_url( plugins_url( 'assets/js/sbwscf-cookies-admin.js', __FILE__ ) ),
+                        array( 'wp-i18n', 'wp-editor' ),
+                        SMILE_BASIC_WEB_VERSION,
+                        true
+                );
 
 		wp_enqueue_style(
 			'sbwscf-cookies-admin-style',
