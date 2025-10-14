@@ -190,6 +190,7 @@
 }
 
 .sbwscf-cookie-description,
+.sbwscf-cookie-description *,
 .sbwscf-cookie-description p {
         color: var(--sbwscf-text-color);
 }
