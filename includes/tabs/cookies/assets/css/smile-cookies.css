@@ -119,10 +119,13 @@
  * ------------------------------------------------------------------ */
 
 .sbwscf-smile-cookies-buttons {
-	display: inline-flex;
-	gap: 0.75rem;
-	flex-wrap: wrap;
-	margin-bottom: 10px;
+        display: inline-flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
 }
 
 .sbwscf-smile-cookies-buttons button {
