@@ -1015,39 +1015,43 @@ msgstr ""
 msgid "Show label title on minimized tab"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:170
+#: includes/tabs/cookies/cookies-settings.php:301
 msgid "Background Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:171
+#: includes/tabs/cookies/cookies-settings.php:302
+msgid "Title Color"
+msgstr ""
+
+#: includes/tabs/cookies/cookies-settings.php:303
 msgid "Text Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:172
+#: includes/tabs/cookies/cookies-settings.php:304
 msgid "Accept Button Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:173
+#: includes/tabs/cookies/cookies-settings.php:305
 msgid "Accept Text Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:174
+#: includes/tabs/cookies/cookies-settings.php:306
 msgid "Reject Button Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:175
+#: includes/tabs/cookies/cookies-settings.php:307
 msgid "Reject Text Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:176
+#: includes/tabs/cookies/cookies-settings.php:308
 msgid "Preferences Button Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:177
+#: includes/tabs/cookies/cookies-settings.php:309
 msgid "Preferences Text Color"
 msgstr ""
 
-#: includes/tabs/cookies/cookies-settings.php:178
+#: includes/tabs/cookies/cookies-settings.php:310
 msgid "Link Color"
 msgstr ""
 
