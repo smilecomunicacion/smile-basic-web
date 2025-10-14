@@ -111,9 +111,14 @@
 }
 
 .sbwscf-smile-cookies-message {
-	font-size: 0.95rem;
-	line-height: 1.5;
-	margin-bottom: 15px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        color: var(--sbwscf-text-color);
+}
+
+.sbwscf-smile-cookies-message p {
+        color: var(--sbwscf-text-color);
 }
 
 /* ------------------------------------------------------------------
@@ -180,8 +185,13 @@
 }
 
 .sbwscf-smile-cookies-links a {
-	color: var(--sbwscf-link-color);
-	text-decoration: underline;
+        color: var(--sbwscf-link-color);
+        text-decoration: underline;
+}
+
+.sbwscf-cookie-description,
+.sbwscf-cookie-description p {
+        color: var(--sbwscf-text-color);
 }
 
 .sbwscf-smile-cookies-links a:hover {

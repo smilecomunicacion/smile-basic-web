@@ -106,8 +106,11 @@ function sbwscf_output_cookie_consent_panel(): void {
         #sbwscf-smile-cookies-panel .sbwscf-cookie-title {
                 color: <?php echo esc_attr( $title_color ); ?>;
         }
+        #sbwscf-smile-cookies-panel .sbwscf-smile-cookies-message,
+        #sbwscf-smile-cookies-panel .sbwscf-smile-cookies-message p,
         #sbwscf-smile-cookies-panel .sbwscf-cookie-summary,
         #sbwscf-smile-cookies-panel .sbwscf-cookie-description,
+        #sbwscf-smile-cookies-panel .sbwscf-cookie-description p,
         #sbwscf-smile-cookies-panel .sbwscf-cookie-checkbox,
         #sbwscf-smile-cookies-panel .sbwscf-cookie-checkbox label {
                 color: <?php echo esc_attr( $text_color ); ?>;
