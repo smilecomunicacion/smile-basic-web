@@ -70,6 +70,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!saved) return
                 try {
                         const prefs = JSON.parse(saved)
+
+                        if (!prefs || typeof prefs !== 'object') {
+                                return
+                        }
+
+                        const normalized = {}
+
+                        Object.keys(prefs).forEach((category) => {
+                                const value = prefs[category]
+                                let normalizedValue = false
+
+                                if (value === true || value === false) {
+                                        normalizedValue = value
+                                } else if (typeof value === 'string') {
+                                        const lowered = value.trim().toLowerCase()
+                                        normalizedValue = lowered === 'true' || lowered === '1'
+                                }
+
+                                normalized[category] = normalizedValue
+                        })
+
                         preferenceInputs.forEach((input) => {
                                 if (!input || typeof input.checked !== 'boolean') {
                                         return
@@ -78,11 +99,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (!category) {
                                         return
                                 }
-                                const state = prefs[category]
+                                const state = normalized[category]
                                 if (typeof state === 'boolean') {
                                         input.checked = state
                                 }
                         })
+
+                        localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(normalized))
                 } catch (e) {
                         console.error('Invalid preferences JSON', e)
                 }
@@ -112,8 +135,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 try {
                         const prefs = JSON.parse(saved)
+                        if (!prefs || typeof prefs !== 'object') {
+                                return
+                        }
+
                         sbwscfCookieScripts.scripts.forEach((script) => {
-                                if (!prefs[script.category] || typeof script.code !== 'string') {
+                                if (prefs[script.category] !== true || typeof script.code !== 'string') {
                                         return
                                 }
 
