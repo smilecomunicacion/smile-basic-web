@@ -88,38 +88,118 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
         }
 
-	function injectScripts() {
-		const consent = localStorage.getItem('sbwscf-cookie-status')
-		const saved = localStorage.getItem('sbwscf-cookie-preferences')
+        function injectScripts() {
+                const consent = localStorage.getItem('sbwscf-cookie-status')
+                const saved = localStorage.getItem('sbwscf-cookie-preferences')
 
-		if (typeof sbwscfCookieScripts !== 'undefined') {
-			sbwscfCookieScripts.scripts.forEach((script) => {
-				const existing = document.querySelector(
-					'script[data-sbwscf-id="' + script.category + '"]'
-				)
-				if (existing) existing.remove()
-			})
-		}
+                if (typeof sbwscfCookieScripts !== 'undefined') {
+                        sbwscfCookieScripts.scripts.forEach((script) => {
+                                const existing = document.querySelector(
+                                        'script[data-sbwscf-id="' + script.category + '"]'
+                                )
+                                if (existing) existing.remove()
 
-		if (consent !== 'accepted' || !saved || typeof sbwscfCookieScripts === 'undefined') {
-			return
-		}
+                                const fallback = document.querySelector(
+                                        '[data-sbwscf-fallback="' + script.category + '"]'
+                                )
+                                if (fallback) fallback.remove()
+                        })
+                }
 
-		try {
-			const prefs = JSON.parse(saved)
-			sbwscfCookieScripts.scripts.forEach((script) => {
-				if (prefs[script.category]) {
-					const tag = document.createElement('script')
-					tag.type = 'text/javascript'
-					tag.setAttribute('data-sbwscf-id', script.category)
-					tag.text = script.code
-					document.head.appendChild(tag)
-				}
-			})
-		} catch (e) {
-			console.error('Error injecting scripts', e)
-		}
-	}
+                if (consent !== 'accepted' || !saved || typeof sbwscfCookieScripts === 'undefined') {
+                        return
+                }
+
+                try {
+                        const prefs = JSON.parse(saved)
+                        sbwscfCookieScripts.scripts.forEach((script) => {
+                                if (!prefs[script.category] || typeof script.code !== 'string') {
+                                        return
+                                }
+
+                                const parts = splitScriptCode(script.code)
+
+                                if (parts.jsFragments.length) {
+                                        const tag = document.createElement('script')
+                                        tag.type = 'text/javascript'
+                                        tag.setAttribute('data-sbwscf-id', script.category)
+                                        tag.text = parts.jsFragments.join('\n')
+                                        document.head.appendChild(tag)
+                                }
+
+                                if (parts.fallbackNodes.length && document.body) {
+                                        const fallbackWrapper = document.createElement('div')
+                                        fallbackWrapper.setAttribute('data-sbwscf-fallback', script.category)
+                                        parts.fallbackNodes.forEach((node) => {
+                                                fallbackWrapper.appendChild(node)
+                                        })
+                                        document.body.appendChild(fallbackWrapper)
+                                }
+                        })
+                } catch (e) {
+                        console.error('Error injecting scripts', e)
+                }
+        }
+
+        function splitScriptCode(code) {
+                const jsFragments = []
+                const fallbackNodes = []
+
+                if (typeof code !== 'string') {
+                        return {
+                                jsFragments,
+                                fallbackNodes,
+                        }
+                }
+
+                const template = document.createElement('template')
+                template.innerHTML = code
+                const nodes = template.content ? template.content.childNodes : []
+
+                if (!nodes || !nodes.length) {
+                        if (code.trim() !== '') {
+                                jsFragments.push(code)
+                        }
+
+                        return {
+                                jsFragments,
+                                fallbackNodes,
+                        }
+                }
+
+                Array.prototype.forEach.call(nodes, (node) => {
+                        if (node.nodeType === 3) {
+                                const text = node.textContent
+                                if (!text) {
+                                        return
+                                }
+
+                                const trimmed = text.trim()
+
+                                if (trimmed === '') {
+                                        return
+                                }
+
+                                if (trimmed.charAt(0) === '<') {
+                                        fallbackNodes.push(document.createTextNode(text))
+                                        return
+                                }
+
+                                jsFragments.push(text)
+                        } else if (node.nodeType === 1) {
+                                fallbackNodes.push(node.cloneNode(true))
+                        }
+                })
+
+                if (!jsFragments.length && code.trim() !== '') {
+                        jsFragments.push(code)
+                }
+
+                return {
+                        jsFragments,
+                        fallbackNodes,
+                }
+        }
 
 	// --- Botón “Accept All” (antes “Accept”) ---
 	if (acceptBtn) {
