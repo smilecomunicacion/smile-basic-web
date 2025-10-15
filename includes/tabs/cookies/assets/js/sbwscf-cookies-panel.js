@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const acceptBtn = panel?.querySelector('.sbwscf-smile-cookies-accept')
 	const denyBtn = panel?.querySelector('.sbwscf-smile-cookies-deny')
 	const preferencesBtn = panel?.querySelector('.sbwscf-smile-cookies-preferences')
-	const preferenceInputs = document.querySelectorAll('[data-category]')
+        const preferenceInputs = panel ? panel.querySelectorAll('input[data-category]') : []
 	const categoriesBox = document.getElementById('sbwscf-cookie-categories')
 
         const preferencesDefaultLabel = preferencesBtn?.dataset?.preferencesLabel || wp.i18n.__('Preferences', 'smile-basic-web')
@@ -50,29 +50,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 matchButtonWidths()
         }
 
-	function savePreferences() {
-		const prefs = {}
-		preferenceInputs.forEach((input) => {
-			prefs[input.dataset.category] = input.checked
-		})
-		localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(prefs))
-	}
+        function savePreferences() {
+                const prefs = {}
+                preferenceInputs.forEach((input) => {
+                        if (!input || typeof input.checked !== 'boolean') {
+                                return
+                        }
+                        const category = input.dataset ? input.dataset.category : undefined
+                        if (!category) {
+                                return
+                        }
+                        prefs[category] = input.checked
+                })
+                localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(prefs))
+        }
 
-	function loadPreferences() {
-		const saved = localStorage.getItem('sbwscf-cookie-preferences')
-		if (!saved) return
-		try {
-			const prefs = JSON.parse(saved)
-			preferenceInputs.forEach((input) => {
-				const state = prefs[input.dataset.category]
-				if (typeof state === 'boolean') {
-					input.checked = state
-				}
-			})
-		} catch (e) {
-			console.error('Invalid preferences JSON', e)
-		}
-	}
+        function loadPreferences() {
+                const saved = localStorage.getItem('sbwscf-cookie-preferences')
+                if (!saved) return
+                try {
+                        const prefs = JSON.parse(saved)
+                        preferenceInputs.forEach((input) => {
+                                if (!input || typeof input.checked !== 'boolean') {
+                                        return
+                                }
+                                const category = input.dataset ? input.dataset.category : undefined
+                                if (!category) {
+                                        return
+                                }
+                                const state = prefs[category]
+                                if (typeof state === 'boolean') {
+                                        input.checked = state
+                                }
+                        })
+                } catch (e) {
+                        console.error('Invalid preferences JSON', e)
+                }
+        }
 
 	function injectScripts() {
 		const consent = localStorage.getItem('sbwscf-cookie-status')
