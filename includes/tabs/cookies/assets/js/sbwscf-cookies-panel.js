@@ -50,6 +50,111 @@ document.addEventListener('DOMContentLoaded', function () {
                 matchButtonWidths()
         }
 
+        function escapeSelector(value) {
+                if (typeof value !== 'string') {
+                        return ''
+                }
+
+                if (window.CSS && typeof window.CSS.escape === 'function') {
+                        return window.CSS.escape(value)
+                }
+
+                return value.replace(/[^a-zA-Z0-9_-]/g, '\\$&')
+        }
+
+        function markManagedSubtree(category, node) {
+                if (!node) {
+                        return
+                }
+
+                const queue = [node]
+
+                while (queue.length) {
+                        const current = queue.shift()
+                        if (!current) {
+                                continue
+                        }
+
+                        if (current.nodeType === 1) {
+                                if (!current.hasAttribute('data-sbwscf-managed')) {
+                                        current.setAttribute('data-sbwscf-managed', category)
+                                }
+
+                                if (current.childNodes && current.childNodes.length) {
+                                        Array.prototype.forEach.call(current.childNodes, (child) => {
+                                                queue.push(child)
+                                        })
+                                }
+                        } else if (current.nodeType === 11 && current.childNodes && current.childNodes.length) {
+                                Array.prototype.forEach.call(current.childNodes, (child) => {
+                                        queue.push(child)
+                                })
+                        }
+                }
+        }
+
+        function cleanupCategory(category) {
+                if (typeof category !== 'string' || category === '') {
+                        return
+                }
+
+                const safeCategory = escapeSelector(category)
+
+                const managedSelector = '[data-sbwscf-managed="' + safeCategory + '"]'
+                const scriptSelector = 'script[data-sbwscf-id="' + safeCategory + '"]'
+                const fallbackSelector = '[data-sbwscf-fallback="' + safeCategory + '"]'
+
+                document.querySelectorAll(scriptSelector).forEach((node) => {
+                        node.remove()
+                })
+
+                document.querySelectorAll(fallbackSelector).forEach((node) => {
+                        node.remove()
+                })
+
+                document.querySelectorAll(managedSelector).forEach((node) => {
+                        node.remove()
+                })
+        }
+
+        function runWithManagedNodes(category, callback) {
+                if (typeof callback !== 'function') {
+                        return
+                }
+
+                const originalCreateElement = document.createElement.bind(document)
+                const originalAppendChild = Node.prototype.appendChild
+                const originalInsertBefore = Node.prototype.insertBefore
+
+                const markNode = (node) => {
+                        markManagedSubtree(category, node)
+                }
+
+                document.createElement = function () {
+                        const created = originalCreateElement.apply(document, arguments)
+                        markNode(created)
+                        return created
+                }
+
+                Node.prototype.appendChild = function (child) {
+                        markNode(child)
+                        return originalAppendChild.call(this, child)
+                }
+
+                Node.prototype.insertBefore = function (newNode, referenceNode) {
+                        markNode(newNode)
+                        return originalInsertBefore.call(this, newNode, referenceNode)
+                }
+
+                try {
+                        callback(markNode)
+                } finally {
+                        document.createElement = originalCreateElement
+                        Node.prototype.appendChild = originalAppendChild
+                        Node.prototype.insertBefore = originalInsertBefore
+                }
+        }
+
         function savePreferences() {
                 const prefs = {}
                 preferenceInputs.forEach((input) => {
@@ -117,15 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (typeof sbwscfCookieScripts !== 'undefined') {
                         sbwscfCookieScripts.scripts.forEach((script) => {
-                                const existing = document.querySelector(
-                                        'script[data-sbwscf-id="' + script.category + '"]'
-                                )
-                                if (existing) existing.remove()
-
-                                const fallback = document.querySelector(
-                                        '[data-sbwscf-fallback="' + script.category + '"]'
-                                )
-                                if (fallback) fallback.remove()
+                                cleanupCategory(script.category)
                         })
                 }
 
@@ -146,22 +243,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                 const parts = splitScriptCode(script.code)
 
-                                if (parts.jsFragments.length) {
-                                        const tag = document.createElement('script')
-                                        tag.type = 'text/javascript'
-                                        tag.setAttribute('data-sbwscf-id', script.category)
-                                        tag.text = parts.jsFragments.join('\n')
-                                        document.head.appendChild(tag)
-                                }
+                                runWithManagedNodes(script.category, (markNode) => {
+                                        if (parts.jsFragments.length) {
+                                                const tag = document.createElement('script')
+                                                tag.type = 'text/javascript'
+                                                tag.setAttribute('data-sbwscf-id', script.category)
+                                                tag.text = parts.jsFragments.join('\n')
+                                                document.head.appendChild(tag)
+                                        }
 
-                                if (parts.fallbackNodes.length && document.body) {
-                                        const fallbackWrapper = document.createElement('div')
-                                        fallbackWrapper.setAttribute('data-sbwscf-fallback', script.category)
-                                        parts.fallbackNodes.forEach((node) => {
-                                                fallbackWrapper.appendChild(node)
-                                        })
-                                        document.body.appendChild(fallbackWrapper)
-                                }
+                                        if (parts.fallbackNodes.length && document.body) {
+                                                const fallbackWrapper = document.createElement('div')
+                                                fallbackWrapper.setAttribute('data-sbwscf-fallback', script.category)
+                                                markNode(fallbackWrapper)
+                                                parts.fallbackNodes.forEach((node) => {
+                                                        markNode(node)
+                                                        fallbackWrapper.appendChild(node)
+                                                })
+                                                document.body.appendChild(fallbackWrapper)
+                                        }
+                                })
                         })
                 } catch (e) {
                         console.error('Error injecting scripts', e)
