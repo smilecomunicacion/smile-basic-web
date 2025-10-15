@@ -367,9 +367,13 @@ document.addEventListener('DOMContentLoaded', function () {
 	// ------------------------------------------------------------------
 	// Igualar ancho de botones al más ancho
 	// ------------------------------------------------------------------
-	function matchButtonWidths() {
-		updateActionButtons()
-		const btns = panel.querySelectorAll('.sbwscf-smile-cookies-buttons button')
+        function matchButtonWidths() {
+                if (!panel) {
+                        return
+                }
+
+                updateActionButtons()
+                const btns = panel.querySelectorAll('.sbwscf-smile-cookies-buttons button')
 		if (!btns.length) {
 			return
 		}
