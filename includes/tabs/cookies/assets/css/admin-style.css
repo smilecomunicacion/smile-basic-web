@@ -15,18 +15,18 @@
 
 /* Textareas full width */
 #sbwscf-tracking-scripts-table textarea.regular-text {
-        width: 100% !important;
-        box-sizing: border-box;
-        min-height: 6rem;
+	width: 100% !important;
+	box-sizing: border-box;
+	min-height: 12rem;
 }
 
 #sbwscf-tracking-scripts-table .wp-editor-wrap {
-        max-width: 100%;
+	max-width: 100%;
 }
 
 #sbwscf-tracking-scripts-table .wp-editor-area {
-        width: 100%;
-        box-sizing: border-box;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 /* Asegura que la tabla de campos personalizados ocupe el ancho completo */
@@ -67,26 +67,26 @@
 /* Columna 1: Label */
 #sbwscf-tracking-scripts-table table.widefat th:nth-child(1),
 #sbwscf-tracking-scripts-table table.widefat td:nth-child(1) {
-        width: 22rem !important;
-        word-wrap: break-word;
+	width: 22rem !important;
+	word-wrap: break-word;
 }
 
 #sbwscf-tracking-scripts-table table.widefat th:nth-child(2),
 #sbwscf-tracking-scripts-table table.widefat td:nth-child(2) {
-        width: 26rem !important;
-        word-wrap: break-word;
+	width: 26rem !important;
+	word-wrap: break-word;
 }
 
 #sbwscf-tracking-scripts-table table.widefat th:nth-child(3),
 #sbwscf-tracking-scripts-table table.widefat td:nth-child(3) {
-        width: 20rem !important;
-        word-wrap: break-word;
+	width: 20rem !important;
+	word-wrap: break-word;
 }
 
 #sbwscf-tracking-scripts-table table.widefat th:nth-child(4),
 #sbwscf-tracking-scripts-table table.widefat td:nth-child(4) {
-        width: 10rem !important;
-        word-wrap: break-word;
+	width: 10rem !important;
+	word-wrap: break-word;
 }
 
 /* Fuerza a que los campos de entrada ocupen el ancho completo de la celda */
