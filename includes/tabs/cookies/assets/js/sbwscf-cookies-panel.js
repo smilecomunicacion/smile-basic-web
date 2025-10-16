@@ -268,12 +268,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
         }
 
+        const activeObservers = new Map()
+
         function cleanupCategory(category) {
                 if (typeof category !== 'string' || category === '') {
                         return
                 }
 
                 const safeCategory = escapeSelector(category)
+
+                if (activeObservers.has(category)) {
+                        const observer = activeObservers.get(category)
+                        observer.disconnect()
+                        activeObservers.delete(category)
+                }
 
                 const managedSelector = '[data-sbwscf-managed="' + safeCategory + '"]'
                 const scriptSelector = 'script[data-sbwscf-id="' + safeCategory + '"]'
@@ -308,6 +316,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         markManagedSubtree(category, node)
                 }
 
+                if (activeObservers.has(category)) {
+                        const previousObserver = activeObservers.get(category)
+                        previousObserver.disconnect()
+                        activeObservers.delete(category)
+                }
+
                 const observer = typeof MutationObserver === 'function'
                         ? new MutationObserver((mutations) => {
                                 mutations.forEach((mutation) => {
@@ -327,6 +341,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 childList: true,
                                 subtree: true,
                         })
+                        activeObservers.set(category, observer)
                 }
 
                 document.createElement = function () {
@@ -386,10 +401,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         if (typeof originalPrepend === 'function') {
                                 Node.prototype.prepend = originalPrepend
-                        }
-
-                        if (observer) {
-                                observer.disconnect()
                         }
                 }
         }
