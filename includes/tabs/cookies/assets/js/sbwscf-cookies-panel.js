@@ -14,7 +14,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	const acceptBtn = panel?.querySelector('.sbwscf-smile-cookies-accept')
 	const denyBtn = panel?.querySelector('.sbwscf-smile-cookies-deny')
 	const preferencesBtn = panel?.querySelector('.sbwscf-smile-cookies-preferences')
-        const preferenceInputs = panel ? panel.querySelectorAll('input[data-category]') : []
+        function getPreferenceInputs() {
+                if (!panel) {
+                        return []
+                }
+
+                const nodeList = panel.querySelectorAll('input[data-category]')
+
+                if (!nodeList || typeof nodeList.length !== 'number') {
+                        return []
+                }
+
+                return Array.from(nodeList)
+        }
 	const categoriesBox = document.getElementById('sbwscf-cookie-categories')
 
         const preferencesDefaultLabel = preferencesBtn?.dataset?.preferencesLabel || wp.i18n.__('Preferences', 'smile-basic-web')
@@ -155,18 +167,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
         }
 
-        function savePreferences() {
+        function savePreferences(sourcePrefs) {
                 const prefs = {}
-                preferenceInputs.forEach((input) => {
-                        if (!input || typeof input.checked !== 'boolean') {
-                                return
-                        }
-                        const category = input.dataset ? input.dataset.category : undefined
-                        if (!category) {
-                                return
-                        }
-                        prefs[category] = input.checked
-                })
+
+                if (sourcePrefs && typeof sourcePrefs === 'object') {
+                        Object.keys(sourcePrefs).forEach((category) => {
+                                prefs[category] = sourcePrefs[category] === true
+                        })
+                } else {
+                        const inputs = getPreferenceInputs()
+
+                        inputs.forEach((input) => {
+                                if (!input || typeof input.checked !== 'boolean') {
+                                        return
+                                }
+                                const category = input.dataset ? input.dataset.category : undefined
+                                if (!category) {
+                                        return
+                                }
+                                prefs[category] = input.matches(':checked')
+                        })
+                }
+
                 localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(prefs))
         }
 
@@ -196,7 +218,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 normalized[category] = normalizedValue
                         })
 
-                        preferenceInputs.forEach((input) => {
+                        const inputs = getPreferenceInputs()
+
+                        inputs.forEach((input) => {
                                 if (!input || typeof input.checked !== 'boolean') {
                                         return
                                 }
@@ -210,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 }
                         })
 
-                        localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(normalized))
+                        savePreferences(normalized)
                 } catch (e) {
                         console.error('Invalid preferences JSON', e)
                 }
@@ -333,24 +357,23 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (acceptBtn) {
 		acceptBtn.addEventListener('click', function () {
 			// Marcar **todos** los checkboxes opcionales
-			const allBoxes = document.querySelectorAll(
-				'#sbwscf-cookie-categories input[type="checkbox"]:not(:disabled)'
-			)
-			allBoxes.forEach((cb) => {
-				cb.checked = true
-			})
+                        const inputs = getPreferenceInputs()
+                        const activeBoxes = inputs.filter((input) => !input.disabled)
+
+                        activeBoxes.forEach((cb) => {
+                                cb.checked = true
+                        })
 
 			// Guardar estado “accepted”
 			localStorage.setItem('sbwscf-cookie-status', 'accepted')
 
 			// Recopilar y guardar preferencias
-			const prefs = {}
-			allBoxes.forEach((cb) => {
-				const cat = cb.dataset.category
-				if (cat) prefs[cat] = cb.checked
-			})
-			localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(prefs))
-			savePreferences()
+                        const prefs = {}
+                        activeBoxes.forEach((cb) => {
+                                const cat = cb.dataset ? cb.dataset.category : undefined
+                                if (cat) prefs[cat] = cb.matches(':checked')
+                        })
+                        savePreferences(prefs)
 
 			injectScripts()
 			if (categoriesBox) categoriesBox.hidden = true
@@ -363,17 +386,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		denyBtn.addEventListener('click', function () {
 			localStorage.setItem('sbwscf-cookie-status', 'denied')
 
-			const allBoxes = document.querySelectorAll(
-				'#sbwscf-cookie-categories input[type="checkbox"]:not(:disabled)'
-			)
-			const prefs = {}
-			allBoxes.forEach((cb) => {
-				cb.checked = false
-				const cat = cb.dataset.category
-				if (cat) prefs[cat] = false
-			})
-			localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(prefs))
-			savePreferences()
+                        const inputs = getPreferenceInputs()
+                        const activeBoxes = inputs.filter((input) => !input.disabled)
+                        const prefs = {}
+                        activeBoxes.forEach((cb) => {
+                                cb.checked = false
+                                const cat = cb.dataset ? cb.dataset.category : undefined
+                                if (cat) prefs[cat] = false
+                        })
+                        savePreferences(prefs)
 
 			injectScripts()
 			if (categoriesBox) categoriesBox.hidden = true
@@ -406,19 +427,16 @@ document.addEventListener('DOMContentLoaded', function () {
 			} else {
 				localStorage.setItem('sbwscf-cookie-status', 'accepted')
 
-				const allBoxes = document.querySelectorAll(
-					'#sbwscf-cookie-categories input[type="checkbox"]:not(:disabled)'
-				)
-				const prefs = {}
-				allBoxes.forEach((cb) => {
-					const cat = cb.dataset.category
-					if (cat) {
-						prefs[cat] = cb.checked
-					}
-				})
-
-				localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(prefs))
-				savePreferences()
+                                const inputs = getPreferenceInputs()
+                                const activeBoxes = inputs.filter((input) => !input.disabled)
+                                const prefs = {}
+                                activeBoxes.forEach((cb) => {
+                                        const cat = cb.dataset ? cb.dataset.category : undefined
+                                        if (cat) {
+                                                prefs[cat] = cb.matches(':checked')
+                                        }
+                                })
+                                savePreferences(prefs)
 				injectScripts()
 
 				categoriesBox.hidden = true
