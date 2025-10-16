@@ -163,27 +163,35 @@ final class SBWSCF_Cookies_Page implements SBWSCF_Tab_Interface {
 			);
 
 			// Scripts de preferencias configurados en backend.
-			$raw_scripts = get_option( 'sbwscf_tracking_scripts', array() );
-			$prepared    = array();
+                        $raw_scripts  = get_option( 'sbwscf_tracking_scripts', array() );
+                        $prepared     = array();
+                        $config_hash  = '';
 
-			if ( is_array( $raw_scripts ) ) {
-				foreach ( $raw_scripts as $script ) {
-					if ( '' !== $script['name'] && '' !== $script['code'] ) {
-						$prepared[] = array(
-							'category' => sanitize_title( $script['name'] ),
-							'code'     => $script['code'],
-						);
-					}
-				}
-			}
+                        if ( is_array( $raw_scripts ) ) {
+                                foreach ( $raw_scripts as $script ) {
+                                        if ( '' !== $script['name'] && '' !== $script['code'] ) {
+                                                $prepared[] = array(
+                                                        'category' => sanitize_title( $script['name'] ),
+                                                        'code'     => $script['code'],
+                                                );
+                                        }
+                                }
+                        }
 
-			wp_localize_script(
-				'sbwscf-cookies-panel',
-				'sbwscfCookieScripts',
-				array( 'scripts' => $prepared )
-			);
-		}
-	}
+                        if ( ! empty( $prepared ) ) {
+                                $config_hash = md5( wp_json_encode( $prepared ) );
+                        }
+
+                        wp_localize_script(
+                                'sbwscf-cookies-panel',
+                                'sbwscfCookieScripts',
+                                array(
+                                        'scripts'    => $prepared,
+                                        'configHash' => $config_hash,
+                                )
+                        );
+                }
+        }
 
 
 	/**
