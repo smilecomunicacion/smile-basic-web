@@ -168,10 +168,15 @@ final class SBWSCF_Cookies_Page implements SBWSCF_Tab_Interface {
 
                         if ( is_array( $raw_scripts ) ) {
                                 foreach ( $raw_scripts as $script ) {
-                                        if ( '' !== $script['name'] && '' !== $script['code'] ) {
+                                        $name    = isset( $script['name'] ) ? (string) $script['name'] : '';
+                                        $code    = isset( $script['code'] ) ? (string) $script['code'] : '';
+                                        $slug    = sbwscf_get_cookie_script_slug( $name );
+                                        $has_code = '' !== trim( $code );
+
+                                        if ( '' !== $slug && $has_code ) {
                                                 $prepared[] = array(
-                                                        'category' => sanitize_title( $script['name'] ),
-                                                        'code'     => $script['code'],
+                                                        'category' => $slug,
+                                                        'code'     => $code,
                                                 );
                                         }
                                 }
