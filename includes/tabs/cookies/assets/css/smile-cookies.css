@@ -111,14 +111,14 @@
 }
 
 .sbwscf-smile-cookies-message {
-        font-size: 0.95rem;
-        line-height: 1.5;
-        margin-bottom: 15px;
-        color: var(--sbwscf-text-color);
+	font-size: 0.95rem;
+	line-height: 1.5;
+	margin-bottom: 15px;
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-smile-cookies-message p {
-        color: var(--sbwscf-text-color);
+	color: var(--sbwscf-text-color);
 }
 
 /* ------------------------------------------------------------------
@@ -185,8 +185,8 @@
 }
 
 .sbwscf-smile-cookies-links a {
-        color: var(--sbwscf-link-color);
-        text-decoration: underline;
+	color: var(--sbwscf-link-color);
+	text-decoration: underline;
 }
 
 #sbwscf-smile-cookies-panel .sbwscf-smile-cookies-title a,
@@ -194,19 +194,19 @@
 #sbwscf-smile-cookies-panel .sbwscf-cookie-summary a,
 #sbwscf-smile-cookies-panel .sbwscf-smile-cookies-message a,
 #sbwscf-smile-cookies-panel .sbwscf-cookie-description a {
-        color: inherit;
-        text-decoration: underline;
-        text-decoration-color: currentColor;
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: currentColor;
 }
 
 #sbwscf-smile-cookies-panel a:hover {
-        text-decoration: none;
+	text-decoration: none;
 }
 
 .sbwscf-cookie-description,
 .sbwscf-cookie-description *,
 .sbwscf-cookie-description p {
-        color: var(--sbwscf-text-color);
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-smile-cookies-links a:hover {
@@ -324,6 +324,7 @@
 	font-size: 1rem;
 	line-height: 1.2rem;
 	color: var(--sbwscf-title-color);
+	padding-right: 0.5rem;
 }
 
 .sbwscf-cookie-checkbox {
