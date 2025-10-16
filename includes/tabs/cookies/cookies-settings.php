@@ -372,6 +372,92 @@ function sbwscf_cookies_register_settings(): void {
 add_action( 'admin_init', 'sbwscf_cookies_register_settings' );
 
 /**
+ * Determine whether an option belongs to the Cookies tab configuration.
+ *
+ * @param string $option Option name being modified.
+ * @return bool Whether the option impacts cookie consent output.
+ */
+function sbwscf_is_cookie_setting_option( string $option ): bool {
+        if ( 'sbwscf_cookie_settings_revision' === $option ) {
+                return false;
+        }
+
+        if ( 0 === strpos( $option, 'sbwscf_cookie_' ) ) {
+                return true;
+        }
+
+        $additional = array(
+                'sbwscf_enable_cookies_notice',
+                'sbwscf_tracking_scripts',
+                'sbwscf_show_manage_minified_label',
+                'sbwscf_privacy_policy_page',
+                'sbwscf_legal_notice_page',
+        );
+
+        return in_array( $option, $additional, true );
+}
+
+/**
+ * Increment the cookie settings revision counter.
+ *
+ * This value is embedded in the localized script configuration so that
+ * previously stored consents are invalidated whenever administrators adjust
+ * cookie-related settings.
+ *
+ * @return void
+ */
+function sbwscf_increment_cookie_settings_revision(): void {
+        static $bumped = false;
+
+        if ( $bumped ) {
+                return;
+        }
+
+        $bumped  = true;
+        $current = (int) get_option( 'sbwscf_cookie_settings_revision', 0 );
+        $next    = $current + 1;
+
+        update_option( 'sbwscf_cookie_settings_revision', (string) $next );
+}
+
+/**
+ * Maybe bump the cookie settings revision when updating an option.
+ *
+ * @param string $option    Option name.
+ * @param mixed  $old_value Previous value stored in the database.
+ * @param mixed  $value     New value being saved.
+ * @return void
+ */
+function sbwscf_maybe_bump_cookie_settings_revision( string $option, $old_value, $value ): void {
+        if ( ! sbwscf_is_cookie_setting_option( $option ) ) {
+                return;
+        }
+
+        if ( $value === $old_value ) {
+                return;
+        }
+
+        sbwscf_increment_cookie_settings_revision();
+}
+add_action( 'update_option', 'sbwscf_maybe_bump_cookie_settings_revision', 10, 3 );
+
+/**
+ * Maybe bump the cookie settings revision when adding a new option.
+ *
+ * @param string $option Option name.
+ * @param mixed  $value  Value being stored.
+ * @return void
+ */
+function sbwscf_maybe_bump_cookie_settings_revision_on_add( string $option, $value ): void { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+        if ( ! sbwscf_is_cookie_setting_option( $option ) ) {
+                return;
+        }
+
+        sbwscf_increment_cookie_settings_revision();
+}
+add_action( 'add_option', 'sbwscf_maybe_bump_cookie_settings_revision_on_add', 10, 2 );
+
+/**
  * Section callback: Enable cookies notice.
  *
  * @return void

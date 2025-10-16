@@ -49,11 +49,12 @@ function sbwscf_uninstall_site_cleanup() {
 		'sbwscf_cookie_color_titles',
 		'sbwscf_cookie_color_text',
 		'sbwscf_cookie_color_accept',
-		'sbwscf_cookie_color_accept_text',
-		'sbwscf_cookie_color_reject',
-		'sbwscf_cookie_color_reject_text',
-		'sbwscf_tracking_scripts',
-	);
+                'sbwscf_cookie_color_accept_text',
+                'sbwscf_cookie_color_reject',
+                'sbwscf_cookie_color_reject_text',
+                'sbwscf_tracking_scripts',
+                'sbwscf_cookie_settings_revision',
+        );
 
 	foreach ( $options as $option ) {
 		delete_option( $option );

@@ -163,9 +163,8 @@ final class SBWSCF_Cookies_Page implements SBWSCF_Tab_Interface {
 			);
 
 			// Scripts de preferencias configurados en backend.
-                        $raw_scripts  = get_option( 'sbwscf_tracking_scripts', array() );
-                        $prepared     = array();
-                        $config_hash  = '';
+                        $raw_scripts = get_option( 'sbwscf_tracking_scripts', array() );
+                        $prepared    = array();
 
                         if ( is_array( $raw_scripts ) ) {
                                 foreach ( $raw_scripts as $script ) {
@@ -178,9 +177,18 @@ final class SBWSCF_Cookies_Page implements SBWSCF_Tab_Interface {
                                 }
                         }
 
-                        if ( ! empty( $prepared ) ) {
-                                $config_hash = md5( wp_json_encode( $prepared ) );
+                        $revision    = (string) get_option( 'sbwscf_cookie_settings_revision', '' );
+                        $config_data = array(
+                                'scripts'  => $prepared,
+                                'revision' => $revision,
+                        );
+                        $hash_source = wp_json_encode( $config_data );
+
+                        if ( false === $hash_source ) {
+                                $hash_source = maybe_serialize( $config_data );
                         }
+
+                        $config_hash = md5( (string) $hash_source );
 
                         wp_localize_script(
                                 'sbwscf-cookies-panel',
