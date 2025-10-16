@@ -300,9 +300,33 @@ document.addEventListener('DOMContentLoaded', function () {
                 const originalCreateElement = document.createElement.bind(document)
                 const originalAppendChild = Node.prototype.appendChild
                 const originalInsertBefore = Node.prototype.insertBefore
+                const originalReplaceChild = Node.prototype.replaceChild
+                const originalAppend = Node.prototype.append
+                const originalPrepend = Node.prototype.prepend
 
                 const markNode = (node) => {
                         markManagedSubtree(category, node)
+                }
+
+                const observer = typeof MutationObserver === 'function'
+                        ? new MutationObserver((mutations) => {
+                                mutations.forEach((mutation) => {
+                                        if (!mutation.addedNodes) {
+                                                return
+                                        }
+
+                                        mutation.addedNodes.forEach((node) => {
+                                                markManagedSubtree(category, node)
+                                        })
+                                })
+                        })
+                        : null
+
+                if (observer) {
+                        observer.observe(document.documentElement, {
+                                childList: true,
+                                subtree: true,
+                        })
                 }
 
                 document.createElement = function () {
@@ -321,12 +345,52 @@ document.addEventListener('DOMContentLoaded', function () {
                         return originalInsertBefore.call(this, newNode, referenceNode)
                 }
 
+                Node.prototype.replaceChild = function (newChild, oldChild) {
+                        markNode(newChild)
+                        return originalReplaceChild.call(this, newChild, oldChild)
+                }
+
+                if (typeof originalAppend === 'function') {
+                        Node.prototype.append = function () {
+                                Array.prototype.forEach.call(arguments, (arg) => {
+                                        if (arg instanceof Node) {
+                                                markNode(arg)
+                                        }
+                                })
+                                return originalAppend.apply(this, arguments)
+                        }
+                }
+
+                if (typeof originalPrepend === 'function') {
+                        Node.prototype.prepend = function () {
+                                Array.prototype.forEach.call(arguments, (arg) => {
+                                        if (arg instanceof Node) {
+                                                markNode(arg)
+                                        }
+                                })
+                                return originalPrepend.apply(this, arguments)
+                        }
+                }
+
                 try {
                         callback(markNode)
                 } finally {
                         document.createElement = originalCreateElement
                         Node.prototype.appendChild = originalAppendChild
                         Node.prototype.insertBefore = originalInsertBefore
+                        Node.prototype.replaceChild = originalReplaceChild
+
+                        if (typeof originalAppend === 'function') {
+                                Node.prototype.append = originalAppend
+                        }
+
+                        if (typeof originalPrepend === 'function') {
+                                Node.prototype.prepend = originalPrepend
+                        }
+
+                        if (observer) {
+                                observer.disconnect()
+                        }
                 }
         }
 
