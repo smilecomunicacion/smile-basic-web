@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 const revision = typeof stored.revision === 'string' ? stored.revision : ''
+                const normalizedPrefs = normalizePrefs(stored.prefs)
 
                 if (currentConfigHash && revision && revision !== currentConfigHash) {
                         removeConsentStorage()
@@ -130,9 +131,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         return fallbackState
                 }
 
+                if (
+                        stored.status === 'accepted' &&
+                        cookieScripts.length > 0 &&
+                        Object.keys(normalizedPrefs).length === 0
+                ) {
+                        removeConsentStorage()
+                        return fallbackState
+                }
+
                 return {
                         status: typeof stored.status === 'string' ? stored.status : 'unknown',
-                        prefs: normalizePrefs(stored.prefs),
+                        prefs: normalizedPrefs,
                 }
         }
 
