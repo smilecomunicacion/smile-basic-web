@@ -8,7 +8,170 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-	const panel = document.getElementById('sbwscf-smile-cookies-panel')
+        const CONSENT_KEY = 'sbwscf-cookie-consent'
+        const LEGACY_STATUS_KEY = 'sbwscf-cookie-status'
+        const LEGACY_PREFS_KEY = 'sbwscf-cookie-preferences'
+        const hasCookieConfig = typeof sbwscfCookieScripts === 'object' && sbwscfCookieScripts !== null
+        const cookieScripts = hasCookieConfig && Array.isArray(sbwscfCookieScripts.scripts) ? sbwscfCookieScripts.scripts : []
+        const currentConfigHash = hasCookieConfig && typeof sbwscfCookieScripts.configHash === 'string'
+                ? sbwscfCookieScripts.configHash
+                : ''
+        const defaultState = { status: 'unknown', prefs: {} }
+        let consentState = { ...defaultState }
+
+        function normalizePrefs(sourcePrefs) {
+                const normalized = {}
+
+                if (sourcePrefs && typeof sourcePrefs === 'object') {
+                        Object.keys(sourcePrefs).forEach((category) => {
+                                const value = sourcePrefs[category]
+
+                                if (value === true) {
+                                        normalized[category] = true
+                                } else if (value === false) {
+                                        normalized[category] = false
+                                } else if (typeof value === 'string') {
+                                        const lowered = value.trim().toLowerCase()
+                                        normalized[category] = lowered === 'true' || lowered === '1'
+                                }
+                        })
+                }
+
+                return normalized
+        }
+
+        function clearLegacyKeys() {
+                try {
+                        localStorage.removeItem(LEGACY_STATUS_KEY)
+                        localStorage.removeItem(LEGACY_PREFS_KEY)
+                } catch (e) {
+                        console.error('Unable to clear legacy consent keys', e)
+                }
+        }
+
+        function removeConsentStorage() {
+                try {
+                        localStorage.removeItem(CONSENT_KEY)
+                } catch (e) {
+                        console.error('Unable to remove consent storage', e)
+                }
+
+                clearLegacyKeys()
+        }
+
+        function migrateLegacyConsent() {
+                let status = 'unknown'
+                let prefs = {}
+
+                try {
+                        const legacyStatus = localStorage.getItem(LEGACY_STATUS_KEY)
+                        const legacyPrefs = localStorage.getItem(LEGACY_PREFS_KEY)
+
+                        if (legacyStatus) {
+                                status = legacyStatus
+                        }
+
+                        if (legacyPrefs) {
+                                try {
+                                        const parsed = JSON.parse(legacyPrefs)
+                                        if (parsed && typeof parsed === 'object') {
+                                                prefs = parsed
+                                        }
+                                } catch (err) {
+                                        console.error('Invalid legacy preferences JSON', err)
+                                }
+                        }
+                } catch (err) {
+                        console.error('Unable to read legacy consent', err)
+                }
+
+                clearLegacyKeys()
+
+                if (status === 'unknown' && Object.keys(prefs).length === 0) {
+                        return null
+                }
+
+                return {
+                        status,
+                        prefs,
+                }
+        }
+
+        function loadConsentState() {
+                const fallbackState = { ...defaultState }
+                let stored = null
+
+                try {
+                        const raw = localStorage.getItem(CONSENT_KEY)
+                        if (raw) {
+                                stored = JSON.parse(raw)
+                        }
+                } catch (e) {
+                        console.error('Invalid consent payload', e)
+                }
+
+                if (!stored || typeof stored !== 'object') {
+                        stored = migrateLegacyConsent()
+                }
+
+                if (!stored || typeof stored !== 'object') {
+                        return fallbackState
+                }
+
+                const revision = typeof stored.revision === 'string' ? stored.revision : ''
+
+                if (currentConfigHash && revision && revision !== currentConfigHash) {
+                        removeConsentStorage()
+                        return fallbackState
+                }
+
+                if (currentConfigHash && !revision && stored.status === 'accepted') {
+                        removeConsentStorage()
+                        return fallbackState
+                }
+
+                return {
+                        status: typeof stored.status === 'string' ? stored.status : 'unknown',
+                        prefs: normalizePrefs(stored.prefs),
+                }
+        }
+
+        function persistConsent(status, prefs) {
+                const normalizedPrefs = normalizePrefs(prefs)
+                const payload = {
+                        status,
+                        prefs: normalizedPrefs,
+                }
+
+                if (currentConfigHash) {
+                        payload.revision = currentConfigHash
+                }
+
+                consentState = {
+                        status,
+                        prefs: normalizedPrefs,
+                }
+
+                try {
+                        localStorage.setItem(CONSENT_KEY, JSON.stringify(payload))
+                } catch (e) {
+                        console.error('Unable to persist consent state', e)
+                }
+
+                clearLegacyKeys()
+        }
+
+        function storeConsent(status, prefs) {
+                persistConsent(status, prefs)
+        }
+
+        consentState = loadConsentState()
+
+        if (consentState.status !== 'unknown') {
+                persistConsent(consentState.status, consentState.prefs)
+        }
+
+        const panel = document.getElementById('sbwscf-smile-cookies-panel')
 	const manageBtn = document.getElementById('sbwscf-manage-consent-btn')
 	const container = document.getElementById('sbwscf-manage-consent-container')
 	const acceptBtn = panel?.querySelector('.sbwscf-smile-cookies-accept')
@@ -42,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function restorePanel() {
-                const status = localStorage.getItem('sbwscf-cookie-status')
+                const hasStatus = consentState.status !== 'unknown'
 
                 if (panel) {
                         panel.style.display = 'flex'
@@ -50,11 +213,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (container) container.style.display = 'none'
 
                 if (categoriesBox) {
-                        categoriesBox.hidden = !status
+                        categoriesBox.hidden = !hasStatus
                 }
 
                 if (preferencesBtn) {
-                        preferencesBtn.textContent = status
+                        preferencesBtn.textContent = hasStatus
                                 ? preferencesAcceptLabel
                                 : preferencesDefaultLabel
                 }
@@ -167,130 +330,66 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
         }
 
-        function savePreferences(sourcePrefs) {
-                const prefs = {}
-
-                if (sourcePrefs && typeof sourcePrefs === 'object') {
-                        Object.keys(sourcePrefs).forEach((category) => {
-                                prefs[category] = sourcePrefs[category] === true
-                        })
-                } else {
-                        const inputs = getPreferenceInputs()
-
-                        inputs.forEach((input) => {
-                                if (!input || typeof input.checked !== 'boolean') {
-                                        return
-                                }
-                                const category = input.dataset ? input.dataset.category : undefined
-                                if (!category) {
-                                        return
-                                }
-                                prefs[category] = input.matches(':checked')
-                        })
-                }
-
-                localStorage.setItem('sbwscf-cookie-preferences', JSON.stringify(prefs))
-        }
-
         function loadPreferences() {
-                const saved = localStorage.getItem('sbwscf-cookie-preferences')
-                if (!saved) return
-                try {
-                        const prefs = JSON.parse(saved)
+                const prefs = consentState.prefs || {}
+                const inputs = getPreferenceInputs()
 
-                        if (!prefs || typeof prefs !== 'object') {
+                inputs.forEach((input) => {
+                        if (!input || typeof input.checked !== 'boolean') {
                                 return
                         }
-
-                        const normalized = {}
-
-                        Object.keys(prefs).forEach((category) => {
-                                const value = prefs[category]
-                                let normalizedValue = false
-
-                                if (value === true || value === false) {
-                                        normalizedValue = value
-                                } else if (typeof value === 'string') {
-                                        const lowered = value.trim().toLowerCase()
-                                        normalizedValue = lowered === 'true' || lowered === '1'
-                                }
-
-                                normalized[category] = normalizedValue
-                        })
-
-                        const inputs = getPreferenceInputs()
-
-                        inputs.forEach((input) => {
-                                if (!input || typeof input.checked !== 'boolean') {
-                                        return
-                                }
-                                const category = input.dataset ? input.dataset.category : undefined
-                                if (!category) {
-                                        return
-                                }
-                                const state = normalized[category]
-                                if (typeof state === 'boolean') {
-                                        input.checked = state
-                                }
-                        })
-
-                        savePreferences(normalized)
-                } catch (e) {
-                        console.error('Invalid preferences JSON', e)
-                }
+                        const category = input.dataset ? input.dataset.category : undefined
+                        if (!category) {
+                                return
+                        }
+                        const state = prefs[category]
+                        if (typeof state === 'boolean') {
+                                input.checked = state
+                        }
+                })
         }
 
         function injectScripts() {
-                const consent = localStorage.getItem('sbwscf-cookie-status')
-                const saved = localStorage.getItem('sbwscf-cookie-preferences')
-
-                if (typeof sbwscfCookieScripts !== 'undefined') {
-                        sbwscfCookieScripts.scripts.forEach((script) => {
-                                cleanupCategory(script.category)
-                        })
-                }
-
-                if (consent !== 'accepted' || !saved || typeof sbwscfCookieScripts === 'undefined') {
+                if (!cookieScripts.length) {
                         return
                 }
 
-                try {
-                        const prefs = JSON.parse(saved)
-                        if (!prefs || typeof prefs !== 'object') {
+                cookieScripts.forEach((script) => {
+                        cleanupCategory(script.category)
+                })
+
+                if (consentState.status !== 'accepted') {
+                        return
+                }
+
+                cookieScripts.forEach((script) => {
+                        if (consentState.prefs[script.category] !== true || typeof script.code !== 'string') {
                                 return
                         }
 
-                        sbwscfCookieScripts.scripts.forEach((script) => {
-                                if (prefs[script.category] !== true || typeof script.code !== 'string') {
-                                        return
+                        const parts = splitScriptCode(script.code)
+
+                        runWithManagedNodes(script.category, (markNode) => {
+                                if (parts.jsFragments.length) {
+                                        const tag = document.createElement('script')
+                                        tag.type = 'text/javascript'
+                                        tag.setAttribute('data-sbwscf-id', script.category)
+                                        tag.text = parts.jsFragments.join('\n')
+                                        document.head.appendChild(tag)
                                 }
 
-                                const parts = splitScriptCode(script.code)
-
-                                runWithManagedNodes(script.category, (markNode) => {
-                                        if (parts.jsFragments.length) {
-                                                const tag = document.createElement('script')
-                                                tag.type = 'text/javascript'
-                                                tag.setAttribute('data-sbwscf-id', script.category)
-                                                tag.text = parts.jsFragments.join('\n')
-                                                document.head.appendChild(tag)
-                                        }
-
-                                        if (parts.fallbackNodes.length && document.body) {
-                                                const fallbackWrapper = document.createElement('div')
-                                                fallbackWrapper.setAttribute('data-sbwscf-fallback', script.category)
-                                                markNode(fallbackWrapper)
-                                                parts.fallbackNodes.forEach((node) => {
-                                                        markNode(node)
-                                                        fallbackWrapper.appendChild(node)
-                                                })
-                                                document.body.appendChild(fallbackWrapper)
-                                        }
-                                })
+                                if (parts.fallbackNodes.length && document.body) {
+                                        const fallbackWrapper = document.createElement('div')
+                                        fallbackWrapper.setAttribute('data-sbwscf-fallback', script.category)
+                                        markNode(fallbackWrapper)
+                                        parts.fallbackNodes.forEach((node) => {
+                                                markNode(node)
+                                                fallbackWrapper.appendChild(node)
+                                        })
+                                        document.body.appendChild(fallbackWrapper)
+                                }
                         })
-                } catch (e) {
-                        console.error('Error injecting scripts', e)
-                }
+                })
         }
 
         function splitScriptCode(code) {
@@ -364,28 +463,23 @@ document.addEventListener('DOMContentLoaded', function () {
                                 cb.checked = true
                         })
 
-			// Guardar estado “accepted”
-			localStorage.setItem('sbwscf-cookie-status', 'accepted')
-
-			// Recopilar y guardar preferencias
                         const prefs = {}
                         activeBoxes.forEach((cb) => {
                                 const cat = cb.dataset ? cb.dataset.category : undefined
                                 if (cat) prefs[cat] = cb.matches(':checked')
                         })
-                        savePreferences(prefs)
 
-			injectScripts()
-			if (categoriesBox) categoriesBox.hidden = true
-			minimizePanel()
-		})
+                        storeConsent('accepted', prefs)
+
+                        injectScripts()
+                        if (categoriesBox) categoriesBox.hidden = true
+                        minimizePanel()
+                })
 	}
 
 	// --- Botón “Deny All” (antes “Deny”) ---
 	if (denyBtn) {
 		denyBtn.addEventListener('click', function () {
-			localStorage.setItem('sbwscf-cookie-status', 'denied')
-
                         const inputs = getPreferenceInputs()
                         const activeBoxes = inputs.filter((input) => !input.disabled)
                         const prefs = {}
@@ -394,12 +488,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const cat = cb.dataset ? cb.dataset.category : undefined
                                 if (cat) prefs[cat] = false
                         })
-                        savePreferences(prefs)
 
-			injectScripts()
-			if (categoriesBox) categoriesBox.hidden = true
-			minimizePanel()
-		})
+                        storeConsent('denied', prefs)
+
+                        injectScripts()
+                        if (categoriesBox) categoriesBox.hidden = true
+                        minimizePanel()
+                })
 	}
 
 	// --- Botón “Manage Consent” (minimizado) ---
@@ -424,9 +519,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				matchButtonWidths()
 
 				// Si ya está visible, guardamos solo las prefs marcadas como “accepted”
-			} else {
-				localStorage.setItem('sbwscf-cookie-status', 'accepted')
-
+                        } else {
                                 const inputs = getPreferenceInputs()
                                 const activeBoxes = inputs.filter((input) => !input.disabled)
                                 const prefs = {}
@@ -436,11 +529,11 @@ document.addEventListener('DOMContentLoaded', function () {
                                                 prefs[cat] = cb.matches(':checked')
                                         }
                                 })
-                                savePreferences(prefs)
-				injectScripts()
+                                storeConsent('accepted', prefs)
+                                injectScripts()
 
-				categoriesBox.hidden = true
-				minimizePanel()
+                                categoriesBox.hidden = true
+                                minimizePanel()
 
                                 preferencesBtn.textContent = preferencesDefaultLabel
 
@@ -455,9 +548,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	 * Inicializar estado del panel
 	 * ------------------------------------------------------------------
 	 */
-	const hasStorage = localStorage.getItem('sbwscf-cookie-status')
+        const hasConsent = consentState.status !== 'unknown'
 
-        if (!hasStorage) {
+        if (!hasConsent) {
                 // Primera visita: mostrar panel con las opciones generales
                 if (panel) panel.style.display = 'flex'
                 if (container) container.style.display = 'none'
@@ -468,21 +561,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (preferencesBtn) preferencesBtn.textContent = preferencesDefaultLabel
 
-                // Carga (vacía) preferencias y ajusta anchos
-                loadPreferences()
                 matchButtonWidths()
-	} else {
-		// Ya configurado: ocultar panel y mostrar manage consent
-		if (categoriesBox) categoriesBox.hidden = true
+        } else {
+                // Ya configurado: ocultar panel y mostrar manage consent
+                if (categoriesBox) categoriesBox.hidden = true
 
-		if (hasStorage === 'accepted') {
-			loadPreferences()
-			injectScripts()
-		}
+                loadPreferences()
 
-		matchButtonWidths()
-		minimizePanel()
-	}
+                if (consentState.status === 'accepted') {
+                        injectScripts()
+                }
+
+                matchButtonWidths()
+                minimizePanel()
+        }
 	// ------------------------------------------------------------------
 	// Igualar ancho de botones al más ancho
 	// ------------------------------------------------------------------
