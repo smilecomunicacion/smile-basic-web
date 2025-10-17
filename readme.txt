@@ -3,7 +3,7 @@ Contributors: smilecomunicacion
 Tags: contact, reCAPTCHA, SMTP, sitemaps, svg
 Requires at least: 6.3
 Tested up to: 6.8
-Stable tag: 1.3.9
+Stable tag: 1.3.10
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -110,6 +110,11 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 
 == Changelog ==
 
+= 1.3.10 =
+* NEW: Added per-category consent summaries so visitors can review stored cookie choices before changing their preferences.
+* UPDATED: Improved cookie preference persistence to keep granular selections intact when banner layouts or labels are updated.
+* FIXED: Addressed a race condition that occasionally skipped script cleanup when users denied cookies on slow networks.
+
 = 1.3.9 =
 * UPDATED: Documented compatibility with WordPress 6.8 and modern PHP versions.
 * FIXED: Clarified consent-instructions workflow to prevent confusing field duplication in multilingual installs.
@@ -197,6 +202,9 @@ Absolutely. You can register any custom script in the admin panel, along with a 
 * Integrated Google reCAPTCHA v3.
 
 == Upgrade Notice ==
+
+= 1.3.10 =
+Update to deliver clearer consent summaries, stronger persistence of banner preferences, and reliable script cleanup when visitors refuse cookies.
 
 = 1.3.9 =
 Install this update to keep Customizer styling previews in sync across languages and ensure the consent instructions remain consistent on multilingual sites.
