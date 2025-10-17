@@ -1023,16 +1023,16 @@ function sbwscf_sanitize_tracking_scripts( $input ): array {
 /**
  * Retrieve a cookie label with a default fallback.
  *
- * @param string $option  Option name.
- * @param string $default Default label value.
+ * @param string $option        Option name.
+ * @param string $default_label Default label value.
  * @return string Label to display.
  */
-function sbwscf_get_cookie_label( string $option, string $default ): string {
-	$value = sanitize_text_field( (string) get_option( $option, '' ) );
+function sbwscf_get_cookie_label( string $option, string $default_label ): string {
+        $value = sanitize_text_field( (string) get_option( $option, '' ) );
 
-	if ( '' === trim( $value ) ) {
-			return $default;
-	}
+        if ( '' === trim( $value ) ) {
+                return $default_label;
+        }
 
-	return $value;
+        return $value;
 }
