@@ -218,9 +218,24 @@
  * Responsive
  * ------------------------------------------------------------------ */
 @media (max-width: 600px) {
-	.sbwscf-smile-cookies-panel {
-		padding: 1rem;
-	}
+        .sbwscf-smile-cookies-panel {
+                padding: 1rem;
+        }
+
+        .sbwscf-cookie-summary {
+                padding-right: 1rem;
+                flex-wrap: wrap;
+                row-gap: 0.5rem;
+        }
+
+        .sbwscf-cookie-controls {
+                position: static;
+                width: 100%;
+                justify-content: flex-start;
+                padding: 0 1rem 0.75rem;
+                background-color: #f8f8f8;
+                border-top: 1px solid #eee;
+        }
 }
 
 /*
@@ -302,44 +317,63 @@
 }
 
 .sbwscf-cookie-category {
-	border: 1px solid #ddd;
-	border-radius: 6px;
-	overflow: hidden;
-	background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+        background-color: #fff;
+        position: relative;
 }
 
 .sbwscf-cookie-summary {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	cursor: pointer;
-	padding: 0.75rem 1rem;
-	font-weight: 400;
-	background-color: #f0f0f0;
-	color: var(--sbwscf-text-color);
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 0.75rem 1rem;
+        padding-right: min(9rem, 35%);
+        font-weight: 400;
+        background-color: #f0f0f0;
+        color: var(--sbwscf-text-color);
+        min-height: 3rem;
+        position: relative;
+}
+
+.sbwscf-cookie-summary:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: -2px;
 }
 
 .sbwscf-cookie-title {
-	display: inline-block;
-	font-size: 1rem;
-	line-height: 1.2rem;
-	color: var(--sbwscf-title-color);
-	padding-right: 0.5rem;
+        display: inline-flex;
+        font-size: 1rem;
+        line-height: 1.2rem;
+        color: var(--sbwscf-title-color);
+        margin-right: auto;
+}
+
+.sbwscf-cookie-controls {
+        position: absolute;
+        inset-block: 0;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        pointer-events: auto;
 }
 
 .sbwscf-cookie-checkbox {
-	display: flex;
-	align-items: center;
-	font-size: 1.2em;
-	gap: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1rem;
+        gap: 0.5rem;
 }
 
 .sbwscf-cookie-description {
-	padding: 1rem;
-	background-color: #f8f8f8;
-	font-size: 0.9rem;
-	line-height: 1.5;
-	color: var(--sbwscf-text-color);
+        padding: 1rem;
+        background-color: #f8f8f8;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: var(--sbwscf-text-color);
+        border-top: 1px solid #eee;
 }
 
 .sbwscf-cookie-description span {
