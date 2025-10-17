@@ -155,29 +155,29 @@ function sbwscf_output_cookie_consent_panel(): void {
 
 		<div id="sbwscf-cookie-categories" class="sbwscf-cookie-categories" hidden>
 						<strong class="sbwscf-smile-cookies-title"><?php echo esc_html( $preferences_label ); ?></strong>
-                        <div class="sbwscf-cookie-category">
-                                <details class="sbwscf-cookie-accordion">
-                                        <summary class="sbwscf-cookie-summary" id="sbwscf-functional-summary">
-                                                                                <span class="sbwscf-cookie-title"><?php echo wp_kses( $functional_title, sbwscf_get_cookie_inline_allowed_tags() ); ?></span>
-                                        </summary>
-                                                                <div class="sbwscf-cookie-description">
-                                                                                <?php
-                                                                                if ( '' !== trim( wp_strip_all_tags( (string) $functional_description ) ) ) {
-                                                                                                echo wp_kses_post( wpautop( $functional_description ) );
-                                                                                } else {
-                                                                                                esc_html_e( 'Technical storage or access is strictly necessary to enable the use of a specific service explicitly requested by the user or to carry out the transmission of a communication over an electronic communications network.', 'smile-basic-web' );
-                                                                                }
-                                                                                ?>
-                                                                </div>
-                                </details>
-                                <div class="sbwscf-cookie-toggle" role="group" aria-labelledby="sbwscf-functional-summary">
-                                        <label class="sbwscf-cookie-checkbox" for="sbwscf-functional-always-active">
-                                                <input type="checkbox" id="sbwscf-functional-always-active" name="sbwscf_cookie_functional" checked
-                                                        disabled aria-disabled="true" />
-                                                <?php esc_html_e( 'Always active', 'smile-basic-web' ); ?>
-                                        </label>
-                                </div>
-                        </div>
+						<div class="sbwscf-cookie-category">
+								<details class="sbwscf-cookie-accordion">
+										<summary class="sbwscf-cookie-summary" id="sbwscf-functional-summary">
+																				<span class="sbwscf-cookie-title"><?php echo wp_kses( $functional_title, sbwscf_get_cookie_inline_allowed_tags() ); ?></span>
+										</summary>
+																<div class="sbwscf-cookie-description">
+																				<?php
+																				if ( '' !== trim( wp_strip_all_tags( (string) $functional_description ) ) ) {
+																								echo wp_kses_post( wpautop( $functional_description ) );
+																				} else {
+																								esc_html_e( 'Technical storage or access is strictly necessary to enable the use of a specific service explicitly requested by the user or to carry out the transmission of a communication over an electronic communications network.', 'smile-basic-web' );
+																				}
+																				?>
+																</div>
+								</details>
+								<div class="sbwscf-cookie-toggle" role="group" aria-labelledby="sbwscf-functional-summary">
+										<label class="sbwscf-cookie-checkbox" for="sbwscf-functional-always-active">
+												<input type="checkbox" id="sbwscf-functional-always-active" name="sbwscf_cookie_functional" checked
+														disabled aria-disabled="true" />
+												<?php esc_html_e( 'Always active', 'smile-basic-web' ); ?>
+										</label>
+								</div>
+						</div>
 
 			<?php
 			$scripts = get_option( 'sbwscf_tracking_scripts', array() );
@@ -194,25 +194,25 @@ function sbwscf_output_cookie_consent_panel(): void {
 					if ( '' !== $slug && $has_description ) :
 						$input_id = 'sbwscf-optin-' . $i;
 						?>
-                                                <?php
-                                                $summary_id = 'sbwscf-cookie-summary-' . $i;
-                                                ?>
-                                                <div class="sbwscf-cookie-category">
-                                                                <details class="sbwscf-cookie-accordion">
-                                                                                <summary class="sbwscf-cookie-summary" id="<?php echo esc_attr( $summary_id ); ?>">
-                                                                                <span class="sbwscf-cookie-title"><?php echo wp_kses( sbwscf_format_cookie_inline_html( $name ), sbwscf_get_cookie_inline_allowed_tags() ); ?></span>
-                                                                                </summary>
-                                                                                <div class="sbwscf-cookie-description">
-                                                <?php echo wp_kses_post( wpautop( $description ) ); ?>
-                                                                                </div>
-                                                                </details>
-                                                                <div class="sbwscf-cookie-toggle" role="group" aria-labelledby="<?php echo esc_attr( $summary_id ); ?>">
-                                                                                <span class="sbwscf-cookie-checkbox">
-                                                                                                <input type="checkbox" id="<?php echo esc_attr( $input_id ); ?>" data-category="<?php echo esc_attr( $slug ); ?>" />
-                                                                                                <label for="<?php echo esc_attr( $input_id ); ?>"><?php esc_html_e( 'Enable', 'smile-basic-web' ); ?></label>
-                                                                                </span>
-                                                                </div>
-                                                </div>
+												<?php
+												$summary_id = 'sbwscf-cookie-summary-' . $i;
+												?>
+												<div class="sbwscf-cookie-category">
+																<details class="sbwscf-cookie-accordion">
+																				<summary class="sbwscf-cookie-summary" id="<?php echo esc_attr( $summary_id ); ?>">
+																				<span class="sbwscf-cookie-title"><?php echo wp_kses( sbwscf_format_cookie_inline_html( $name ), sbwscf_get_cookie_inline_allowed_tags() ); ?></span>
+																				</summary>
+																				<div class="sbwscf-cookie-description">
+												<?php echo wp_kses_post( wpautop( $description ) ); ?>
+																				</div>
+																</details>
+																<div class="sbwscf-cookie-toggle" role="group" aria-labelledby="<?php echo esc_attr( $summary_id ); ?>">
+																				<span class="sbwscf-cookie-checkbox">
+																								<input type="checkbox" id="<?php echo esc_attr( $input_id ); ?>" data-category="<?php echo esc_attr( $slug ); ?>" />
+																								<label for="<?php echo esc_attr( $input_id ); ?>"><?php esc_html_e( 'Enable', 'smile-basic-web' ); ?></label>
+																				</span>
+																</div>
+												</div>
 						<?php
 									endif;
 					endforeach;
