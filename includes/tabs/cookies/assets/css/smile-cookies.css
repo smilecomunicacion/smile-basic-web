@@ -302,29 +302,57 @@
 }
 
 .sbwscf-cookie-category {
-	border: 1px solid #ddd;
-	border-radius: 6px;
-	overflow: hidden;
-	background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+        background-color: #fff;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-auto-rows: auto;
 }
 
 .sbwscf-cookie-summary {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	cursor: pointer;
-	padding: 0.75rem 1rem;
-	font-weight: 400;
-	background-color: #f0f0f0;
-	color: var(--sbwscf-text-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 0.75rem 1rem;
+        font-weight: 400;
+        background-color: #f0f0f0;
+        color: var(--sbwscf-text-color);
+        grid-column: 1 / 2;
+        grid-row: 1;
+        min-height: 3rem;
 }
 
 .sbwscf-cookie-title {
-	display: inline-block;
-	font-size: 1rem;
-	line-height: 1.2rem;
-	color: var(--sbwscf-title-color);
-	padding-right: 0.5rem;
+        display: inline-block;
+        font-size: 1rem;
+        line-height: 1.2rem;
+        color: var(--sbwscf-title-color);
+        padding-right: 0.5rem;
+}
+
+.sbwscf-cookie-status-text {
+        font-size: 0.9rem;
+        color: var(--sbwscf-text-color);
+}
+
+.sbwscf-cookie-controls {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background-color: #f0f0f0;
+        grid-column: 2 / 3;
+        grid-row: 1;
+        align-self: stretch;
+}
+
+details:not([open]) > .sbwscf-cookie-controls,
+details[open] > .sbwscf-cookie-controls {
+        display: flex;
 }
 
 .sbwscf-cookie-checkbox {
@@ -335,11 +363,12 @@
 }
 
 .sbwscf-cookie-description {
-	padding: 1rem;
-	background-color: #f8f8f8;
-	font-size: 0.9rem;
-	line-height: 1.5;
-	color: var(--sbwscf-text-color);
+        padding: 1rem;
+        background-color: #f8f8f8;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: var(--sbwscf-text-color);
+        grid-column: 1 / span 2;
 }
 
 .sbwscf-cookie-description span {
