@@ -301,89 +301,45 @@
 	display: none !important;
 }
 
-
 .sbwscf-cookie-category {
-        position: relative;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        overflow: hidden;
-        background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	overflow: hidden;
+	background-color: #fff;
 }
 
 .sbwscf-cookie-summary {
-        cursor: pointer;
-        padding: 0.75rem clamp(7rem, 25%, 12rem) 0.75rem 1rem;
-        font-weight: 400;
-        background-color: #f0f0f0;
-        color: var(--sbwscf-text-color);
-        display: block;
-}
-
-.sbwscf-cookie-category[open] .sbwscf-cookie-summary {
-        border-bottom: 1px solid #ddd;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	padding: 0.75rem 1rem;
+	font-weight: 400;
+	background-color: #f0f0f0;
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-cookie-title {
-        display: inline-block;
-        font-size: 1rem;
-        line-height: 1.2rem;
-        color: var(--sbwscf-title-color);
-        padding-right: 0.5rem;
-}
-
-.sbwscf-cookie-toggle {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        min-width: clamp(7rem, 25%, 12rem);
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 0.5rem;
-        padding: 0.75rem 1rem;
-        background-color: #f0f0f0;
-        border-left: 1px solid #ddd;
-        z-index: 1;
-}
-
-.sbwscf-cookie-category[open] .sbwscf-cookie-toggle {
-        border-bottom: 1px solid #ddd;
+	display: inline-block;
+	font-size: 1rem;
+	line-height: 1.2rem;
+	color: var(--sbwscf-title-color);
+	padding-right: 0.5rem;
 }
 
 .sbwscf-cookie-checkbox {
-        display: flex;
-        align-items: center;
-        font-size: 1.2em;
-        gap: 0.5rem;
+	display: flex;
+	align-items: center;
+	font-size: 1.2em;
+	gap: 0.5rem;
 }
 
 .sbwscf-cookie-description {
-        padding: 1rem;
-        background-color: #f8f8f8;
-        font-size: 0.9rem;
-        line-height: 1.5;
-        color: var(--sbwscf-text-color);
-}
-
-@media (max-width: 640px) {
-        .sbwscf-cookie-summary {
-                padding-right: 1rem;
-        }
-
-        .sbwscf-cookie-toggle {
-                position: static;
-                height: auto;
-                width: 100%;
-                min-width: 0;
-                justify-content: flex-start;
-                border-left: none;
-                border-top: 1px solid #ddd;
-        }
-
-        .sbwscf-cookie-category[open] .sbwscf-cookie-toggle {
-                border-bottom: none;
-        }
+	padding: 1rem;
+	background-color: #f8f8f8;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-cookie-description span {
