@@ -1028,11 +1028,11 @@ function sbwscf_sanitize_tracking_scripts( $input ): array {
  * @return string Label to display.
  */
 function sbwscf_get_cookie_label( string $option, string $default_label ): string {
-        $value = sanitize_text_field( (string) get_option( $option, '' ) );
+		$value = sanitize_text_field( (string) get_option( $option, '' ) );
 
-        if ( '' === trim( $value ) ) {
-                return $default_label;
-        }
+	if ( '' === trim( $value ) ) {
+			return $default_label;
+	}
 
-        return $value;
+		return $value;
 }
