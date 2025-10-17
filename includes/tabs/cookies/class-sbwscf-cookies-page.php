@@ -92,13 +92,13 @@ final class SBWSCF_Cookies_Page implements SBWSCF_Tab_Interface {
 			return;
 		}
 
-                wp_enqueue_script(
-                        'sbwscf-cookies-admin',
-                        esc_url( plugins_url( 'assets/js/sbwscf-cookies-admin.js', __FILE__ ) ),
-                        array( 'wp-i18n', 'wp-editor' ),
-                        SMILE_BASIC_WEB_VERSION,
-                        true
-                );
+				wp_enqueue_script(
+					'sbwscf-cookies-admin',
+					esc_url( plugins_url( 'assets/js/sbwscf-cookies-admin.js', __FILE__ ) ),
+					array( 'wp-i18n', 'wp-editor' ),
+					SMILE_BASIC_WEB_VERSION,
+					true
+				);
 
 		wp_enqueue_style(
 			'sbwscf-cookies-admin-style',
@@ -163,48 +163,48 @@ final class SBWSCF_Cookies_Page implements SBWSCF_Tab_Interface {
 			);
 
 			// Scripts de preferencias configurados en backend.
-                        $raw_scripts = get_option( 'sbwscf_tracking_scripts', array() );
-                        $prepared    = array();
+						$raw_scripts = get_option( 'sbwscf_tracking_scripts', array() );
+						$prepared    = array();
 
-                        if ( is_array( $raw_scripts ) ) {
-                                foreach ( $raw_scripts as $script ) {
-                                        $name    = isset( $script['name'] ) ? (string) $script['name'] : '';
-                                        $code    = isset( $script['code'] ) ? (string) $script['code'] : '';
-                                        $slug    = sbwscf_get_cookie_script_slug( $name );
-                                        $has_code = '' !== trim( $code );
+			if ( is_array( $raw_scripts ) ) {
+				foreach ( $raw_scripts as $script ) {
+								$name     = isset( $script['name'] ) ? (string) $script['name'] : '';
+								$code     = isset( $script['code'] ) ? (string) $script['code'] : '';
+								$slug     = sbwscf_get_cookie_script_slug( $name );
+								$has_code = '' !== trim( $code );
 
-                                        if ( '' !== $slug && $has_code ) {
-                                                $prepared[] = array(
-                                                        'category' => $slug,
-                                                        'code'     => $code,
-                                                );
-                                        }
-                                }
-                        }
+					if ( '' !== $slug && $has_code ) {
+						$prepared[] = array(
+							'category' => $slug,
+							'code'     => $code,
+						);
+					}
+				}
+			}
 
-                        $revision    = (string) get_option( 'sbwscf_cookie_settings_revision', '' );
-                        $config_data = array(
-                                'scripts'  => $prepared,
-                                'revision' => $revision,
-                        );
-                        $hash_source = wp_json_encode( $config_data );
+						$revision    = (string) get_option( 'sbwscf_cookie_settings_revision', '' );
+						$config_data = array(
+							'scripts'  => $prepared,
+							'revision' => $revision,
+						);
+						$hash_source = wp_json_encode( $config_data );
 
-                        if ( false === $hash_source ) {
-                                $hash_source = maybe_serialize( $config_data );
-                        }
+						if ( false === $hash_source ) {
+								$hash_source = maybe_serialize( $config_data );
+						}
 
-                        $config_hash = md5( (string) $hash_source );
+						$config_hash = md5( (string) $hash_source );
 
-                        wp_localize_script(
-                                'sbwscf-cookies-panel',
-                                'sbwscfCookieScripts',
-                                array(
-                                        'scripts'    => $prepared,
-                                        'configHash' => $config_hash,
-                                )
-                        );
-                }
-        }
+						wp_localize_script(
+							'sbwscf-cookies-panel',
+							'sbwscfCookieScripts',
+							array(
+								'scripts'    => $prepared,
+								'configHash' => $config_hash,
+							)
+						);
+		}
+	}
 
 
 	/**
