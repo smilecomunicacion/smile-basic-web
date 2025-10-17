@@ -301,61 +301,45 @@
 	display: none !important;
 }
 
-
 .sbwscf-cookie-category {
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        overflow: hidden;
-        background-color: #fff;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	overflow: hidden;
+	background-color: #fff;
 }
 
 .sbwscf-cookie-summary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        padding: 0.75rem 1rem;
-        font-weight: 400;
-        background-color: #f0f0f0;
-        color: var(--sbwscf-text-color);
-        grid-column: 1 / 2;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	padding: 0.75rem 1rem;
+	font-weight: 400;
+	background-color: #f0f0f0;
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-cookie-title {
-        display: inline-block;
-        font-size: 1rem;
-        line-height: 1.2rem;
-        color: var(--sbwscf-title-color);
-        padding-right: 0.5rem;
-}
-
-.sbwscf-cookie-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding: 0.75rem 1rem;
-        background-color: #f0f0f0;
-        grid-column: 2 / 3;
-        grid-row: 1 / 2;
+	display: inline-block;
+	font-size: 1rem;
+	line-height: 1.2rem;
+	color: var(--sbwscf-title-color);
+	padding-right: 0.5rem;
 }
 
 .sbwscf-cookie-checkbox {
-        display: flex;
-        align-items: center;
-        font-size: 1.2em;
-        gap: 0.5rem;
+	display: flex;
+	align-items: center;
+	font-size: 1.2em;
+	gap: 0.5rem;
 }
 
 .sbwscf-cookie-description {
-        padding: 1rem;
-        background-color: #f8f8f8;
-        font-size: 0.9rem;
-        line-height: 1.5;
-        color: var(--sbwscf-text-color);
-        grid-column: 1 / -1;
+	padding: 1rem;
+	background-color: #f8f8f8;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	color: var(--sbwscf-text-color);
 }
 
 .sbwscf-cookie-description span {
